@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MANDADO COMPANY</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans KR', 'sans-serif'],
+                        'cafe24': ['Cafe24 Ssurround', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white min-h-screen font-sans text-gray-900">
+
+    <!-- Header -->
+    <div class="fixed top-0 left-0 right-0 h-[181px] z-50 pointer-events-none">
+        <!-- Background Shape -->
+        <div class="absolute inset-0 bg-gradient-to-r from-[#5cdfe6] to-[#004aad] rounded-bl-[50px] rounded-br-[50px] pointer-events-auto shadow-lg"></div>
+
+        <div class="relative h-full max-w-[1904px] mx-auto pointer-events-auto flex items-center justify-between pl-[87px] pr-[80px]">
+            <!-- Logo Section -->
+            <div class="flex items-center gap-4 mt-[8px]">
+                <div class="relative w-[66px] h-[59px]">
+                    <img alt="Logo" class="w-full h-full object-contain" src="./assets/logo/logo.png" />
+                </div>
+                <div class="font-['Cafe24_Ssurround',sans-serif] font-bold leading-[1.1] text-[26px] text-white">
+                    <p class="mb-0">MANDADO</p>
+                    <p>COMPANY</p>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="flex items-center gap-[190px] mr-[80px] mt-[8px]">
+                <button onclick="scrollToSection('home')" data-section="home" class="nav-link font-['Cafe24_Ssurround',sans-serif] font-bold text-[30px] cursor-pointer transition-colors text-white">HOME</button>
+                <button onclick="scrollToSection('about')" data-section="about" class="nav-link font-['Cafe24_Ssurround',sans-serif] font-bold text-[30px] cursor-pointer transition-colors text-[rgba(255,255,255,0.8)] hover:text-white">ABOUT</button>
+                <button onclick="scrollToSection('contact')" data-section="contact" class="nav-link font-['Cafe24_Ssurround',sans-serif] font-bold text-[30px] cursor-pointer transition-colors text-[rgba(255,255,255,0.8)] hover:text-white">CONTACT</button>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <!-- Home Section -->
+        <div id="home" class="relative w-full min-h-screen overflow-hidden bg-white">
+            <!-- Background Image -->
+            <div class="absolute inset-0 pointer-events-none">
+                <img alt="Background" class="absolute w-full h-full object-cover object-bottom" src="./assets/backgrounds/page1.png" />
+            </div>
+
+            <!-- Content Container -->
+            <div class="relative h-screen flex flex-col justify-start pt-[254px] pl-[67px] max-w-[1904px] mx-auto">
+                <div class="">
+                    <!-- Main Title -->
+                    <div class="font-['Cafe24_Ssurround',sans-serif] font-bold leading-[1.087] text-[#003778] text-[80px] lg:text-[120px] xl:text-[165px]">
+                        <p class="mb-0">MANDADO</p>
+                        <p>COMPANY</p>
+                    </div>
+
+                    <!-- Subtitle -->
+                    <p class="font-['Noto_Sans_KR',sans-serif] font-semibold text-[30px] lg:text-[40px] xl:text-[50px] text-black tracking-[0.065em] ml-[50px] mt-[-8px]">
+                        함께 더 높은 미래로 더 넓은 세계로
+                    </p>
+
+                    <!-- Button -->
+                    <div class="flex justify-start pl-[120px] mt-[36px]">
+                        <button class="relative overflow-hidden group rounded-[18px] transition-transform hover:scale-105 w-[409px] h-[54px]">
+                            <span class="absolute inset-0 bg-gradient-to-r from-[#00213a] to-[#004aad]"></span>
+                            <span class="relative block flex items-center justify-center h-full font-['Noto_Sans_KR',sans-serif] font-normal text-[28px] text-white tracking-[-0.03em] text-center">
+                                회사 카탈로그 다운로드
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <div id="about" class="relative w-full min-h-screen overflow-hidden bg-white">
+            <!-- Sky Background -->
+            <div class="absolute inset-0 pointer-events-none opacity-80">
+                <img alt="Sky" class="w-full h-full object-cover object-center" src="./assets/backgrounds/page2.png" />
+            </div>
+
+            <!-- Content Container -->
+            <div class="relative z-10 w-full h-screen max-w-[1904px] mx-auto">
+                <!-- Left Side: Image with Shape -->
+                <div class="absolute left-0 top-[296px] w-[700px] h-[514px] rounded-tr-[300px] rounded-br-[300px] overflow-hidden bg-gray-200 shadow-2xl">
+                    <img alt="Presentation" class="w-full h-full object-cover object-center" src="./assets/components/page2_component.png" />
+                </div>
+
+                <!-- Title -->
+                <h2 class="absolute left-[1028px] top-[230px] font-['Noto_Sans_KR',sans-serif] font-[600] text-[90px] text-black tracking-[0.04em] whitespace-nowrap">
+                    한계는 없습니다
+                </h2>
+
+                <!-- Cards Grid -->
+                <div class="absolute left-[844px] top-[415px] flex gap-[57px]">
+                    <!-- Card 1 -->
+                    <div class="relative w-[204px] h-[281px] group shrink-0">
+                        <div class="absolute inset-0 bg-[#0c576c] rounded-[100px] shadow-lg transition-transform group-hover:scale-105"></div>
+                        <div class="absolute left-[18px] top-[16px] w-[168px] h-[168px]">
+                            <svg class="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 168 168">
+                                <circle cx="84" cy="84" fill="#33869D" r="84" />
+                            </svg>
+                        </div>
+                        <div class="absolute left-[25px] top-[23px] w-[154px] h-[154px]">
+                            <svg class="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 154 154">
+                                <circle cx="77" cy="77" fill="white" r="77" />
+                            </svg>
+                        </div>
+                        <div class="absolute left-[54px] top-[54px] w-[95px] h-[91px]">
+                            <img alt="Icon" class="w-full h-full object-contain" src="./assets/icons/marketing.png" />
+                        </div>
+                        <p class="absolute bottom-[44px] left-0 right-0 text-center font-['Noto_Sans_KR',sans-serif] font-black text-[29px] text-white tracking-[0.36em]">
+                            마케팅
+                        </p>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="relative w-[204px] h-[281px] group shrink-0">
+                        <div class="absolute inset-0 bg-[#0c576c] rounded-[100px] shadow-lg transition-transform group-hover:scale-105"></div>
+                        <div class="absolute left-[18px] top-[16px] w-[168px] h-[168px]">
+                            <svg class="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 168 168">
+                                <circle cx="84" cy="84" fill="#33869D" r="84" />
+                            </svg>
+                        </div>
+                        <div class="absolute left-[25px] top-[23px] w-[154px] h-[154px]">
+                            <svg class="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 154 154">
+                                <circle cx="77" cy="77" fill="white" r="77" />
+                            </svg>
+                        </div>
+                        <div class="absolute left-[54px] top-[54px] w-[95px] h-[91px]">
+                            <img alt="Icon" class="w-full h-full object-contain" src="./assets/icons/marketing.png" />
+                        </div>
+                        <p class="absolute bottom-[44px] left-0 right-0 text-center font-['Noto_Sans_KR',sans-serif] font-black text-[29px] text-white tracking-[0.36em]">
+                            마케팅
+                        </p>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="relative w-[204px] h-[281px] group shrink-0">
+                        <div class="absolute inset-0 bg-[#0c576c] rounded-[100px] shadow-lg transition-transform group-hover:scale-105"></div>
+                        <div class="absolute left-[18px] top-[16px] w-[168px] h-[168px]">
+                            <svg class="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 168 168">
+                                <circle cx="84" cy="84" fill="#33869D" r="84" />
+                            </svg>
+                        </div>
+                        <div class="absolute left-[25px] top-[23px] w-[154px] h-[154px]">
+                            <svg class="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 154 154">
+                                <circle cx="77" cy="77" fill="white" r="77" />
+                            </svg>
+                        </div>
+                        <div class="absolute left-[54px] top-[54px] w-[95px] h-[91px]">
+                            <img alt="Icon" class="w-full h-full object-contain" src="./assets/icons/marketing.png" />
+                        </div>
+                        <p class="absolute bottom-[44px] left-0 right-0 text-center font-['Noto_Sans_KR',sans-serif] font-black text-[29px] text-white tracking-[0.36em]">
+                            마케팅
+                        </p>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="relative w-[204px] h-[281px] group shrink-0">
+                        <div class="absolute inset-0 bg-[#0c576c] rounded-[100px] shadow-lg transition-transform group-hover:scale-105"></div>
+                        <div class="absolute left-[18px] top-[16px] w-[168px] h-[168px]">
+                            <svg class="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 168 168">
+                                <circle cx="84" cy="84" fill="#33869D" r="84" />
+                            </svg>
+                        </div>
+                        <div class="absolute left-[25px] top-[23px] w-[154px] h-[154px]">
+                            <svg class="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 154 154">
+                                <circle cx="77" cy="77" fill="white" r="77" />
+                            </svg>
+                        </div>
+                        <div class="absolute left-[54px] top-[54px] w-[95px] h-[91px]">
+                            <img alt="Icon" class="w-full h-full object-contain" src="./assets/icons/marketing.png" />
+                        </div>
+                        <p class="absolute bottom-[44px] left-0 right-0 text-center font-['Noto_Sans_KR',sans-serif] font-black text-[29px] text-white tracking-[0.36em]">
+                            마케팅
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div id="contact" class="relative w-full min-h-screen overflow-hidden bg-white">
+            <!-- Background Image (Statue) -->
+            <div class="absolute inset-0 pointer-events-none">
+                <img alt="Statue" class="w-full h-full object-cover object-center" src="./assets/backgrounds/page3.png" />
+            </div>
+
+            <!-- Content Container -->
+            <div class="relative z-10 w-full h-screen max-w-[1904px] mx-auto">
+
+                <!-- Contact Card Container -->
+                <div class="absolute left-[205px] top-[360px] w-[525px] h-[401px]">
+                    <!-- Header Pill -->
+                    <div class="absolute left-[152px] top-0 w-[200px] h-[54px] bg-gradient-to-r from-[#00223c] to-[#004aac] rounded-[18px] flex items-center justify-center z-20">
+                        <span class="font-['IBM_Plex_Sans_KR',sans-serif] font-bold text-[30px] text-white whitespace-nowrap">
+                            Contact Us :
+                        </span>
+                    </div>
+
+                    <!-- White Background -->
+                    <div class="absolute top-[27px] left-0 w-full h-[374px] bg-white rounded-[55px] shadow-2xl z-10"></div>
+
+                    <!-- Content -->
+                    <div class="absolute inset-0 z-20">
+                        <!-- Phone -->
+                        <div class="absolute left-[80px] top-[98px] w-[40px] h-[40px]">
+                            <div class="relative w-full h-full">
+                                <svg class="block size-full" fill="none" viewBox="0 0 40 40">
+                                    <circle cx="20" cy="20" fill="#003778" r="20" />
+                                </svg>
+                                <img src="./assets/icons/call.png" class="absolute inset-0 w-full h-full object-cover" alt="Phone" />
+                            </div>
+                        </div>
+                        <div class="absolute left-[145px] top-[97px]">
+                            <span class="font-['IBM_Plex_Sans_KR',sans-serif] font-black text-[28px] text-black">
+                                +123-456-7890
+                            </span>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="absolute left-[84px] top-[193px] w-[40px] h-[40px]">
+                            <div class="relative w-full h-full">
+                                <svg class="block size-full" fill="none" viewBox="0 0 40 40">
+                                    <circle cx="20" cy="20" fill="#003778" r="20" />
+                                </svg>
+                                <img src="./assets/icons/email.png" class="absolute inset-0 w-full h-full object-cover p-2" alt="Email" />
+                            </div>
+                        </div>
+                        <div class="absolute left-[145px] top-[191px]">
+                            <span class="font-['IBM_Plex_Sans_KR',sans-serif] font-black text-[28px] text-black">
+                                @reallygreatsite
+                            </span>
+                        </div>
+
+                        <!-- Location -->
+                        <div class="absolute left-[84px] top-[288px] w-[40px] h-[40px]">
+                            <div class="relative w-full h-full">
+                                <svg class="block size-full" fill="none" viewBox="0 0 40 40">
+                                    <circle cx="20" cy="20" fill="#003778" r="20" />
+                                </svg>
+                                <img src="./assets/icons/location.png" class="absolute inset-0 w-full h-full object-cover p-1" alt="Location" />
+                            </div>
+                        </div>
+                        <div class="absolute left-[147px] top-[287px]">
+                            <span class="font-['IBM_Plex_Sans_KR',sans-serif] font-black text-[28px] text-black">
+                                Anywhere St. Any Cit
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="./script.js"></script>
+</body>
+</html>
