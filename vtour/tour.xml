@@ -325,7 +325,7 @@
 
         <plugin name="video"
                 url="plugins/videoplayer.js"
-                videourl="video/B_1/B_1.m3u8|video/B_1/B_1.mp4"
+                videourl="video/B_1/B_1.m3u8|video/B_1/B_1_ready.mp4"
                 posterurl="panos/B_1.tiles/preview.jpg"
                 loop="true"
                 muted="true"
@@ -352,7 +352,7 @@
 
 		<plugin name="video"
                 url="plugins/videoplayer.js"
-                videourl="video/B_2/B_2.m3u8|video/B_2/B_2.mp4"
+                videourl="video/B_2/B_2.m3u8|video/B_2/B_2_ready.mp4"
                 posterurl="panos/B_2.tiles/preview.jpg"
                 loop="true"
                 muted="true"
