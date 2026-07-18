@@ -212,7 +212,7 @@
 		<hotspot name="spot_a_5_move_to_a_4" style="skin_hotspotstyle_circle" ath="-95.751" atv="12.004" depth="1000.0" linkedscene="scene_a_4" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-18.6676,5.0532,140.00"
 						 url="skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
 		<hotspot name="video_a_5" url="plugins/videoplayer.js" videourl="video/scene_a_5.mp4" distorted="true" ath="-155.973" atv="-33.885"
-						 rx="-40" ry="" rz="-2" scale="0.25" edge="center"
+						 rx="-40" ry="0" rz="-2" scale="0.25" edge="center"
 						 loop="true" muted="true" pausedonstart="false"
 						 onclick="looktohotspot(get(name), 90); pause(); videoplayer_open('video/scene_a_5.mp4', null, 0.5, get(name))"/>
 
