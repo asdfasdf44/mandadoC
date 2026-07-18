@@ -110,7 +110,7 @@
 	
 
 		
-	</scene>
+
 	<scene name="scene_a_1" title="A_1" onstart="" thumburl="panos/A_1.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
