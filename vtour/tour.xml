@@ -237,7 +237,8 @@
 						 url="skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
 		<hotspot name="spot_a_6_move_to_a_7" style="skin_hotspotstyle_circle" ath="-99.142" atv="7.121" depth="1000.0" linkedscene="scene_a_7" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-1643.4839,-8.0041,140.00"
 						 url="skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
-		<hotspot name="poster_1" url="video/poster_1.png" ath="0.111" atv="-8.999" distorted="true" rx="0.0" ry="-40.0" rz="-10.0" onclick="openurl('https://www.a.com','_blank');" width="600" height="prop" enabled="false"/>
+		<hotspot name="poster_1" url="video/poster_1.png" ath="0.111" atv="-8.999" distorted="true" rx="0.0" ry="-40.0" rz="-10.0"
+			onclick="openurl('https://www.a.com','_blank');" width="600" height="prop"/>
 	
 		
 	</scene>
