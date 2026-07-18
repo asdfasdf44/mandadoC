@@ -242,6 +242,7 @@
     onloaded="trace('poster loaded');"
     onclick="openurl('https://www.a.com','_blank');"
 />
+		<layer name="test" type="text" html="HELLO" align="center" />
 	</scene>
 
 	<scene name="scene_a_7" title="A_7" onstart="" thumburl="panos/A_7.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
