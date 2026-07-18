@@ -108,7 +108,24 @@
 					onclick="pausesoundtoggle(bgsnd); switch(crop, 0|0|50|50, 0|50|50|50);"
 					/>
 	
+	<scene name="scene_a_6" title="A_6" onstart="" thumburl="panos/A_6.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
 
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/A_6.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/A_6.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280,2560" />
+		</image>
+
+		<hotspot name="spot_a_6_move_to_a_5" style="skin_hotspotstyle_circle" ath="-5.13" atv="16.957" depth="1000.0" linkedscene="scene_a_5" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-2297.4077,-3.2649,140.00"
+						 url="skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
+		<hotspot name="spot_a_6_move_to_a_7" style="skin_hotspotstyle_circle" ath="-99.142" atv="7.121" depth="1000.0" linkedscene="scene_a_7" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-1643.4839,-8.0041,140.00"
+						 url="skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
+    	<hotspot name="poster_1" url="video/poster_1.png" ath="0.111" atv="-8.999" distorted="true" rx="0.0" ry="-40.0" rz="-10.0" width="600" height="prop"/>
+	</scene>
 		
 
 	<scene name="scene_a_1" title="A_1" onstart="" thumburl="panos/A_1.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
