@@ -236,7 +236,7 @@
 						 url="skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
 		<hotspot
     name="poster_1"
-    url="vedio/poster_1.png"
+    url="video/poster_1.png"
     ath="0"
     atv="0"
     onloaded="trace('poster loaded');"
