@@ -145,7 +145,7 @@
 			<cube url="panos/A_2.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280,2560" />
 		</image>
 		<!-- enable="true"로 바꿔야 함-->
-		<hotspot name="my_logo" url="skin/photo1.jpg" ath="-26.111" atv="-39.999" distorted="true" rx="0.0" ry="0.0" rz="0.0" width="1200" height="prop" enabled="true" onclick="openurl('https://mandadoc.com', _blank);"/> <!-- _blank 대신 _self 사용 시 현재 창에서 이동 -->
+		<!-- <hotspot name="my_logo" url="skin/photo1.jpg" ath="-26.111" atv="-39.999" distorted="true" rx="0.0" ry="0.0" rz="0.0" width="1200" height="prop" enabled="true" onclick="openurl('https://mandadoc.com', _blank);"/> --><!-- _blank 대신 _self 사용 시 현재 창에서 이동 -->
 		<hotspot name="spot_a_2_move_to_a_1" style="skin_hotspotstyle_circle" ath="64.033" atv="23.294" depth="1000.0" linkedscene="scene_a_1" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="20.1110,15.9990,140.00"
 						 url="skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
 		<hotspot name="spot_a_2_move_to_a_3" style="skin_hotspotstyle_circle" ath="-102.622" atv="12.447" depth="1000.0" linkedscene="scene_a_3" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-329.8005,0.0076,140.00"
