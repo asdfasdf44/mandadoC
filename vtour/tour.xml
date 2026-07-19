@@ -263,6 +263,7 @@
 		<hotspot name="spot_a_7_move_to_a_8" style="skin_hotspotstyle_circle" ath="163.691" atv="9.78" depth="1000.0" linkedscene="scene_a_8" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-2696.8236,-5.2743,140.00"
 						 url="skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
 		<hotspot name="poster_3" url="video/poster_3.png" ath="80" atv="6.999"  depth="2050.0"  distorted="true" rx="00.0" ry="-10.0" rz="0.0" width="600" height="prop"/>
+		<hotspot name="cafe" url="cafe.png" ath="80" atv="6.999"  depth="2050.0"  distorted="true" rx="00.0" ry="-10.0" rz="0.0" width="600" height="prop"/>
 	</scene>
 
 	<scene name="scene_a_8" title="A_8" onstart="" thumburl="panos/A_8.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
