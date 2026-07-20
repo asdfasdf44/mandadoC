@@ -258,12 +258,12 @@
 
 		<hotspot name="spot_a_7_move_to_a_6" style="skin_hotspotstyle_circle" ath="-13.321" atv="9.189" depth="1000.0" linkedscene="scene_a_6" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-2556.2319,-8.8046,140.00"
 						 url="skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="0" ry="75" rz="90"/>
-		<hotspot name="spot_a_7_move_to_d_1" style="skin_hotspotstyle_circle" ath="29.529" atv="14.633" depth="1000.0" linkedscene="scene_d_1" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="273.3694,-1.1550,120.00"
-		         url="skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
-		<hotspot name="spot_a_7_move_to_a_8" style="skin_hotspotstyle_circle" ath="163.691" atv="9.78" depth="1000.0" linkedscene="scene_a_8" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-2696.8236,-5.2743,140.00"
+		<hotspot name="spot_a_7_move_to_d_1" style="skin_hotspotstyle_circle" ath="8" atv="-0.999" depth="4050.0" linkedscene="scene_d_1" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="273.3694,-1.1550,120.00"
+		         url="skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="-20" ry="15" rz="0"/>
+		<hotspot name="spot_a_7_move_to_a_8" style="skin_hotspotstyle_circle" ath="163.691" atv="9.78" depth="1500.0" linkedscene="scene_a_8" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-2696.8236,-5.2743,140.00"
 						 url="skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
 		<hotspot name="poster_3" url="video/poster_3.png" ath="80" atv="6.999"  depth="2050.0"  distorted="true" rx="00.0" ry="-10.0" rz="0.0" width="600" height="prop"/>
-		<hotspot name="cafe" url="video/cafe.png" ath="80" atv="20.999"  depth="2050.0"  distorted="true" rx="00.0" ry="-10.0" rz="0.0" width="600" height="prop"/>
+		<hotspot name="cafe" url="video/cafe.png" ath="5" atv="-0.999"  depth="4350.0"  distorted="true" rx=".0" ry="-0.0" rz="-5.0" width="600" height="prop"/>
 	</scene>
 
 	<scene name="scene_a_8" title="A_8" onstart="" thumburl="panos/A_8.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
