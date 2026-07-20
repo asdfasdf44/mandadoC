@@ -1,0 +1,29 @@
+<krpano>
+	<action name="do_crop_animation" scope="local" args="framewidth, frameheight, framerate, totalframes">
+        calc(local.xframes, (caller.imagewidth /framewidth) BOR 0);
+        calc(local.frames, xframes * ((caller.imageheight / frameheight) BOR 0));
+
+				<!-- 추가된 부분: 실제 프레임 수가 입력되었다면 그 값을 총 프레임 수로 덮어씌움 -->
+            if(totalframes !== null AND totalframes GT 0, 
+                set(local.frames, get(totalframes));
+            );
+
+        def(local.frame, integer, 0);
+
+        calc(caller.crop, '0|0|' + framewidth + '|' + frameheight);
+        setinterval(calc('cropanim' + caller.name), calc(1.0 / framerate),
+            if(caller.loaded,
+                inc(frame);
+                if(frame GE frames, if(caller.onlastframe !== null, callwith(caller, onlastframe() ) ); set(frame,0); );
+                mod(xpos, frame, xframes);
+                div(ypos, frame, xframes);
+                Math.floor(ypos);
+                mul(xpos, framewidth);
+                mul(ypos, frameheight);
+                calc(caller.crop, xpos + '|' + ypos + '|' + framewidth + '|' + frameheight);
+              ,
+                clearinterval(calc('cropanim' + caller.name));
+            );
+        );
+    </action>
+</krpano>

@@ -1,0 +1,140 @@
+<krpano>
+	<action name="image_popup_open">
+            set(global.popup_saved_h, get(view.hlookat));
+            set(global.popup_saved_v, get(view.vlookat));
+            set(global.popup_saved_fov, get(view.fov));
+    
+            lookto(%2, %3, %4, tween(easeOutQuad, 0.5));
+    
+            addlayer(img_popup_bg);
+            set(layer[img_popup_bg].type, 'container');
+            set(layer[img_popup_bg].width, '100%');
+            set(layer[img_popup_bg].height, '100%');
+            set(layer[img_popup_bg].bgcolor, 0x000000);
+            set(layer[img_popup_bg].bgalpha, 0.0); 
+            set(layer[img_popup_bg].zorder, 99999);
+            set(layer[img_popup_bg].onclick, image_popup_close());
+    
+            addlayer(img_popup_main);
+            set(layer[img_popup_main].parent, 'img_popup_bg');
+            set(layer[img_popup_main].align, 'center');
+            set(layer[img_popup_main].alpha, 0.0); 
+            
+            set(layer[img_popup_main].onloaded, image_popup_resize());
+            set(events[image_popup_events].onresize, image_popup_resize());
+            set(layer[img_popup_main].url, %1);
+
+			<!-- ▼▼▼ 사진 모서리 기준 픽셀(px) 좌표계산 임시 코드 ▼▼▼ -->
+            set(layer[img_popup_main].onclick, 
+                <!-- 사진의 우측 끝부분과 하단 끝부분 절대 좌표 계산 -->
+                calc(photo_right_edge, (stagewidth / 2) + (layer[img_popup_main].width / 2));
+                calc(photo_bottom_edge, (stageheight / 2) + (layer[img_popup_main].height / 2));
+                
+                <!-- 마우스 클릭 위치에서 모서리까지의 픽셀 간격 계산 -->
+                calc(px_x, photo_right_edge - mouse.stagex);
+                calc(px_y, photo_bottom_edge - mouse.stagey);
+                
+                roundval(px_x);
+                roundval(px_y);
+                
+                calc(msg, '사진 우하단 여백 -> x=' + px_x + ' / y=' + px_y);
+                showtext(get(msg));
+                js(console.log(get(msg)));
+            );
+    
+           <!-- 닫기 버튼 설정 부분 -->
+            addlayer(img_popup_close_btn);
+            
+            set(layer[img_popup_close_btn].parent, 'img_popup_main');
+            
+            set(layer[img_popup_close_btn].type, 'image');
+            set(layer[img_popup_close_btn].url, 'expo/close.png');
+            set(layer[img_popup_close_btn].scale, 0.8); 
+            set(layer[img_popup_close_btn].align, 'rightbottom');
+
+            set(layer[img_popup_close_btn].x, 87);
+            set(layer[img_popup_close_btn].y, 50); 
+
+            set(layer[img_popup_close_btn].alpha, 0.0); 
+            set(layer[img_popup_close_btn].onclick, image_popup_close());
+
+			<!-- 구매 버튼 설정 부분 -->
+            if('%5' != 'null' AND '%5' != '',
+                addlayer(img_popup_buy_btn);
+                
+                set(layer[img_popup_buy_btn].parent, 'img_popup_main');
+                
+                set(layer[img_popup_buy_btn].type, 'image');
+                set(layer[img_popup_buy_btn].url, 'expo/buy.png');
+                set(layer[img_popup_buy_btn].scale, 0.8); 
+                set(layer[img_popup_buy_btn].align, 'rightbottom'); 
+                
+                set(layer[img_popup_buy_btn].x, 339);
+                set(layer[img_popup_buy_btn].y, 50);
+                
+                set(layer[img_popup_buy_btn].alpha, 0.0);
+                set(layer[img_popup_buy_btn].onclick, openurl('%5', _blank));
+            );
+        </action>
+    
+        <action name="image_popup_resize">
+            if(layer[img_popup_main],
+                div(aspect, layer[img_popup_main].imagewidth, layer[img_popup_main].imageheight);
+                mul(new_width, stagewidth, 0.85);
+                div(new_height, new_width, aspect);
+                mul(max_height, stageheight, 0.85);
+                if(new_height GT max_height,
+                    copy(new_height, max_height);
+                    mul(new_width, new_height, aspect);
+                );
+                roundval(new_width);
+                roundval(new_height);
+                copy(layer[img_popup_main].width, new_width);
+                copy(layer[img_popup_main].height, new_height);
+                
+                div(scale_ratio, new_width, layer[img_popup_main].imagewidth);
+                
+                if(layer[img_popup_close_btn],
+                    mul(close_scale, 1, scale_ratio);
+                    copy(layer[img_popup_close_btn].scale, close_scale);
+                    mul(close_x, 87, scale_ratio);
+                    mul(close_y, 50, scale_ratio);
+                    copy(layer[img_popup_close_btn].x, close_x);
+                    copy(layer[img_popup_close_btn].y, close_y);
+                );
+                
+                if(layer[img_popup_buy_btn],
+                    mul(buy_scale, 1, scale_ratio);
+                    copy(layer[img_popup_buy_btn].scale, buy_scale);
+                    mul(buy_x, 339, scale_ratio);
+                    mul(buy_y, 50, scale_ratio);
+                    copy(layer[img_popup_buy_btn].x, buy_x);
+                    copy(layer[img_popup_buy_btn].y, buy_y);
+                );
+                
+                if(layer[img_popup_main].alpha == 0.0,
+                    tween(layer[img_popup_bg].bgalpha, 0.8, 0.3);
+                    tween(layer[img_popup_main].alpha, 1.0, 0.3);
+                    tween(layer[img_popup_close_btn].alpha, 1.0, 0.3);
+                    if(layer[img_popup_buy_btn], tween(layer[img_popup_buy_btn].alpha, 1.0, 0.3));
+                );
+            );
+        </action>
+
+        <action name="image_popup_close">
+            set(events[image_popup_events].name, null); 
+            
+            tween(layer[img_popup_main].alpha, 0.0, 0.3);
+            tween(layer[img_popup_close_btn].alpha, 0.0, 0.3);
+            if(layer[img_popup_buy_btn], tween(layer[img_popup_buy_btn].alpha, 0.0, 0.3));
+
+            tween(layer[img_popup_bg].bgalpha, 0.0, 0.3, default,
+                removelayer(img_popup_main);
+                removelayer(img_popup_close_btn);
+                if(layer[img_popup_buy_btn], removelayer(img_popup_buy_btn));
+                removelayer(img_popup_bg);
+                
+                lookto(get(global.popup_saved_h), get(global.popup_saved_v), get(global.popup_saved_fov), tween(easeOutQuad, 0.5));
+            );
+        </action>
+</krpano>
