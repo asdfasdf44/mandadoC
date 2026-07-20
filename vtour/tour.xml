@@ -1,9 +1,15 @@
 ﻿<krpano version="1.24" title="Virtual Tour">
 
 	<include url="skin/vtourskin.xml" />
+	
+	<!-- 기능별 모듈 Include -->
+	<include url="action/action_animation.xml" />
+	<include url="action/action_video.xml" />
+	<include url="action/action_popup.xml" />
 
 	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
 	 <!-- loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)" 이게 기본 값, 지금은 바꿔둔 값-->
+	<!-- maps, thumbs 나중에 false로 바꾸기, 배경 투명은 (design_bgalpha,design_bgshadow 값 0 으로)-->
 	<skin_settings maps="true"
 	               maps_type="openstreetmaps"
 	               maps_bing_api_key=""
@@ -107,7 +113,6 @@
 					crop="0|0|50|50"
 					onclick="pausesoundtoggle(bgsnd); switch(crop, 0|0|50|50, 0|50|50|50);"
 					/>
-	
 
 
 	<scene name="scene_a_1" title="A_1" onstart="" thumburl="panos/A_1.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
@@ -455,6 +460,20 @@
 		         url="skin/hotspot_bottom.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
 		<hotspot name="spot_e_2_move_to_e_1" style="skin_hotspotstyle_circle" ath="149.988" atv="25.951" depth="1000.0" linkedscene="scene_e_1" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="59.2137,18.2003,120.00"
 		         url="skin/hotspot_bottom.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="15" ry="75" rz="90"/>
+
+		<hotspot name="expo_2_pi" url="skin/photo_icon.png" scale="0.07" ath="3.357" atv="-11.48" depth="1000.0" use3dtransition="false"
+						 onclick="image_popup_open('expo/expo_2.png', 2.5101, -8.5433, 54.82);"/>
+
+		<hotspot name="expo_1_pi" url="skin/photo_icon.png" scale="0.07" ath="-21.691" atv="-6.562" depth="1000.0" use3dtransition="false"
+						 onclick="image_popup_open('expo/expo_1.png', -17.9570, 0.1929, 89.27);"/>
+
+		<hotspot name="expo_3_pi" url="skin/photo_icon.png" scale="0.07" ath="-35.942" atv="-1.865" depth="1000.0" use3dtransition="false" 
+						 onclick="image_popup_open('expo/expo_3.png', -34.6914, 0.4131, 54.68, 'http://www.jungindigo.com/shop/item.php?it_id=1478667357');"/>
+						 
+
+		<hotspot name="expo_4_pi" url="skin/photo_icon.png" scale="0.07" ath="2.621" atv="14.318" depth="1000.0" use3dtransition="false" 
+						 onclick="image_popup_open('expo/expo_4.png', 5.2456, 19.0255, 66.70);"/>
+						 
 		
 
 	</scene>
@@ -572,163 +591,5 @@
 			       url="play/gif/100.png" onloaded="do_crop_animation(1400, 900, 25, 91)" onclick="collect_puzzle();"/>
 
 	</scene>
-
-	<action name="do_crop_animation" scope="local" args="framewidth, frameheight, framerate, totalframes">
-        <!-- define local variables -->
-        calc(local.xframes, (caller.imagewidth /framewidth) BOR 0);
-        calc(local.frames, xframes * ((caller.imageheight / frameheight) BOR 0));
-
-				<!-- 추가된 부분: 실제 프레임 수가 입력되었다면 그 값을 총 프레임 수로 덮어씌움 -->
-            if(totalframes !== null AND totalframes GT 0, 
-                set(local.frames, get(totalframes));
-            );
-
-        def(local.frame, integer, 0);
-
-        <!-- set the first frame -->
-        calc(caller.crop, '0|0|' + framewidth + '|' + frameheight);
-
-        <!-- do the animation -->
-        setinterval(calc('cropanim' + caller.name), calc(1.0 / framerate),
-            if(caller.loaded,
-                inc(frame);
-                if(frame GE frames, if(caller.onlastframe !== null, callwith(caller, onlastframe() ) ); set(frame,0); );
-                mod(xpos, frame, xframes);
-                div(ypos, frame, xframes);
-                Math.floor(ypos);
-                mul(xpos, framewidth);
-                mul(ypos, frameheight);
-                calc(caller.crop, xpos + '|' + ypos + '|' + framewidth + '|' + frameheight);
-              ,
-                <!-- stop the interval when the hotspot gets removed -->
-                clearinterval(calc('cropanim' + caller.name));
-            );
-        );
-    </action>
-	<action name="videoplayer_open">
-        <!-- 인자 설명: %1=영상주소, %2=포스터이미지, %3=볼륨, %4=클릭한 핫스팟 이름 -->
-        
-        if(layer[videoplayer_bg],
-            <!-- 1-1. 중복 실행 방지: 이미 배경 레이어가 있다면 에러(trace)만 띄우고 중단합니다. -->
-            trace('videoplayer_open - there is already a videoplayer!');
-          ,
-            <!-- 1-2. 팝업이 닫힐 때 다시 켜야 할 배경 비디오 핫스팟의 이름을 전역 변수에 기억해 둡니다. -->
-            set(global.bg_video_hotspot, %4);
-    
-            <!-- 1-3. 검은 반투명 배경 생성 (화면 전체 덮기) -->
-            addlayer(videoplayer_bg);
-            set(layer[videoplayer_bg].type, container);
-            set(layer[videoplayer_bg].zorder, 999999); <!-- 화면 최상단으로 올리기 -->
-            set(layer[videoplayer_bg].width, 100%);
-            set(layer[videoplayer_bg].height, 100%);
-            set(layer[videoplayer_bg].bgcolor, 0x000000);
-            set(layer[videoplayer_bg].bgalpha, 0.8); <!-- 투명도 80% -->
-            set(layer[videoplayer_bg].bgcapture, true); <!-- 배경 너머로 클릭되는 것 방지 -->
-            set(layer[videoplayer_bg].alpha, 0.0); <!-- 처음엔 투명하게 시작 (페이드 인을 위해) -->
-            
-            <!-- 이 배경을 클릭하면 창이 닫히도록 videoplayer_close 액션을 연결합니다. -->
-            set(layer[videoplayer_bg].onclick, videoplayer_close() );
-            
-            <!-- 1-4. 0.5초 동안 배경을 서서히 나타나게(alpha:1.0) 한 뒤, 플러그인을 얹습니다. -->
-            tween(layer[videoplayer_bg].alpha, 1.0, 0.5, default,
-            
-                addlayer(videoplayer_plugin);
-                set(layer[videoplayer_plugin].parent, layer[videoplayer_bg]); <!-- 비디오를 배경 위에 소속시킴 -->
-                set(layer[videoplayer_plugin].align, center);
-                set(layer[videoplayer_plugin].loop, true);
-                set(layer[videoplayer_plugin].onclick, togglepause() ); <!-- 비디오 클릭 시 일시정지/재생 -->
-                set(layer[videoplayer_plugin].alpha, 0.0);
-                set(layer[videoplayer_plugin].scale, 0.0); <!-- 처음에 크기를 0으로 해서 서서히 커지게 연출 -->
-                set(layer[videoplayer_plugin].html5controls, true); <!-- 하단 재생바 표시 -->
-                
-                <!-- 1-5. 플러그인 로딩이 끝나면 'videoplayer_plugin_ready' 액션을 실행하도록 예약! -->
-                set(layer[videoplayer_plugin].onloaded, videoplayer_plugin_ready(%1) );
-                
-                if('%2' != null, set(layer[videoplayer_plugin].posterurl,'%2'); );
-                if('%3' != null, set(layer[videoplayer_plugin].volume,%3); );
-                set(layer[videoplayer_plugin].url,'%VIEWER%/plugins/videoplayer.js');
-
-								<!-- ▼▼▼ 여기부터 X 버튼(텍스트) 레이어 추가 ▼▼▼ -->
-								addlayer(videoplayer_close_btn);
-								set(layer[videoplayer_close_btn].parent, layer[videoplayer_bg]);
-								set(layer[videoplayer_close_btn].type, text);
-								set(layer[videoplayer_close_btn].html, '✖ 닫기');
-								set(layer[videoplayer_close_btn].css, 'font-family:Arial; font-weight:bold; font-size:20px; color:#FFFFFF; cursor:pointer;');
-								set(layer[videoplayer_close_btn].bg, false);
-								set(layer[videoplayer_close_btn].txtshadow, '1 1 3 0x000000 1.0'); <!-- 글자 그림자 -->
-								set(layer[videoplayer_close_btn].align, righttop);
-								set(layer[videoplayer_close_btn].x, 30);
-								set(layer[videoplayer_close_btn].y, 30);
-								set(layer[videoplayer_close_btn].zorder, 999);
-								set(layer[videoplayer_close_btn].alpha, 0.0);
-								set(layer[videoplayer_close_btn].onclick, videoplayer_close() );
-								
-								tween(layer[videoplayer_close_btn].alpha, 1.0, 0.5);
-								<!-- ▲▲▲ 여기까지 ▲▲▲ -->
-              );
-          );
-    </action>
-	<action name="videoplayer_plugin_ready">
-        if(layer[videoplayer_plugin],
-            <!-- 2-1. 브라우저 창 크기가 변할 때마다(onresize), 비디오 비율을 유지하도록 이벤트 등록 -->
-            set(events[videoplayer_events].onresize, videoplayer_plugin_resize() );
-            set(layer[videoplayer_plugin].pausedonstart, true);
-            
-            <!-- 2-2. 영상 파일이 준비되면(onvideoready) 스케일을 1로 서서히 키워 등장시킵니다. -->
-            set(layer[videoplayer_plugin].onvideoready,
-                    videoplayer_plugin_resize(); <!-- 크기 계산 한번 해줌 -->
-                    tween(scale,1, 0.5, easeOutBack); <!-- 통통 튀면서 커지는 애니메이션 -->
-                    tween(alpha,1, 0.5, default, ifnot(device.ios, play() ) ); <!-- 서서히 뚜렷해지며 재생 시작 -->
-               );
-               
-            <!-- 실제 비디오 파일을 로드합니다 -->
-            layer[videoplayer_plugin].playvideo(%1);
-          );
-    </action>
-	<action name="videoplayer_plugin_resize">
-        <!-- 3-1. 비디오의 원본 비율(가로/세로)을 계산 -->
-        div(aspect, layer[videoplayer_plugin].imagewidth, layer[videoplayer_plugin].imageheight);
-        
-        <!-- 3-2. 현재 브라우저 화면(stage)의 90% 크기를 최대치로 잡음 -->
-        mul(new_videowidth, stagewidth, 0.90);
-        div(new_videoheight, new_videowidth, aspect);
-        mul(max_videoheight, stageheight, 0.90);
-        
-        <!-- 3-3. 가로를 맞췄을 때 세로가 화면을 넘어가면 세로 기준으로 다시 계산 -->
-        if(new_videoheight GT max_videoheight,
-            copy(new_videoheight, max_videoheight);
-            mul(new_videowidth, new_videoheight, aspect);
-          );
-          
-        <!-- 소수점 반올림 후 최종 크기 적용 -->
-        roundval(new_videowidth);
-        roundval(new_videoheight);
-        copy(layer[videoplayer_plugin].width, new_videowidth);
-        copy(layer[videoplayer_plugin].height, new_videoheight);
-    </action>
-	<action name="videoplayer_close">
-        set(events.[videoplayer_events].name, null); <!-- 리사이즈 이벤트 해제 -->
-        if(layer[videoplayer_plugin], layer[videoplayer_plugin].pause() ); <!-- 재생 중인 팝업 영상 멈춤 -->
-        set(layer[videoplayer_bg].onclick, null);
-    
-        <!-- 4-1. 팝업이 다시 크기가 0이 되며 작아지고, 배경이 투명하게 변하는 애니메이션 -->
-        tween(layer[videoplayer_plugin].scale, 0.0, 0.5, easeInBack);
-        tween(layer[videoplayer_bg].alpha, 0.0, 0.5, default,
-        
-            <!-- 4-2. 투명해진 뒤에는 실제 레이어를 완전히 삭제하여 리소스를 아낌 -->
-            removelayer(videoplayer_plugin);
-            removelayer(videoplayer_bg);
-
-						<!-- ▼▼▼ 이 줄을 추가해서 버튼도 함께 삭제 ▼▼▼ -->
-						removelayer(videoplayer_close_btn);
-						<!-- ▲▲▲ 여기까지 ▲▲▲ -->
-            
-            <!-- 4-3. 핵심 부분: 열릴 때 1번에서 저장해둔 핫스팟 이름이 있다면, 해당 핫스팟 배경 영상을 다시 resume() -->
-            if(global.bg_video_hotspot != null,
-                hotspot[get(global.bg_video_hotspot)].resume();
-                set(global.bg_video_hotspot, null); <!-- 변수 초기화 -->
-            );
-          );
-	</action>
 
 </krpano>
