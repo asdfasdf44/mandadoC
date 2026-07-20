@@ -137,7 +137,7 @@
 				       url="skin/button_1.png"
 				       align="righttop"
 				       x="20"
-				       y="200"
+				       y="180"
 				       scale="0.5"
 				       keep="true"
 				
@@ -150,7 +150,7 @@
 			       url="skin/button_2.png"
 			       align="righttop"
 			       x="20"
-			       y="380"
+			       y="340"
 			       scale="0.5"
 			       keep="true"
 			
