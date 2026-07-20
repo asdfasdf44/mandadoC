@@ -120,7 +120,44 @@
 					crop="0|0|50|50"
 					onclick="pausesoundtoggle(bgsnd); switch(crop, 0|0|50|50, 0|50|50|50);"
 					/>
-
+	<layer name="btn_home"
+				       url="skin/button_start.png"
+				       align="righttop"
+				       x="20"
+				       y="20"
+				       scale="0.5"
+				       keep="true"
+				
+					   onover="tween(scale,0.65,0.15,easeOutQuad);"
+				       onout="tween(scale,0.5,0.15,easeOutQuad);"
+				
+				       onclick="loadscene(scene_a_1, null, MERGE, BLEND(1));" />
+		
+	<layer name="btn_1"
+				       url="skin/button_1.png"
+				       align="righttop"
+				       x="20"
+				       y="200"
+				       scale="0.5"
+				       keep="true"
+				
+					   onover="tween(scale,0.65,0.15,easeOutQuad);"
+				       onout="tween(scale,0.5,0.15,easeOutQuad);"
+				
+				       onclick="loadscene(scene_e_1, null, MERGE, BLEND(1));" />
+		
+	<layer name="btn_2"
+			       url="skin/button_2.png"
+			       align="righttop"
+			       x="20"
+			       y="380"
+			       scale="0.5"
+			       keep="true"
+			
+				   onover="tween(scale,0.65,0.15,easeOutQuad);"
+			       onout="tween(scale,0.5,0.15,easeOutQuad);"
+			
+			       onclick="loadscene(scene_c_1, null, MERGE, BLEND(1));" />
 
 	<scene name="scene_a_1" title="A_1" onstart="" thumburl="panos/A_1.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
 		
