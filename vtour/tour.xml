@@ -101,7 +101,14 @@
                 showtext(get(msg));
                 js(console.log(get(msg)));
             " />
-	
+	<!-- 애니메이션 스프라이트 프리로드 (씬 진입 시 대용량 텍스처 로딩으로 인한 렉 방지) -->
+        <!-- visible="false"로 숨기고, keep="true"로 메모리에 유지하며, preload="true"로 초기 로딩창에서 불러옵니다. -->
+        <plugin name="preload_gif_001" url="play/gif/001.png" keep="true" preload="true" visible="false" />
+        <plugin name="preload_gif_010" url="play/gif/010.png" keep="true" preload="true" visible="false" />
+        <plugin name="preload_gif_100" url="play/gif/100.png" keep="true" preload="true" visible="false" />
+
+
+
 	<!-- 3. 음악 켜기/끄기 (재생/일시정지) 버튼 (선택 사항) -->
 	<layer name="snd" 
 					url="skin/soundonoff.png" 
