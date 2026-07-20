@@ -188,8 +188,9 @@
 		<hotspot name="spot_a_4_move_to_b_1" style="skin_hotspotstyle" ath="-165.122" atv="35.655" depth="1000.0" linkedscene="scene_b_1" linkedscene_spot="spot2059521874" linkedscene_hoffset="360.0" use3dtransition="false" />
 		<hotspot name="spot_a_4_move_to_a_3" style="skin_hotspotstyle_circle" ath="58.91" atv="20.139" depth="1000.0" linkedscene="scene_a_3" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-194.3957,-0.0579,140.00"
 						 url="skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
-		<hotspot name="spot_a_4_move_to_e_1" style="skin_hotspotstyle_circle" ath="-74.266" atv="18.381" depth="1000.0" linkedscene="scene_e_1" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="265.1228,7.7400,120.00"
-						 url="skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
+		<hotspot name="spot_a_4_move_to_e_1" style="skin_hotspotstyle_circle" ath="-54.266" atv="0.381" depth="1200.0" linkedscene="scene_e_1" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="265.1228,7.7400,120.00"
+						 url="skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="155" rz="90"/>
+
 		<hotspot name="spot_a_4_move_to_a_5" style="skin_hotspotstyle_circle" ath="161.531" atv="14.47" depth="1000.0" linkedscene="scene_a_5" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-634.4798,-4.3985,140.00"
 						 url="skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
 
