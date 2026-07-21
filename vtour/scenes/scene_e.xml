@@ -179,6 +179,9 @@
 						 url="%FIRSTXML%skin/hotspot_bottom.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="15" ry="45" rz="90"/>
 		<hotspot name="spot_e_7_move_to_e_8" style="skin_hotspotstyle_circle" ath="106.493" atv="6.786" depth="1000.0" linkedscene="scene_e_8" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="300.6800,25.2601,120.00"
 						 url="%FIRSTXML%skin/hotspot_bottom.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="10" ry="45" rz="90"/>
+		<hotspot name="pot" url="%FIRSTXML%skin/photo_icon.png" scale="0.07" ath="6.311" atv="-6.518" depth="1000.0" use3dtransition="false" 
+						 onclick="image_popup_open('%FIRSTXML%expo/E_8/pot.png', 22.7668,4.6442,118.16);"/>
+
 
 	</scene>
 
