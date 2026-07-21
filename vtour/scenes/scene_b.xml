@@ -1,0 +1,55 @@
+<krpano>
+  <scene name="scene_b_1" title="B_1" onstart="tween(layer[player].x,425,0.5,easeOutQuad); tween(layer[player].y,580,0.5,easeOutQuad);" thumburl="%FIRSTXML%panos/B_1.tiles/thumb.jpg" lat="-90.00000000" lng="-180.00000000" alt="00.00" heading="0.0">
+        
+        <control bouncinglimits="calc:image.cube ? true : false" />
+
+        <view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+        <preview url="%FIRSTXML%panos/B_1.tiles/preview.jpg" />
+
+        <plugin name="video"
+                url="%FIRSTXML%plugins/videoplayer.js"
+                videourl="%FIRSTXML%video/B_1/B_1.m3u8|%FIRSTXML%video/B_1/B_1_ready.mp4"
+                posterurl="%FIRSTXML%panos/B_1.tiles/preview.jpg"
+                loop="true"
+                muted="true"
+                volume="0.0"
+                pausedonstart="false"
+                playsinline="true"
+                />
+
+        <image>
+            <sphere url="%FIRSTXML%plugin:video" />
+        </image>
+
+        <hotspot name="spot_b_1_move_to_a_4" style="skin_hotspotstyle" ath="-5.209" atv="18.485" depth="1000.0" linkedscene="scene_a_4" linkedscene_hoffset="0.0" use3dtransition="false" />
+
+	</scene>
+	<!-- B_2 영상으로 -->
+	<scene name="scene_b_2" title="B_2" onstart="" thumburl="%FIRSTXML%panos/B_2.tiles/thumb.jpg" lat="-90.00000000" lng="-180.00000000" alt="0.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="%FIRSTXML%panos/B_2.tiles/preview.jpg" />
+
+		<plugin name="video"
+                url="%FIRSTXML%plugins/videoplayer.js"
+                videourl="%FIRSTXML%video/B_2/B_2.m3u8|%FIRSTXML%video/B_2/B_2_ready.mp4"
+                posterurl="%FIRSTXML%panos/B_2.tiles/preview.jpg"
+                loop="true"
+                muted="true"
+                volume="0.0"
+                pausedonstart="false"
+                playsinline="true"
+                />
+
+		<image>
+			<sphere url="%FIRSTXML%plugin:video" />
+		</image>
+
+		<hotspot name="spot_b_2_move_to_a_9" style="skin_hotspotstyle" ath="-143.244" atv="12.926" depth="1000.0" linkedscene="scene_a_9" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-139.0113,2.3785,120.00" />
+
+	</scene>
+</krpano>

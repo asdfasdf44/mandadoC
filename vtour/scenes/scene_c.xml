@@ -1,0 +1,18 @@
+<krpano>
+  <scene name="scene_c_1" title="C_1" onstart="" thumburl="%FIRSTXML%panos/C_1.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="%FIRSTXML%panos/C_1.tiles/preview.jpg" />
+
+		<image>
+			<cube url="%FIRSTXML%panos/C_1.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280,2560" />
+		</image>
+
+		<hotspot name="spot_c_1_move_to_a_9" style="skin_hotspotstyle_circle" ath="-46.116" atv="19.955" depth="1000.0" linkedscene="scene_a_9" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-1672.3510,4.6544,140.00"
+						 url="%FIRSTXML%skin/hotspot_bottom.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
+
+	</scene>
+</krpano>

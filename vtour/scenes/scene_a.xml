@@ -1,0 +1,197 @@
+<krpano>
+  <scene name="scene_a_1" title="A_1" onstart="tween(layer[player].x,865,0.5,easeOutQuad); tween(layer[player].y,960,0.5,easeOutQuad);" thumburl="%FIRSTXML%panos/A_1.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="20.111" vlookat="15.999" fovtype="MFOV" fov="140.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="%FIRSTXML%panos/A_1.tiles/preview.jpg" />
+
+		<image>
+			<cube url="%FIRSTXML%panos/A_1.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280,2560" />
+		</image>
+		<hotspot name="my_logo" url="%FIRSTXML%skin/logo.png" ath="0.111" atv="-8.999" distorted="true" rx="0.0" ry="-40.0" rz="-10.0" width="600" height="prop" enabled="false"/>
+		
+		<hotspot name="spot_a_1_move_to_a_2" style="skin_hotspotstyle_circle" url="%FIRSTXML%skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"
+		ath="46.322" atv="8.113" depth="1000.0" linkedscene="scene_a_2" use3dtransition="false" linkedscene_lookat="-118.3236,-1.8684,140.00"/>
+		<hotspot name="spot_behind_check" ath="91" atv="-3.04" depth="1000.0" distorted="true"
+						 url="%FIRSTXML%play/behind_check.png" rx="4" ry="-2.5" rz="0" width="300" height="prop" enable="false"/>
+
+		<hotspot name="spot_puzzle_board" ath="-131.184" atv="-7.972" depth="1700.0" distorted="true" 
+						 url="%FIRSTXML%play/000.png" rx="-5" ry="0" rz="0" width="1200" height="prop" enable="false" onloaded="update_puzzle_board();"/>
+		
+	</scene>
+
+	<scene name="scene_a_2" title="A_2" onstart="tween(layer[player].x,690,0.5,easeOutQuad); tween(layer[player].y,810,0.5,easeOutQuad);" thumburl="%FIRSTXML%panos/A_2.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="271.438" vlookat="-0.588" fovtype="MFOV" fov="140.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="%FIRSTXML%panos/A_2.tiles/preview.jpg" />
+
+		<image>
+			<cube url="%FIRSTXML%panos/A_2.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280,2560" />
+		</image>
+		<!-- enable="true"로 바꿔야 함-->
+		<!-- <hotspot name="my_logo" url="%FIRSTXML%skin/photo1.jpg" ath="-26.111" atv="-39.999" distorted="true" rx="0.0" ry="0.0" rz="0.0" width="1200" height="prop" enabled="true" onclick="openurl('https://mandadoc.com', _blank);"/> --><!-- _blank 대신 _self 사용 시 현재 창에서 이동 -->
+		<hotspot name="spot_a_2_move_to_a_1" style="skin_hotspotstyle_circle" ath="64.033" atv="23.294" depth="1000.0" linkedscene="scene_a_1" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="20.1110,15.9990,140.00"
+						 url="%FIRSTXML%skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
+		<hotspot name="spot_a_2_move_to_a_3" style="skin_hotspotstyle_circle" ath="-102.622" atv="12.447" depth="1000.0" linkedscene="scene_a_3" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-329.8005,0.0076,140.00"
+						 url="%FIRSTXML%skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
+		
+
+	</scene>
+
+	<scene name="scene_a_3" title="A_3" onstart="tween(layer[player].x,555,0.5,easeOutQuad); tween(layer[player].y,810,0.5,easeOutQuad" thumburl="%FIRSTXML%panos/A_3.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="79.274" vlookat="9.076" fovtype="MFOV" fov="140.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="%FIRSTXML%panos/A_3.tiles/preview.jpg" />
+
+		<image>
+			<cube url="%FIRSTXML%panos/A_3.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280,2560" />
+		</image>
+
+		<hotspot name="spot_a_3_move_to_a_2" style="skin_hotspotstyle_circle" ath="177.305" atv="24.219" depth="1000.0" linkedscene="scene_a_2" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-304.7830,-3.4624,140.00" 
+						 url="%FIRSTXML%skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
+		<hotspot name="spot_a_3_move_to_a_4" style="skin_hotspotstyle_circle" ath="22.633" atv="12.711" depth="1000.0" linkedscene="scene_a_4" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-502.6759,0.0297,140.00"
+						 url="%FIRSTXML%skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
+
+	</scene>
+
+	<scene name="scene_a_4" title="A_4" onstart="tween(layer[player].x,490,0.5,easeOutQuad); tween(layer[player].y,730,0.5,easeOutQuad" thumburl="%FIRSTXML%panos/A_4.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="-502.676" vlookat="0.030" fovtype="MFOV" fov="140.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="%FIRSTXML%panos/A_4.tiles/preview.jpg" />
+
+		<image>
+			<cube url="%FIRSTXML%panos/A_4.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280,2560" />
+		</image>
+
+		<hotspot name="spot_a_4_move_to_b_1" style="skin_hotspotstyle" ath="-165.122" atv="35.655" depth="1000.0" linkedscene="scene_b_1" linkedscene_spot="spot2059521874" linkedscene_hoffset="360.0" use3dtransition="false" />
+		<hotspot name="spot_a_4_move_to_a_3" style="skin_hotspotstyle_circle" ath="58.91" atv="20.139" depth="1000.0" linkedscene="scene_a_3" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-194.3957,-0.0579,140.00"
+						 url="%FIRSTXML%skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
+		<hotspot name="spot_a_4_move_to_e_1" style="skin_hotspotstyle_circle" ath="-54.266" atv="0.381" depth="1200.0" linkedscene="scene_e_1" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="265.1228,7.7400,120.00"
+						 url="%FIRSTXML%skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="155" rz="90"/>
+
+		<hotspot name="spot_a_4_move_to_a_5" style="skin_hotspotstyle_circle" ath="161.531" atv="14.47" depth="1000.0" linkedscene="scene_a_5" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-634.4798,-4.3985,140.00"
+						 url="%FIRSTXML%skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
+
+	</scene>
+
+	<scene name="scene_a_5" title="A_5" onstart="tween(layer[player].x,310,0.5,easeOutQuad); tween(layer[player].y,730,0.5,easeOutQuad" thumburl="%FIRSTXML%panos/A_5.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="%FIRSTXML%panos/A_5.tiles/preview.jpg" />
+
+		<image>
+			<cube url="%FIRSTXML%panos/A_5.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280,2560" />
+		</image>
+
+		
+		
+		<hotspot name="spot_a_5_move_to_a_6" style="skin_hotspotstyle_circle" ath="81.991" atv="16.948" depth="1000.0" linkedscene="scene_a_6" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-2599.6716,-3.3932,140.00"
+						 url="%FIRSTXML%skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
+		<hotspot name="spot_a_5_move_to_a_4" style="skin_hotspotstyle_circle" ath="-95.751" atv="12.004" depth="1000.0" linkedscene="scene_a_4" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-18.6676,5.0532,140.00"
+						 url="%FIRSTXML%skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
+		<hotspot name="video_a_5" url="%FIRSTXML%plugins/videoplayer.js" videourl="%FIRSTXML%video/scene_a_5.mp4" distorted="true" ath="-155.973" atv="-33.885"
+						 rx="-40" ry="0" rz="-2" scale="0.385" edge="center"
+						 loop="true" muted="true" pausedonstart="false"
+						 onclick="looktohotspot(get(name), 90); pause(); videoplayer_open('%FIRSTXML%video/scene_a_5.mp4', null, 0.5, get(name))"/>
+
+	</scene>
+
+	<scene name="scene_a_6" title="A_6" onstart="tween(layer[player].x,140,0.5,easeOutQuad); tween(layer[player].y,730,0.5,easeOutQuad" thumburl="%FIRSTXML%panos/A_6.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="%FIRSTXML%panos/A_6.tiles/preview.jpg" />
+
+		<image>
+			<cube url="%FIRSTXML%panos/A_6.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280,2560" />
+		</image>
+
+		<hotspot name="spot_a_6_move_to_a_5" style="skin_hotspotstyle_circle" ath="-5.13" atv="16.957" depth="1000.0" linkedscene="scene_a_5" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-2297.4077,-3.2649,140.00"
+						 url="%FIRSTXML%skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
+		<hotspot name="spot_a_6_move_to_a_7" style="skin_hotspotstyle_circle" ath="-99.142" atv="7.121" depth="1000.0" linkedscene="scene_a_7" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-1643.4839,-8.0041,140.00"
+						 url="%FIRSTXML%skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
+    	<hotspot name="poster_1" url="%FIRSTXML%video/poster_1.png" ath="160.111" atv="-8.999" depth="1600.0" onclick="openurl('https://docs.google.com/forms/d/e/1FAIpQLSc-B-jENQHy9bC6ASZZU9aGoDndRuYuJtiv-IExGjBYbYPWng/viewform?usp=header', _blank);" distorted="true" rx="0.0" ry="00.0" rz="000.0" width="600" height="prop"/>
+		<hotspot name="poster_2" url="%FIRSTXML%video/poster_2.png" ath="120" atv="-6.999" depth="2050.0" onclick="openurl('http://www.jungindigo.com/shop/list.php?ca_id=10', _blank);" distorted="true" rx="0.0" ry="40.0" rz="-5.0" width="600" height="prop"/>
+		
+	
+		
+	</scene>
+		
+
+	<scene name="scene_a_7" title="A_7" onstart="tween(layer[player].x,140,0.5,easeOutQuad); tween(layer[player].y,520,0.5,easeOutQuad" thumburl="%FIRSTXML%panos/A_7.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="-189.637" vlookat="7.689" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="%FIRSTXML%panos/A_7.tiles/preview.jpg" />
+
+		<image>
+			<cube url="%FIRSTXML%panos/A_7.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280,2560" />
+		</image>
+
+		<hotspot name="spot_a_7_move_to_a_6" style="skin_hotspotstyle_circle" ath="-13.321" atv="9.189" depth="1000.0" linkedscene="scene_a_6" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-2556.2319,-8.8046,140.00"
+						 url="%FIRSTXML%skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="0" ry="75" rz="90"/>
+		<hotspot name="spot_a_7_move_to_d_1" style="skin_hotspotstyle_circle" ath="8" atv="-0.999" depth="4050.0" linkedscene="scene_d_1" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="273.3694,-1.1550,120.00"
+		         url="%FIRSTXML%skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="-20" ry="15" rz="0"/>
+		<hotspot name="spot_a_7_move_to_a_8" style="skin_hotspotstyle_circle" ath="163.691" atv="9.78" depth="1500.0" linkedscene="scene_a_8" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-2696.8236,-5.2743,140.00"
+						 url="%FIRSTXML%skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
+		<hotspot name="poster_3" url="%FIRSTXML%video/poster_3.png" ath="80" atv="6.999"  depth="2050.0"  distorted="true" rx="00.0" ry="-10.0" rz="0.0" width="600" height="prop"/>
+		<hotspot name="cafe" url="%FIRSTXML%video/cafe.png" ath="5" atv="-0.999"  depth="4350.0"  distorted="true" rx=".0" ry="-0.0" rz="-5.0" width="600" height="prop"/>
+	</scene>
+
+	<scene name="scene_a_8" title="A_8" onstart="tween(layer[player].x,190,0.5,easeOutQuad); tween(layer[player].y,320,0.5,easeOutQuad" thumburl="%FIRSTXML%panos/A_8.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="%FIRSTXML%panos/A_8.tiles/preview.jpg" />
+
+		<image>
+			<cube url="%FIRSTXML%panos/A_8.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280,2560" />
+		</image>
+
+		<hotspot name="spot_a_8_move_to_a_7" style="skin_hotspotstyle_circle" ath="68.531" atv="12.676" depth="1000.0" linkedscene="scene_a_7" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-2894.6299,-0.3566,140.00"
+		         url="%FIRSTXML%skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
+		<hotspot name="spot_a_8_move_to_a_9" style="skin_hotspotstyle_circle" ath="-132.24" atv="17.722" depth="1000.0" linkedscene="scene_a_9" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-3015.9960,-3.4710,140.00"
+		         url="%FIRSTXML%skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
+
+	</scene>
+
+	<scene name="scene_a_9" title="A_9" onstart="tween(layer[player].x,40,0.5,easeOutQuad); tween(layer[player].y,120,0.5,easeOutQuad" thumburl="%FIRSTXML%panos/A_9.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="%FIRSTXML%panos/A_9.tiles/preview.jpg" />
+
+		<image>
+			<cube url="%FIRSTXML%panos/A_9.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280,2560" />
+		</image>
+
+		<hotspot name="spot_a_9_move_to_b_2" style="skin_hotspotstyle" ath="-172.265" atv="29.37" depth="1000.0" linkedscene="scene_b_2" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-3412.7900,6.7484,140.00"/>
+		<hotspot name="spot_a_9_move_to_c_1" style="skin_hotspotstyle_circle" ath="-97.538" atv="-8.602" depth="1000.0" linkedscene="scene_c_1" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-1910.9040,0.5784,140.00"
+						 url="%FIRSTXML%skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="20" ry="75" rz="00"/>
+		<hotspot name="spot_a_9_move_to_a_8" style="skin_hotspotstyle_circle" ath="66.261" atv="20.985" depth="1000.0" linkedscene="scene_a_8" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-3533.1706,0.1511,140.00"
+						 url="%FIRSTXML%skin/hotspot_bottom_blue.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
+
+	</scene>
+</krpano>

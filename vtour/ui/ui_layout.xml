@@ -1,0 +1,78 @@
+<krpano>
+        <!-- 음악 켜기/끄기 (재생/일시정지) 버튼 -->
+        <layer name="snd" 
+               url="%FIRSTXML%/skin/soundonoff.png"
+               align="leftbottom" x="20" y="20" 
+               zorder="99"
+               keep="true" 
+               alpha="0.5" scale="0.5" 
+               onover="tween(alpha,1);" onout="tween(alpha,0.5);"
+               crop="0|0|50|50"
+               onclick="pausesoundtoggle(bgsnd); switch(crop, 0|0|50|50, 0|50|50|50);"
+              />
+    
+        <!-- 창 크기 변화를 실시간으로 감지하여 크기와 위치를 계산하는 이벤트 -->
+        <events name="responsive_layout" keep="true"
+                onresize="
+                calc(uiscale, stagewidth / 1920);
+                if(uiscale GT 1.0, set(uiscale, 1.0));
+                if(uiscale LT 0.35, set(uiscale, 0.35));
+    
+                calc(btn_normal_scale, 0.5 * uiscale);
+                calc(btn_hover_scale, 0.65 * uiscale);
+                calc(map_scale, 0.3 * uiscale);
+                calc(btn_x, 20 * uiscale);
+                calc(btn_home_y, 20 * uiscale);
+                calc(btn_1_y, 180 * uiscale);
+                calc(btn_2_y, 340 * uiscale);    
+                
+                set(layer[btn_home].scale, get(btn_normal_scale));
+                set(layer[btn_home].x, get(btn_x));
+                set(layer[btn_home].y, get(btn_home_y));
+
+                set(layer[btn_1].scale, get(btn_normal_scale));
+                set(layer[btn_1].x, get(btn_x));
+                set(layer[btn_1].y, get(btn_1_y));
+
+                set(layer[btn_2].scale, get(btn_normal_scale));
+                set(layer[btn_2].x, get(btn_x));
+                set(layer[btn_2].y, get(btn_2_y));
+    
+                set(layer[minimap].scale, get(map_scale));
+                set(layer[minimap].x, get(btn_x));
+                " />
+        
+        <!-- 우측 상단 네비게이션 버튼들 -->
+        <layer name="btn_home"
+                url="%FIRSTXML%skin/button_start.png"
+                align="righttop" x="20" y="20" scale="0.5" keep="true"
+                onover="tween(scale, get(btn_hover_scale), 0.15, easeOutQuad);"
+                onout="tween(scale, get(btn_normal_scale), 0.15, easeOutQuad);"
+                onclick="loadscene(scene_a_1, null, MERGE, BLEND(1));" />
+            
+        <layer name="btn_1"
+                url="%FIRSTXML%skin/button_1.png"
+                align="righttop" x="20" y="180" scale="0.5" keep="true"
+                onover="tween(scale, get(btn_hover_scale), 0.15, easeOutQuad);"
+                onout="tween(scale, get(btn_normal_scale), 0.15, easeOutQuad);"
+                onclick="loadscene(scene_e_1, null, MERGE, BLEND(1));" />
+            
+        <layer name="btn_2"
+                url="%FIRSTXML%skin/button_2.png"
+                align="righttop" x="20" y="340" scale="0.5" keep="true"
+                onover="tween(scale, get(btn_hover_scale), 0.15, easeOutQuad);"
+                onout="tween(scale, get(btn_normal_scale), 0.15, easeOutQuad);"
+                onclick="loadscene(scene_a_9, null, MERGE, BLEND(1));" />
+        
+        <!-- 좌측 상단 미니맵 및 플레이어 아이콘 -->
+        <layer name="minimap"
+                url="%FIRSTXML%skin/minimap.png"
+                align="lefttop" x="20" y="00" scale="0.3" keep="true"
+                handcursor="false"/>
+    
+        <layer name="player"
+                parent="minimap"
+                url="%FIRSTXML%skin/me.png"
+                x="810" y="810" keep="true"
+                handcursor="false"/>
+</krpano>

@@ -1,0 +1,32 @@
+<krpano>
+        <!-- 사운드 인터페이스 플러그인 로드 (keep="true"로 씬 이동시에도 플러그인 유지) -->
+        <plugin name="soundinterface"
+                url="%VIEWER%/plugins/soundinterface.js"
+                rootpath=""
+                preload="true"
+                keep="true"
+                />
+    
+        <!-- 전역 배경음악 자동 재생 (keep="true"로 씬 이동시 꺼지지 않음) -->
+        <events name="global_bgsound"
+                keep="true"
+                onxmlcomplete="if(bgm_started !== true, playsound(bgsnd, '%FIRSTXML%/sound/bgm.mp3', 0); set(bgm_started, true););"
+                />
+        
+        <!-- 화면 클릭시 해당 ath, atv 위치 console에 찍히게 하는 디버깅 코드 -->
+        <events name="get_mouse_coords" keep="true"
+                onclick="
+                    screentosphere(mouse.x, mouse.y, click_ath, click_atv);
+                    roundval(click_ath, 3);
+                    roundval(click_atv, 3);
+                    calc(msg, 'ath=' + click_ath + ' / atv=' + click_atv);
+                    
+                    showtext(get(msg));
+                    js(console.log(get(msg)));
+                " />
+    
+        <!-- 애니메이션 스프라이트 프리로드 (씬 진입 시 대용량 텍스처 로딩으로 인한 렉 방지) -->
+        <plugin name="preload_gif_001" url="%FIRSTXML%/play/gif/001.png" keep="true" preload="true" visible="false" />
+        <plugin name="preload_gif_010" url="%FIRSTXML%/play/gif/010.png" keep="true" preload="true" visible="false" />
+        <plugin name="preload_gif_100" url="%FIRSTXML%/play/gif/100.png" keep="true" preload="true" visible="false" />
+</krpano>
