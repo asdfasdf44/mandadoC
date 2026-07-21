@@ -165,14 +165,16 @@
       				x="20"
        				y="00"
      				scale="0.3"
-	  				keep="true" />
+	  				keep="true"
+		  			handcursor="false"/>
 
 	<layer name="player"
      				 parent="minimap"
       				 url="skin/me.png"
       				 x="810"
       				 y="810"
-       				 keep="true" />
+       				 keep="true"
+		 		     handcursor="false"/>
 	 
 	<scene name="scene_a_1" title="A_1" onstart="tween(layer[player].x,865,0.5,easeOutQuad); tween(layer[player].y,960,0.5,easeOutQuad);" thumburl="panos/A_1.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
 		
