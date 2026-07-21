@@ -522,18 +522,17 @@
 		<hotspot name="spot_e_2_move_to_e_1" style="skin_hotspotstyle_circle" ath="149.988" atv="25.951" depth="1000.0" linkedscene="scene_e_1" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="59.2137,18.2003,120.00"
 		         url="skin/hotspot_bottom.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="15" ry="75" rz="90"/>
 
-		<hotspot name="expo_2_pi" url="skin/photo_icon.png" scale="0.07" ath="3.357" atv="-11.48" depth="1000.0" use3dtransition="false"
-						 onclick="image_popup_open('expo/expo_2.png', 2.5101, -8.5433, 54.82);"/>
+		<hotspot name="expo_E_2.2" url="skin/photo_icon.png" scale="0.07" ath="3.357" atv="-11.48" depth="1000.0" use3dtransition="false"
+						 onclick="image_popup_open('expo/E_2/E_2.2.png', 2.5101, -8.5433, 54.82);"/>
 
-		<hotspot name="expo_1_pi" url="skin/photo_icon.png" scale="0.07" ath="-21.691" atv="-6.562" depth="1000.0" use3dtransition="false"
-						 onclick="image_popup_open('expo/expo_1.png', -17.9570, 0.1929, 89.27);"/>
+		<hotspot name="expo_E_2.1" url="skin/photo_icon.png" scale="0.07" ath="-21.691" atv="-6.562" depth="1000.0" use3dtransition="false"
+						 onclick="image_popup_open('expo/E_2/E_2.1.png', -17.9570, 0.1929, 89.27);"/>
 
-		<hotspot name="expo_3_pi" url="skin/photo_icon.png" scale="0.07" ath="-35.942" atv="-1.865" depth="1000.0" use3dtransition="false" 
-						 onclick="image_popup_open('expo/expo_3.png', -34.6914, 0.4131, 54.68, 'http://www.jungindigo.com/shop/item.php?it_id=1478667357');"/>
-						 
+		<hotspot name="expo_E_2.3" url="skin/photo_icon.png" scale="0.07" ath="-35.942" atv="-1.865" depth="1000.0" use3dtransition="false" 
+						 onclick="image_popup_open('expo/E_2/E_2.3.png', -34.6914, 0.4131, 54.68, 'http://www.jungindigo.com/shop/item.php?it_id=1478667357', 'Buy');"/>
 
-		<hotspot name="expo_4_pi" url="skin/photo_icon.png" scale="0.07" ath="2.621" atv="14.318" depth="1000.0" use3dtransition="false" 
-						 onclick="image_popup_open('expo/expo_4.png', 5.2456, 19.0255, 66.70);"/>
+		<hotspot name="expo_E_2.4" url="skin/photo_icon.png" scale="0.07" ath="2.621" atv="14.318" depth="1000.0" use3dtransition="false" 
+						 onclick="image_popup_open('expo/E_2/E_2.4.png', 5.2456, 19.0255, 66.70);"/>
 						 
 		
 
@@ -558,6 +557,15 @@
 		<hotspot name="spot_001_puzzle" style="skin_hotspotstyle_puzzle_piece" ath="-128.224" atv="11.982" depth="1000.0" use3dtransition="false" 
 			       url="play/gif/001.png" onloaded="do_crop_animation(1400, 900, 25, 91)" onclick="collect_puzzle();"/>
 
+		<hotspot name="expo_E_3.1" url="skin/photo_icon.png" scale="0.07" ath="86.513" atv="6.652" depth="1000.0" use3dtransition="false"
+		         onclick="image_popup_open('expo/E_3/E_3.1.png', -246.7169, 25.7610, 98.43);"/>
+
+		<hotspot name="expo_E_3.2" url="skin/photo_icon.png" scale="0.07" ath="-78.303" atv="5.131" depth="1000.0" use3dtransition="false"
+						 onclick="image_popup_open('expo/E_3/E_3.2.png', -80.5183, 3.8553, 80.12);"/>
+
+		<hotspot name="expo_E_3.3" url="skin/photo_icon.png" scale="0.07" ath="-147.574" atv="-2.54" depth="1000.0" use3dtransition="false"
+						 onclick="image_popup_open('expo/E_3/E_3.3.png', -148.4415, -0.9765, 54.85);"/>
+
 	</scene>
 
 	<scene name="scene_e_4" title="E_4" onstart="" thumburl="panos/E_4.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
@@ -576,6 +584,15 @@
 		         url="skin/hotspot_bottom.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
 		<hotspot name="spot_e_4_move_to_e_5" style="skin_hotspotstyle_circle" ath="178.819" atv="15.311" depth="1000.0" linkedscene="scene_e_5" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="205.9311,5.4851,120.00"
 		         url="skin/hotspot_bottom.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
+
+		<hotspot name="expo_E_4.1" url="skin/photo_icon.png" scale="0.07" ath="94.138" atv="-26.459" depth="1000.0" use3dtransition="false"
+						 onclick="image_popup_open('expo/E_4/E_4.1.png', -276.9676, -16.0241, 84.62);"/>
+		<hotspot name="expo_E_4.2" url="skin/photo_icon.png" scale="0.07" ath="143.328" atv="-14.301" depth="1000.0" use3dtransition="false"
+		         onclick="image_popup_open('expo/E_4/E_4.2.png', -212.0616, -7.9716, 51.06);"/>
+		<hotspot name="expo_E_4.3_1" url="skin/photo_icon.png" scale="0.07" ath="-17.879" atv="-7.698" depth="1000.0" use3dtransition="false"
+		         onclick="image_popup_open('expo/E_4/E_4.3.png', 0.3294, -5.6696, 71.30);"/>
+		<hotspot name="expo_E_4.3_2" url="skin/photo_icon.png" scale="0.07" ath="-18.105" atv="9.546" depth="1000.0" use3dtransition="false"
+		         onclick="image_popup_open('expo/E_4/E_4.3.png', 1.9559, 17.8300, 71.30);"/>
 
 	</scene>
 
@@ -596,6 +613,11 @@
 		<hotspot name="spot_e_5_move_to_e_4" style="skin_hotspotstyle_circle" ath="53.381" atv="15.642" depth="1000.0" linkedscene="scene_e_4" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="37.2189,-1.5503,120.00"
 		         url="skin/hotspot_bottom.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="95"/>
 
+		<hotspot name="expo_E_5.1" url="skin/photo_icon.png" scale="0.07" ath="73.471" atv="-19.114" depth="1000.0"  use3dtransition="false"
+						 onclick="image_popup_open('expo/E_5/E_5.1.png', 78.0461, -9.5558, 66.81);"/>
+		<hotspot name="expo_E_5.2" url="skin/photo_icon.png" scale="0.07" ath="153.096" atv="-35.115" depth="1000.0" use3dtransition="false"
+						 onclick="image_popup_open('expo/E_5/E_5.2.png', 159.8813, -16.6437, 92.37);"/>
+
 	</scene>
 
 	<scene name="scene_e_6" title="E_6" onstart="" thumburl="panos/E_6.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
@@ -612,6 +634,13 @@
 
 		<hotspot name="spot_e_6_move_to_e_1" style="skin_hotspotstyle_circle" ath="-165.449" atv="31.1" depth="1000.0" linkedscene="scene_e_1" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="59.2137,18.2003,120.00"
 			       url="skin/hotspot_bottom.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
+
+		<hotspot name="expo_E_6.1" url="skin/photo_icon.png" scale="0.07" ath="-151.735" atv="-22.202" depth="1000.0" use3dtransition="false"
+						 onclick="image_popup_open('expo/E_6/E_6.1.png', 214.2048, -9.5798, 70.85);"/>
+		<hotspot name="expo_E_6.2" url="skin/photo_icon.png" scale="0.07" ath="-70.983" atv="-16.521" depth="1000.0" use3dtransition="false"
+						 onclick="image_popup_open('expo/E_6/E_6.2.png', 282.2288, -16.3396, 66.81);"/>
+		<hotspot name="expo_E_6.3" url="skin/photo_icon.png" scale="0.07" ath="-98.219" atv="-28.067" depth="1000.0" use3dtransition="false"
+						 onclick="image_popup_open('expo/E_6/E_6.3.png', 253.9768, -16.5481, 50.71, 'https://www.namdonews.com/news/articleView.html?idxno=909981', 'News');"/>
 
 	</scene>
 

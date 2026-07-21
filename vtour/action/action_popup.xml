@@ -58,22 +58,26 @@
             set(layer[img_popup_close_btn].alpha, 0.0); 
             set(layer[img_popup_close_btn].onclick, image_popup_close());
 
-			<!-- 구매 버튼 설정 부분 -->
+			<!-- 구매 버튼, 뉴스 버튼 설정 부분 -->
             if('%5' != 'null' AND '%5' != '',
-                addlayer(img_popup_buy_btn);
+                addlayer(img_popup_buy_news_btn);
                 
-                set(layer[img_popup_buy_btn].parent, 'img_popup_main');
+                set(layer[img_popup_buy_news_btn].parent, 'img_popup_main');
                 
-                set(layer[img_popup_buy_btn].type, 'image');
-                set(layer[img_popup_buy_btn].url, 'expo/buy.png');
-                set(layer[img_popup_buy_btn].scale, 0.8); 
-                set(layer[img_popup_buy_btn].align, 'rightbottom'); 
+                set(layer[img_popup_buy_news_btn].type, 'image');
+                if('%6' == 'News',
+                        set(layer[img_popup_buy_news_btn].url, 'expo/news_link.png');
+                    ,
+                        set(layer[img_popup_buy_news_btn].url, 'expo/buy.png');
+                    );
+                set(layer[img_popup_buy_news_btn].scale, 0.8); 
+                set(layer[img_popup_buy_news_btn].align, 'rightbottom'); 
                 
-                set(layer[img_popup_buy_btn].x, 339);
-                set(layer[img_popup_buy_btn].y, 50);
+                set(layer[img_popup_buy_news_btn].x, 339);
+                set(layer[img_popup_buy_news_btn].y, 50);
                 
-                set(layer[img_popup_buy_btn].alpha, 0.0);
-                set(layer[img_popup_buy_btn].onclick, openurl('%5', _blank));
+                set(layer[img_popup_buy_news_btn].alpha, 0.0);
+                set(layer[img_popup_buy_news_btn].onclick, openurl('%5', _blank));
             );
         </action>
     
@@ -103,20 +107,20 @@
                     copy(layer[img_popup_close_btn].y, close_y);
                 );
                 
-                if(layer[img_popup_buy_btn],
+                if(layer[img_popup_buy_news_btn],
                     mul(buy_scale, 1, scale_ratio);
-                    copy(layer[img_popup_buy_btn].scale, buy_scale);
+                    copy(layer[img_popup_buy_news_btn].scale, buy_scale);
                     mul(buy_x, 339, scale_ratio);
                     mul(buy_y, 50, scale_ratio);
-                    copy(layer[img_popup_buy_btn].x, buy_x);
-                    copy(layer[img_popup_buy_btn].y, buy_y);
+                    copy(layer[img_popup_buy_news_btn].x, buy_x);
+                    copy(layer[img_popup_buy_news_btn].y, buy_y);
                 );
                 
                 if(layer[img_popup_main].alpha == 0.0,
                     tween(layer[img_popup_bg].bgalpha, 0.8, 0.3);
                     tween(layer[img_popup_main].alpha, 1.0, 0.3);
                     tween(layer[img_popup_close_btn].alpha, 1.0, 0.3);
-                    if(layer[img_popup_buy_btn], tween(layer[img_popup_buy_btn].alpha, 1.0, 0.3));
+                    if(layer[img_popup_buy_news_btn], tween(layer[img_popup_buy_news_btn].alpha, 1.0, 0.3));
                 );
             );
         </action>
@@ -126,12 +130,12 @@
             
             tween(layer[img_popup_main].alpha, 0.0, 0.3);
             tween(layer[img_popup_close_btn].alpha, 0.0, 0.3);
-            if(layer[img_popup_buy_btn], tween(layer[img_popup_buy_btn].alpha, 0.0, 0.3));
+            if(layer[img_popup_buy_news_btn], tween(layer[img_popup_buy_news_btn].alpha, 0.0, 0.3));
 
             tween(layer[img_popup_bg].bgalpha, 0.0, 0.3, default,
                 removelayer(img_popup_main);
                 removelayer(img_popup_close_btn);
-                if(layer[img_popup_buy_btn], removelayer(img_popup_buy_btn));
+                if(layer[img_popup_buy_news_btn], removelayer(img_popup_buy_news_btn));
                 removelayer(img_popup_bg);
                 
                 lookto(get(global.popup_saved_h), get(global.popup_saved_v), get(global.popup_saved_fov), tween(easeOutQuad, 0.5));
