@@ -14,7 +14,16 @@
 		<hotspot name="spot_c_1_move_to_a_9" style="skin_hotspotstyle_circle" ath="-46.116" atv="19.955" depth="1000.0" linkedscene="scene_a_9" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-1672.3510,4.6544,140.00"
 						 url="%FIRSTXML%skin/hotspot_bottom.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
 		
-	    <hotspot name="c_1" url="%FIRSTXML%skin/photo_icon.png" scale="0.07" ath="53.097" atv="6.127" depth="1000.0" use3dtransition="false"
+	    <hotspot name="c_1" url="%FIRSTXML%skin/photo_icon.png" scale="0.07" ath="57.099" atv="2.799" depth="1000.0" use3dtransition="false"
 						 onclick="image_popup_open('%FIRSTXML%expo/C_1/1.png', -2110.5206,9.6611,54.89);"/>
+
+	    <hotspot name="c_2" url="%FIRSTXML%skin/photo_icon.png" scale="0.07" ath="172.792" atv="-5.997" depth="1000.0" use3dtransition="false"
+						 onclick="image_popup_open('%FIRSTXML%expo/C_1/1.png', -1995.3113,8.0457,47.48);"/>
+
+	    <hotspot name="c_3" url="%FIRSTXML%skin/photo_icon.png" scale="0.07" ath="102.383" atv="-6.429" depth="1000.0" use3dtransition="false"
+						 onclick="image_popup_open('%FIRSTXML%expo/C_1/1.png', -2065.7262,5.8781,51.06);"/>
+
+	    <hotspot name="c_4" url="%FIRSTXML%skin/photo_icon.png" scale="0.07" ath="-116.244" atv="-1.717" depth="1000.0" use3dtransition="false"
+						 onclick="image_popup_open('%FIRSTXML%expo/C_1/4.png', -1923.5788,1.4324,32.37);"/>
 	</scene>
 </krpano>
