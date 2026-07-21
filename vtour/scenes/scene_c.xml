@@ -25,5 +25,8 @@
 
 	    <hotspot name="c_4" url="%FIRSTXML%skin/photo_icon.png" scale="0.07" ath="-116.244" atv="-1.717" depth="1000.0" use3dtransition="false"
 						 onclick="image_popup_open('%FIRSTXML%expo/C_1/4.png', -1923.5788,1.4324,32.37);"/>
+
+	    <hotspot name="c_5" url="%FIRSTXML%skin/photo_icon.png" scale="0.07" ath="148.847" atv="-2.623" depth="1000.0" use3dtransition="false"
+						 onclick="image_popup_open('%FIRSTXML%expo/C_1/5.png', -2015.1435,3.7666,58.89);"/>
 	</scene>
 </krpano>
