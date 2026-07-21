@@ -52,6 +52,9 @@
 
 		<hotspot name="expo_E_2.4" url="%FIRSTXML%skin/photo_icon.png" scale="0.07" ath="2.621" atv="14.318" depth="1000.0" use3dtransition="false" 
 						 onclick="image_popup_open('%FIRSTXML%expo/E_2/E_2.4.png', 5.2456, 19.0255, 66.70);"/>
+
+		<hotspot name="add" url="%FIRSTXML%skin/photo_icon.png" scale="0.07" ath="-136.375" atv="-1.323" depth="1000.0" use3dtransition="false" 
+						 onclick="image_popup_open('%FIRSTXML%expo/E_2/add.png', -132.5605,-6.9924,88.070);"/>
 						 
 		
 
