@@ -157,9 +157,24 @@
 				   onover="tween(scale,0.65,0.15,easeOutQuad);"
 			       onout="tween(scale,0.5,0.15,easeOutQuad);"
 			
-			       onclick="loadscene(scene_c_1, null, MERGE, BLEND(1));" />
+			       onclick="loadscene(scene_a_9, null, MERGE, BLEND(1));" />
+	
+	 <layer name="minimap"
+      	 			url="skin/minimap.png"
+      			 	align="leftop"
+      				x="20"
+       				y="00"
+     				scale="0.3"
+	  				keep="true" />
 
-	<scene name="scene_a_1" title="A_1" onstart="" thumburl="panos/A_1.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+	<layer name="player"
+     				 parent="minimap"
+      				 url="skin/me.png"
+      				 x="810"
+      				 y="810"
+       				 keep="true" />
+	 
+	<scene name="scene_a_1" title="A_1" onstart="tween(layer[player].x,865,0.5,easeOutQuad); tween(layer[player].y,960,0.5,easeOutQuad);" thumburl="panos/A_1.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
@@ -182,7 +197,7 @@
 		
 	</scene>
 
-	<scene name="scene_a_2" title="A_2" onstart="" thumburl="panos/A_2.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+	<scene name="scene_a_2" title="A_2" onstart="tween(layer[player].x,690,0.5,easeOutQuad); tween(layer[player].y,810,0.5,easeOutQuad);" thumburl="panos/A_2.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
@@ -203,7 +218,7 @@
 
 	</scene>
 
-	<scene name="scene_a_3" title="A_3" onstart="" thumburl="panos/A_3.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+	<scene name="scene_a_3" title="A_3" onstart="onstart="tween(layer[player].x,555,0.5,easeOutQuad); tween(layer[player].y,810,0.5,easeOutQuad" thumburl="panos/A_3.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
@@ -222,7 +237,7 @@
 
 	</scene>
 
-	<scene name="scene_a_4" title="A_4" onstart="" thumburl="panos/A_4.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+	<scene name="scene_a_4" title="A_4" onstart="tween(layer[player].x,490,0.5,easeOutQuad); tween(layer[player].y,730,0.5,easeOutQuad" thumburl="panos/A_4.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
@@ -245,7 +260,7 @@
 
 	</scene>
 
-	<scene name="scene_a_5" title="A_5" onstart="" thumburl="panos/A_5.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+	<scene name="scene_a_5" title="A_5" onstart="tween(layer[player].x,310,0.5,easeOutQuad); tween(layer[player].y,730,0.5,easeOutQuad" thumburl="panos/A_5.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
@@ -270,7 +285,7 @@
 
 	</scene>
 
-	<scene name="scene_a_6" title="A_6" onstart="" thumburl="panos/A_6.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+	<scene name="scene_a_6" title="A_6" onstart="tween(layer[player].x,140,0.5,easeOutQuad); tween(layer[player].y,730,0.5,easeOutQuad" thumburl="panos/A_6.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
@@ -294,7 +309,7 @@
 	</scene>
 		
 
-	<scene name="scene_a_7" title="A_7" onstart="" thumburl="panos/A_7.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+	<scene name="scene_a_7" title="A_7" onstart="tween(layer[player].x,140,0.5,easeOutQuad); tween(layer[player].y,520,0.5,easeOutQuad" thumburl="panos/A_7.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
@@ -316,7 +331,7 @@
 		<hotspot name="cafe" url="video/cafe.png" ath="5" atv="-0.999"  depth="4350.0"  distorted="true" rx=".0" ry="-0.0" rz="-5.0" width="600" height="prop"/>
 	</scene>
 
-	<scene name="scene_a_8" title="A_8" onstart="" thumburl="panos/A_8.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+	<scene name="scene_a_8" title="A_8" onstart="tween(layer[player].x,190,0.5,easeOutQuad); tween(layer[player].y,320,0.5,easeOutQuad" thumburl="panos/A_8.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
@@ -335,7 +350,7 @@
 
 	</scene>
 
-	<scene name="scene_a_9" title="A_9" onstart="" thumburl="panos/A_9.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+	<scene name="scene_a_9" title="A_9" onstart="tween(layer[player].x,40,0.5,easeOutQuad); tween(layer[player].y,120,0.5,easeOutQuad" thumburl="panos/A_9.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
@@ -373,7 +388,7 @@
 
 	</scene>-->
 	
-	<scene name="scene_b_1" title="B_1" onstart="" thumburl="panos/B_1.tiles/thumb.jpg" lat="-90.00000000" lng="-180.00000000" alt="00.00" heading="0.0">
+	<scene name="scene_b_1" title="B_1" onstart="tween(layer[player].x,425,0.5,easeOutQuad); tween(layer[player].y,580,0.5,easeOutQuad);" thumburl="panos/B_1.tiles/thumb.jpg" lat="-90.00000000" lng="-180.00000000" alt="00.00" heading="0.0">
         
         <control bouncinglimits="calc:image.cube ? true : false" />
 
@@ -444,7 +459,7 @@
 
 	</scene>
 
-	<scene name="scene_d_1" title="D_1" onstart="" thumburl="panos/D_1.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+	<scene name="scene_d_1" title="D_1" onstart="tween(layer[player].x,0,-10.5,easeOutQuad); tween(layer[player].y,690,0.5,easeOutQuad" thumburl="panos/D_1.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
@@ -463,7 +478,7 @@
 
 	</scene>
 
-	<scene name="scene_e_1" title="E_1" onstart="" thumburl="panos/E_1.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+	<scene name="scene_e_1" title="E_1" onstart="tween(layer[player].x,720,-10.5,easeOutQuad); tween(layer[player].y,490,0.5,easeOutQuad" thumburl="panos/E_1.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
