@@ -589,10 +589,10 @@
 						 onclick="image_popup_open('expo/E_4/E_4.1.png', -276.9676, -16.0241, 84.62);"/>
 		<hotspot name="expo_E_4.2" url="skin/photo_icon.png" scale="0.07" ath="143.328" atv="-14.301" depth="1000.0" use3dtransition="false"
 		         onclick="image_popup_open('expo/E_4/E_4.2.png', -212.0616, -7.9716, 51.06);"/>
-		<hotspot name="expo_E_4.3_1" url="skin/photo_icon.png" scale="0.07" ath="-17.879" atv="-7.698" depth="1000.0" use3dtransition="false"
+		<hotspot name="expo_E_4.3_1" url="skin/photo_icon.png" scale="0.07" ath="-18.313" atv="-23.827" depth="1000.0" use3dtransition="false"
+		         onclick="image_popup_open('expo/E_4/E_4.3.png', 3.1513, -20.4724, 62.88);"/>
+		<hotspot name="expo_E_4.3_2" url="skin/photo_icon.png" scale="0.07" ath="-17.879" atv="-7.698" depth="1000.0" use3dtransition="false"
 		         onclick="image_popup_open('expo/E_4/E_4.3.png', 0.3294, -5.6696, 71.30);"/>
-		<hotspot name="expo_E_4.3_2" url="skin/photo_icon.png" scale="0.07" ath="-18.105" atv="9.546" depth="1000.0" use3dtransition="false"
-		         onclick="image_popup_open('expo/E_4/E_4.3.png', 1.9559, 17.8300, 71.30);"/>
 
 	</scene>
 
