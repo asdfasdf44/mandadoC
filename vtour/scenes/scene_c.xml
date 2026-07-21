@@ -1,5 +1,5 @@
 <krpano>
-  <scene name="scene_c_1" title="C_1" onstart="" thumburl="%FIRSTXML%panos/C_1.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+  <scene name="scene_c_1" title="C_1" onstart="" thumburl="%FIRSTXML%panos/C_1.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="155.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
