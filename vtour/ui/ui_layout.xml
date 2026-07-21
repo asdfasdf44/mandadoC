@@ -62,7 +62,7 @@
                 align="righttop" x="20" y="340" scale="0.5" keep="true"
                 onover="tween(scale, get(btn_hover_scale), 0.15, easeOutQuad);"
                 onout="tween(scale, get(btn_normal_scale), 0.15, easeOutQuad);"
-                onclick="loadscene(scene_a_9, null, MERGE, BLEND(1));" />
+                onclick="loadscene(scene_a_9, null, MERGE, BLEND(1)); skin_lookat(-132.1220, 11.1592, 140.00);" />
         
         <!-- 좌측 상단 미니맵 및 플레이어 아이콘 -->
         <layer name="minimap"
@@ -71,8 +71,17 @@
                 handcursor="false"/>
     
         <layer name="player"
-                parent="minimap"
-                url="%FIRSTXML%skin/me.png"
-                x="810" y="810" keep="true"
-                handcursor="false"/>
+                    type="container"
+                    parent="minimap"
+                    x="810" y="810" keep="true"
+                    handcursor="false">
+                    
+                    <!-- 상자 안에서 120픽셀 띄워져서 완벽하게 제자리 회전하는 실제 아이콘 -->
+                    <layer name="player_icon"
+                            url="%FIRSTXML%skin/player.png"
+                            align="lefttop" edge="center"
+                            x="120" y="120"
+                            scale="0.4"
+                            handcursor="false" />
+            </layer>
 </krpano>

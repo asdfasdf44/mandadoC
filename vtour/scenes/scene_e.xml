@@ -1,5 +1,5 @@
 <krpano>
-  <scene name="scene_e_1" title="E_1" onstart="tween(layer[player].x,720,0.5,easeOutQuad); tween(layer[player].y,490,0.5,easeOutQuad)" thumburl="%FIRSTXML%panos/E_1.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+  <scene name="scene_e_1" title="E_1" onstart="tween(layer[player].x,720,0.5,easeOutQuad); tween(layer[player].y,490,0.5,easeOutQuad)" thumburl="%FIRSTXML%panos/E_1.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="70.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
@@ -74,7 +74,7 @@
 		<hotspot name="spot_e_3_move_to_e_2" style="skin_hotspotstyle_circle" ath="47.836" atv="18.553" depth="1000.0" linkedscene="scene_e_2" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="145.4985,6.4739,120.00"
 		         url="%FIRSTXML%skin/hotspot_bottom.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
 		<hotspot name="spot_001_puzzle" style="skin_hotspotstyle_puzzle_piece" ath="-128.224" atv="11.982" depth="1000.0" use3dtransition="false" 
-			       url="%FIRSTXML%play/gif/001.png" onloaded="do_crop_animation(1400, 900, 25, 91)" onclick="collect_puzzle();"/>
+			       url="%FIRSTXML%play/001_p.png" onloaded="do_float_animation()" onclick="collect_puzzle();"/>
 
 		<hotspot name="expo_E_3.1" url="%FIRSTXML%skin/photo_icon.png" scale="0.07" ath="86.513" atv="6.652" depth="1000.0" use3dtransition="false"
 		         onclick="image_popup_open('%FIRSTXML%expo/E_3/E_3.1.png', -246.7169, 25.7610, 98.43);"/>
@@ -151,7 +151,7 @@
 			<cube url="%FIRSTXML%panos/E_6.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280,2560" />
 		</image>
 
-		<hotspot name="spot_e_6_move_to_e_1" style="skin_hotspotstyle_circle" ath="-165.449" atv="31.1" depth="1000.0" linkedscene="scene_e_1" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="59.2137,18.2003,120.00"
+		<hotspot name="spot_e_6_move_to_e_1" style="skin_hotspotstyle_circle" ath="-172.449" atv="31.1" depth="1000.0" linkedscene="scene_e_1" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="59.2137,18.2003,120.00"
 			       url="%FIRSTXML%skin/hotspot_bottom.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
 
 		<hotspot name="expo_E_6.1" url="%FIRSTXML%skin/photo_icon.png" scale="0.07" ath="-151.735" atv="-22.202" depth="1000.0" use3dtransition="false"
@@ -197,7 +197,7 @@
 		<hotspot name="spot_e_8_move_to_e_7" style="skin_hotspotstyle_circle" ath="80.962" atv="23.827" depth="1000.0" linkedscene="scene_e_7" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="151.1704,22.8853,120.00"
 						 url="%FIRSTXML%skin/hotspot_bottom.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="20" ry="75" rz="90"/>
 		<hotspot name="spot_100_puzzle" style="skin_hotspotstyle_puzzle_piece" ath="-83.567" atv="11.731" depth="1000.0" use3dtransition="false" 
-			       url="%FIRSTXML%play/gif/100.png" onloaded="do_crop_animation(1400, 900, 25, 91)" onclick="collect_puzzle();"/>
+			       url="%FIRSTXML%play/100_p.png" onloaded="do_float_animation()" onclick="collect_puzzle();"/>
 
 	</scene>
 </krpano>

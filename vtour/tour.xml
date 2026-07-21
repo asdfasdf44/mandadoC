@@ -1,6 +1,7 @@
 ﻿<krpano version="1.24" title="Virtual Tour">
 
 	<include url="skin/vtourskin.xml" />
+	<layer name="skin_control_bar" visible="false"/>
 	
 	<!-- 기능별 모듈 Include -->
 	<include url="action/action_animation.xml" />
@@ -9,8 +10,12 @@
 
 	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
 	 <!-- loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)" 이게 기본 값, 지금은 바꿔둔 값-->
-	<!-- maps, thumbs 나중에 false로 바꾸기, 배경 투명은 (design_bgalpha,design_bgshadow 값 0 으로)-->
-	<skin_settings maps="true"
+	<!-- maps, thumbs 나중에 false로 바꾸기, 배경 투명은 (design_bgalpha,design_bgshadow 값 0 으로) 
+	design_bgalpha="0.8" 							
+	controlbar_height="40"
+	               controlbar_offset="20"
+	               controlbar_offset_closed="-40"-->
+	<skin_settings maps="false"
 	               maps_type="openstreetmaps"
 	               maps_bing_api_key=""
 	               maps_google_api_key=""
@@ -47,14 +52,14 @@
 	               layout_width="100%"
 	               layout_maxwidth="814"
 	               controlbar_width="-24"
-	               controlbar_height="40"
-	               controlbar_offset="20"
-	               controlbar_offset_closed="-40"
+	               controlbar_height="0"
+	               controlbar_offset="0"
+	               controlbar_offset_closed="0"
 	               controlbar_overlap.no-fractionalscaling="10"
 	               controlbar_overlap.fractionalscaling="0"
 	               design_skin_images="vtourskin.png"
 	               design_bgcolor="0x2D3E50"
-	               design_bgalpha="0.8"
+	               design_bgalpha="0"
 	               design_bgborder="0"
 	               design_bgroundedge="1"
 	               design_bgshadow="0 4 10 0x000000 0.3"

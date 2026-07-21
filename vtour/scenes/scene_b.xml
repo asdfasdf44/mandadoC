@@ -1,5 +1,5 @@
 <krpano>
-  <scene name="scene_b_1" title="B_1" onstart="tween(layer[player].x,425,0.5,easeOutQuad); tween(layer[player].y,580,0.5,easeOutQuad);" thumburl="%FIRSTXML%panos/B_1.tiles/thumb.jpg" lat="-90.00000000" lng="-180.00000000" alt="00.00" heading="0.0">
+  <scene name="scene_b_1" title="B_1" onstart="tween(layer[player].x,425,0.5,easeOutQuad); tween(layer[player].y,580,0.5,easeOutQuad);" thumburl="%FIRSTXML%panos/B_1.tiles/thumb.jpg" lat="-90.00000000" lng="-180.00000000" alt="00.00" heading="95.0">
         
         <control bouncinglimits="calc:image.cube ? true : false" />
 

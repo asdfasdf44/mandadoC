@@ -1,5 +1,5 @@
 <krpano>
-  <scene name="scene_d_1" title="D_1" onstart="tween(layer[player].x,0,0.5,easeOutQuad); tween(layer[player].y,690,0.5,easeOutQuad" thumburl="%FIRSTXML%panos/D_1.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+  <scene name="scene_d_1" title="D_1" onstart="tween(layer[player].x,0,0.5,easeOutQuad); tween(layer[player].y,690,0.5,easeOutQuad" thumburl="%FIRSTXML%panos/D_1.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="-150.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
@@ -14,7 +14,7 @@
 		<hotspot name="spot_d_1_move_to_a_7" style="skin_hotspotstyle_circle" ath="136.993" atv="17.353" depth="1000.0" linkedscene="scene_a_7" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-20.9002,1.0530,120.00"
 		         url="%FIRSTXML%skin/hotspot_bottom.png" onloaded="do_crop_animation(512, 512, 30)" distorted="true" rx="30" ry="75" rz="90"/>
 		<hotspot name="spot_010_puzzle" style="skin_hotspotstyle_puzzle_piece" ath="-87.771" atv="17.055" depth="1000.0" use3dtransition="false" 
-			       url="%FIRSTXML%play/gif/010.png" onloaded="do_crop_animation(1400, 900, 25, 91)"/>
+			       url="%FIRSTXML%play/010_p.png" onloaded="do_float_animation()"/>
 
 	</scene>
 </krpano>

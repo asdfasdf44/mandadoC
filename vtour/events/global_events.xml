@@ -24,6 +24,10 @@
                     showtext(get(msg));
                     js(console.log(get(msg)));
                 " />
+
+        <!-- 플레이어 시선 방향 동기화 이벤트 -->
+        <events name="player_direction_update" keep="true"
+                onviewchange="calc(layer[player_icon].rotate, view.hlookat + scene[get(xml.scene)].heading);" />
     
         <!-- 애니메이션 스프라이트 프리로드 (씬 진입 시 대용량 텍스처 로딩으로 인한 렉 방지) -->
         <plugin name="preload_gif_001" url="%FIRSTXML%/play/gif/001.png" keep="true" preload="true" visible="false" />
