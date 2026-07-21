@@ -461,7 +461,7 @@
 
 	</scene>
 
-	<scene name="scene_d_1" title="D_1" onstart="tween(layer[player].x,0,-10.5,easeOutQuad); tween(layer[player].y,690,0.5,easeOutQuad" thumburl="panos/D_1.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+	<scene name="scene_d_1" title="D_1" onstart="tween(layer[player].x,0,0.5,easeOutQuad); tween(layer[player].y,690,0.5,easeOutQuad" thumburl="panos/D_1.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
