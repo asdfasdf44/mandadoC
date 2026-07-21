@@ -199,5 +199,9 @@
 		<hotspot name="spot_100_puzzle" style="skin_hotspotstyle_puzzle_piece" ath="-83.567" atv="11.731" depth="1000.0" use3dtransition="false" 
 			       url="%FIRSTXML%play/100_p.png" onloaded="do_float_animation()" onclick="collect_puzzle();"/>
 
+		<hotspot name="center" url="%FIRSTXML%skin/photo_icon.png" scale="0.07" ath="-14.092" atv="36.503" depth="1000.0" use3dtransition="false" 
+						 onclick="image_popup_open('%FIRSTXML%expo/E_8/cen.png', 318.5638,41.6261,113.94);"/>
+						 
+
 	</scene>
 </krpano>
