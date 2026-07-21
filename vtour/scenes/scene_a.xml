@@ -189,7 +189,7 @@
 
 		<hotspot name="spot_a_9_move_to_b_2" style="skin_hotspotstyle" ath="-172.265" atv="29.37" depth="1000.0" linkedscene="scene_b_2" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-3412.7900,6.7484,140.00"/>
 		
-		<hotspot name="spot_a_9_move_to_c_1" ath="-108.301" atv="-8.602" depth="1000.0" use3dtransition="false"
+		<hotspot name="text_2hit" ath="-108.301" atv="-8.602" depth="1000.0" use3dtransition="false"
 						 url="%FIRSTXML%expo/C_1/text_2hit.png" distorted="true"/> 
 		
 		<hotspot name="spot_a_9_move_to_a_8" style="skin_hotspotstyle_circle" ath="66.261" atv="20.985" depth="1000.0" linkedscene="scene_a_8" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-3533.1706,0.1511,140.00"
