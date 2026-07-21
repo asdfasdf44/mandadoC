@@ -218,7 +218,7 @@
 
 	</scene>
 
-	<scene name="scene_a_3" title="A_3" onstart="onstart="tween(layer[player].x,555,0.5,easeOutQuad); tween(layer[player].y,810,0.5,easeOutQuad" thumburl="panos/A_3.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+	<scene name="scene_a_3" title="A_3" onstart="tween(layer[player].x,555,0.5,easeOutQuad); tween(layer[player].y,810,0.5,easeOutQuad" thumburl="panos/A_3.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
