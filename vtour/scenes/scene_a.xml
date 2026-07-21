@@ -130,7 +130,7 @@
     	
 		<hotspot name="poster_1" url="%FIRSTXML%video/poster_1.png" ath="160.111" atv="-8.999" depth="1600.0" onclick="openurl('https://docs.google.com/forms/d/e/1FAIpQLSc-B-jENQHy9bC6ASZZU9aGoDndRuYuJtiv-IExGjBYbYPWng/viewform?usp=header', _blank);" distorted="true" rx="0.0" ry="00.0" rz="000.0" width="600" height="prop"/>
 		<hotspot name="poster_2" url="%FIRSTXML%video/poster_2.png" ath="120" atv="-6.999" depth="2050.0" onclick="openurl('http://www.jungindigo.com/shop/list.php?ca_id=10', _blank);" distorted="true" rx="0.0" ry="40.0" rz="-5.0" width="600" height="prop"/>
-		<hotspot name="poster_3" url="%FIRSTXML%video/poster_G.png" ath="250" atv="-10.999" depth="1200.0"  distorted="true" rx="0.0" ry="100" rz="0" width="600" height="prop"/>
+		<hotspot name="poster_3" url="%FIRSTXML%video/poster_G.png" ath="250" atv="-10.999" depth="1200.0"  distorted="true" rx="0.0" ry="-80" rz="0" width="600" height="prop"/>
 	
 		
 	</scene>
