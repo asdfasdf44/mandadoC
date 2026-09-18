@@ -95,8 +95,8 @@ let down;
 r.domElement.addEventListener('pointerdown',e=>{if(!movement)down=[e.clientX,e.clientY]});
 r.domElement.addEventListener('pointercancel',()=>down=null);
 r.domElement.addEventListener('pointerup',e=>{if(down&&!movement&&Math.hypot(e.clientX-down[0],e.clientY-down[1])<6){const h=hit(e);if(h?.object.userData.item!==undefined)openItem(h.object.userData.item);else if(h?.object===floorMesh)walk(h.point)}down=null});
-r.domElement.addEventListener('pointermove',e=>{if(movement)return;const h=hit(e);const floor=h?.object===floorMesh;r.domElement.style.cursor=h&&(h.object.userData.item!==undefined||floor)?'pointer':'grab';moveMarker.visible=floor&&!down;if(moveMarker.visible)moveMarker.position.set(h.point.x,-.028,h.point.z)});
-r.domElement.addEventListener('pointerleave',()=>{if(!movement)moveMarker.visible=false});
+r.domElement.addEventListener('pointermove',e=>{if(movement)return;const h=hit(e);const floor=h?.object===floorMesh,hoveredItem=h?.object.userData.item;const rect=r.domElement.getBoundingClientRect(),relativeX=(e.clientX-rect.left)/rect.width-.5,relativeY=(e.clientY-rect.top)/rect.height-.5;models.forEach((m,i)=>{const hovered=i===hoveredItem;m.userData.tiltX=hovered?-relativeY*.26:0;m.userData.tiltY=hovered?.12+relativeX*.34:.12});r.domElement.style.cursor=h&&(h.object.userData.item!==undefined||floor)?'pointer':'grab';moveMarker.visible=floor&&!down;if(moveMarker.visible)moveMarker.position.set(h.point.x,-.028,h.point.z)});
+r.domElement.addEventListener('pointerleave',()=>{if(!movement)moveMarker.visible=false;models.forEach(m=>{m.userData.tiltX=0;m.userData.tiltY=.12})});
 r.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();$('#loading').hidden=false;$('#loading').textContent='3D 화면 연결이 끊겼습니다. 페이지를 새로고침해 주세요.'});
 r.setAnimationLoop(()=>{
  if(movement){
@@ -107,7 +107,7 @@ r.setAnimationLoop(()=>{
   camera.lookAt(controls.target);
   if(t===1){const wasHome=movement.home;movement=null;controls.enabled=true;controls.enableDamping=true;moveMarker.visible=false;$('#walk-status').textContent=wasHome?'':'이동했습니다. 바닥을 누르면 다시 이동할 수 있어요.';controls.update()}
  }else controls.update();
- const time=performance.now()*.001;models.forEach(m=>{m.position.y=m.userData.floatBaseY+Math.sin(time*.9+m.userData.floatPhase)*.055}); r.render(scene,camera);if(dialog.open){vcontrols.update();vr.render(vs,vc)}
+ const time=performance.now()*.001;models.forEach(m=>{m.position.y=m.userData.floatBaseY+Math.sin(time*.9+m.userData.floatPhase)*.055;m.rotation.x+=((m.userData.tiltX??0)-m.rotation.x)*.12;m.rotation.y+=((m.userData.tiltY??.12)-m.rotation.y)*.12}); r.render(scene,camera);if(dialog.open){vcontrols.update();vr.render(vs,vc)}
 })}
 
 document.querySelectorAll('[data-item]').forEach(b=>b.onclick=()=>openItem(+b.dataset.item));$('#home').onclick=()=>home();$('#close').onclick=close;dialog.addEventListener('close',()=>lastFocus?.focus());$('#next').onclick=()=>openItem(selected+1);$('#previous').onclick=()=>openItem(selected-1);$('#front').onclick=()=>{vc.position.set(0,.08,3.8);vcontrols.target.set(0,0,0);vcontrols.update()};$('#back').onclick=()=>{vc.position.set(0,.08,-3.8);vcontrols.target.set(0,0,0);vcontrols.update()};$('#auto').onclick=()=>{vcontrols.autoRotate=!vcontrols.autoRotate;$('#auto').setAttribute('aria-pressed',String(vcontrols.autoRotate))};addEventListener('resize',resize);dialog.addEventListener('keydown',e=>{if(e.key==='ArrowRight')openItem(selected+1);if(e.key==='ArrowLeft')openItem(selected-1)});init().catch(e=>{console.error(e);$('#loading').hidden=false;$('#loading').textContent='3D 전시실을 열지 못했습니다. WebGL을 지원하는 브라우저에서 새로고침해 주세요.'});
