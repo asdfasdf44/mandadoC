@@ -1,0 +1,143 @@
+/* All overrides are touch-only. Desktop layout and game coordinates stay intact. */
+@media (pointer: coarse) and (max-width: 1366px) {
+  body { -webkit-text-size-adjust: 100%; }
+  button, a { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+  :root {
+    --mobile-top: max(8px, env(safe-area-inset-top));
+    --mobile-right: max(8px, env(safe-area-inset-right));
+    --mobile-bottom: max(8px, env(safe-area-inset-bottom));
+    --game-height: calc(100dvh - var(--mobile-top) - var(--mobile-bottom) - 16px);
+    --reward-size: clamp(40px, calc((100dvh - 44px) / 4), 52px);
+  }
+  #sticker-palette-background {
+    top: var(--mobile-top); right: var(--mobile-right);
+    width: calc(var(--reward-size) * 2 + 12px); height: calc(var(--reward-size) * 4 + 12px);
+  }
+  #sticker-palette, #sticker-palette-3, #sticker-palette-4, #sticker-palette-5,
+  #sticker-palette-1, #sticker-palette-6, #sticker-palette-7, #sticker-palette-10 {
+    width: var(--reward-size); height: var(--reward-size);
+    right: calc(var(--mobile-right) + 6px);
+  }
+  #sticker-palette, #sticker-palette-4, #sticker-palette-1, #sticker-palette-7 {
+    right: calc(var(--mobile-right) + var(--reward-size) + 6px);
+  }
+  #sticker-palette, #sticker-palette-3 { top: calc(var(--mobile-top) + 6px); }
+  #sticker-palette-4, #sticker-palette-5 { top: calc(var(--mobile-top) + 6px + var(--reward-size)); }
+  #sticker-palette-1, #sticker-palette-6 { top: calc(var(--mobile-top) + 6px + var(--reward-size) * 2); }
+  #sticker-palette-7, #sticker-palette-10 { top: calc(var(--mobile-top) + 6px + var(--reward-size) * 3); }
+  #screenshot-button, #sticker-trash, #tour-reset {
+    right: calc(var(--mobile-right) + var(--reward-size) * 2 + 20px);
+    width: 44px; height: 44px; border-radius: 9px;
+  }
+  #screenshot-button { top: var(--mobile-top); }
+  #screenshot-button img { width: 104px; height: 104px; }
+  #sticker-trash { top: calc(var(--mobile-top) + 52px); }
+  #tour-reset { top: calc(var(--mobile-top) + 104px); }
+  #sticker-trash svg, #tour-reset svg { width: 26px; height: 26px; }
+  #screenshot-status { top: calc(var(--mobile-top) + 156px); right: calc(var(--mobile-right) + var(--reward-size) * 2 + 20px); max-width: 200px; font-size: 12px; }
+  #icon-label { font-size: 12px; padding: 6px 9px; }
+
+  #puzzle-popup, #paint-popup, #runner-popup, #difference-popup,
+  #steak-popup, #ladder-popup, #dodge-popup, #color-popup,
+  #welcome-popup, #tutorial-popup, #sticker-delete-dialog {
+    box-sizing: border-box; z-index: 31000;
+    padding: calc(var(--mobile-top) + 8px) max(16px, env(safe-area-inset-right)) calc(var(--mobile-bottom) + 8px) max(16px, env(safe-area-inset-left));
+    overflow: auto; overscroll-behavior: contain;
+  }
+  #puzzle-panel, #paint-panel, #runner-panel, #difference-panel,
+  #steak-panel, #ladder-panel, #dodge-panel, #color-panel {
+    box-sizing: border-box; max-width: 100%; max-height: var(--game-height);
+  }
+  .puzzle-drag-preview { z-index: 40002; }
+  #puzzle-close, #paint-close, #runner-close, #difference-close,
+  #steak-panel #steak-close, #ladder-panel #ladder-close, #dodge-close, #color-close {
+    top: -8px; right: -8px; z-index: 5; width: 44px; height: 44px;
+    padding: 0; font-size: 30px; border-width: 0;
+  }
+  #puzzle-panel button:not(.puzzle-piece), #paint-panel button,
+  #runner-controls button, #difference-controls button,
+  #steak-panel button, #ladder-panel button, #dodge-controls button,
+  #color-start, #color-reward {
+    min-height: 44px; padding: 8px 12px; font-size: 14px; margin-top: 0;
+  }
+  #puzzle-buy, #paint-more, #runner-gift, #difference-buy, #steak-more, #dodge-watch, #color-more {
+    box-sizing: border-box; min-height: 44px; padding: 10px 12px; margin-top: 0;
+    font-size: 13px; line-height: 1.5; animation: none;
+  }
+  #welcome-panel { max-height: var(--game-height); overflow: auto; padding: 18px; width: min(520px, 100%); }
+  #welcome-panel p { font-size: 16px; line-height: 1.5; margin-bottom: 14px; }
+  #welcome-confirm { min-height: 44px; }
+  #tutorial-panel { max-height: var(--game-height); padding: 14px 44px 14px 16px; }
+  #tutorial-title { font-size: 18px; margin: 8px 0; }
+  #tutorial-description { font-size: 14px; margin: 8px auto 12px; line-height: 1.5; }
+  #tutorial-image { max-height: 32dvh; margin: 8px auto; }
+  #tutorial-navigation button { min-height: 44px; padding: 8px 16px; font-size: 14px; }
+  #tutorial-close { width: 44px; height: 44px; top: 0; right: 0; }
+  #sticker-delete-dialog > div { padding: 18px; }
+  #sticker-delete-dialog p { font-size: 16px; margin-bottom: 12px; }
+
+  @media (orientation: landscape) {
+    #puzzle-panel { display: grid; grid-template-columns: auto minmax(180px, 240px); gap: 8px 16px; align-items: center; }
+    #puzzle-board { grid-column: 1; grid-row: 1 / span 5; width: calc(var(--game-height) * .7075); }
+    #puzzle-controls, #puzzle-navigation, #puzzle-buy, #puzzle-reward { grid-column: 2; margin: 0; }
+    #puzzle-controls { flex-direction: column; gap: 6px; padding: 8px; }
+    #puzzle-message { font-size: 13px; line-height: 1.4; }
+    #puzzle-navigation { gap: 6px; }
+    #puzzle-navigation button { flex: 1; padding: 8px; }
+
+    #paint-panel { gap: 8px; }
+    #paint-panel > div { display: grid; grid-template-columns: auto minmax(150px, 210px); gap: 8px 12px; align-items: center; }
+    #paint-canvas { grid-column: 1; grid-row: 1 / span 3; width: min(38vw, calc((var(--game-height) - 8px) * .573)); }
+    #paint-status, #paint-more, #paint-reward { grid-column: 2; margin: 0; }
+    #paint-brush { width: 44px; height: 60px; }
+    #paint-brush svg { width: 26px; height: 26px; }
+
+    #runner-panel { width: min(100%, 1000px); display: grid; grid-template-columns: minmax(0, 1fr) 170px; gap: 10px; align-items: center; }
+    #runner-screen { grid-column: 1; grid-row: 1 / span 2; }
+    #runner-canvas { width: min(100%, calc(var(--game-height) * 2.045)); max-height: none; height: auto; margin: auto; }
+    #runner-controls { grid-column: 2; flex-direction: column; margin: 0; padding: 8px; gap: 8px; }
+    #runner-controls button { width: 100%; white-space: normal; }
+    #runner-gift { grid-column: 2; text-align: center; }
+
+    #difference-panel { width: min(100%, 1000px); padding: 8px 12px; display: grid; grid-template-columns: minmax(0, 1fr) 160px; gap: 6px 12px; }
+    #difference-help { grid-column: 1; font-size: 13px; margin: 0 8px 0 0; line-height: 1.4; }
+    #difference-images { grid-column: 1; grid-row: 2 / span 2; gap: 10px; align-items: center; }
+    #difference-images figure { width: min(45%, calc((var(--game-height) - 50px) * .707)); }
+    #difference-images figcaption { font-size: 12px; padding-bottom: 4px; }
+    #difference-controls { grid-column: 2; grid-row: 1 / span 2; flex-direction: column; margin: 0; gap: 6px; padding-right: 12px; }
+    #difference-controls p { font-size: 13px; }
+    #difference-controls button { width: 100%; }
+    #difference-footer { grid-column: 2; margin: 0; }
+    #difference-buy { width: 100%; text-align: center; }
+
+    #steak-panel { width: min(100%, 780px); display: grid; grid-template-columns: minmax(0, 1fr) 240px; gap: 6px 16px; padding: 10px 16px; align-items: center; }
+    #steak-image { grid-column: 1; grid-row: 1 / span 6; width: 100%; height: calc(var(--game-height) - 24px); max-height: none; }
+    #steak-panel > :not(#steak-image):not(#steak-close) { grid-column: 2; margin: 0; }
+    #steak-panel h2 { font-size: 16px; padding-right: 12px; }
+    #steak-timer { font-size: 28px; }
+    #steak-status { font-size: 13px; }
+
+    #ladder-panel { width: min(100%, 700px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(180px, 240px); gap: 6px 16px; padding: 10px; align-items: center; }
+    #ladder-choices { grid-column: 1; grid-row: 1; padding: 0; gap: 6px; }
+    #ladder-canvas { grid-column: 1; grid-row: 2 / span 5; width: min(100%, calc((var(--game-height) - 76px) * 1.071)); height: auto; max-height: none; margin: auto; }
+    #ladder-panel > :not(#ladder-choices):not(#ladder-canvas):not(#ladder-close) { grid-column: 2; margin: 0; }
+    #ladder-panel h2 { font-size: 18px; padding-right: 12px; }
+    #ladder-panel p { font-size: 13px; line-height: 1.4; }
+
+    #dodge-panel { width: min(100%, 950px); display: grid; grid-template-columns: minmax(0, 1fr) 180px; gap: 8px 14px; padding: 10px; align-items: center; }
+    #dodge-canvas { grid-column: 1; grid-row: 1 / span 3; width: min(100%, calc((var(--game-height) - 20px) * 1.4)); height: auto; max-height: none; margin: auto; }
+    #dodge-panel h2, #dodge-controls, #dodge-watch { grid-column: 2; margin: 0; }
+    #dodge-panel h2 { font-size: 16px; padding-right: 12px; }
+    #dodge-controls { flex-direction: column; gap: 8px; }
+    #dodge-status { font-size: 13px; line-height: 1.4; }
+    #dodge-controls button { width: 100%; }
+
+    #color-panel { width: min(100%, 740px); display: grid; grid-template-columns: auto minmax(190px, 240px); gap: 6px 16px; padding: 10px; align-items: center; }
+    #color-grid { grid-column: 1; grid-row: 1 / span 7; width: min(43vw, calc(var(--game-height) - 24px)); gap: 5px; }
+    #color-panel > :not(#color-grid):not(#color-close) { grid-column: 2; margin: 0; }
+    #color-panel h2 { font-size: 18px; padding-right: 12px; }
+    #color-panel p { font-size: 13px; line-height: 1.4; }
+    #color-grid .color-example { font-size: 12px; padding: 4px; }
+    #color-start, #color-reward { width: 100%; }
+  }
+}
