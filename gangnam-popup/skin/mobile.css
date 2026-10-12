@@ -167,6 +167,14 @@
   #sticker-delete-dialog p { font-size: 16px; margin-bottom: 12px; }
 
   @media (orientation: landscape) {
+    #tutorial-panel { display: grid; grid-template-columns: 40% minmax(0, 1fr); gap: 6px 14px; align-items: center; }
+    #tutorial-image { grid-column: 1; grid-row: 1 / span 4; width: 100%; height: calc(var(--game-height) - 32px); max-height: none; margin: 0; }
+    #tutorial-page, #tutorial-title, #tutorial-description, #tutorial-navigation { grid-column: 2; margin: 0; }
+    #tutorial-title { font-size: 16px; line-height: 1.35; }
+    #tutorial-description { font-size: 13px; line-height: 1.4; }
+    #tutorial-navigation { gap: 8px; }
+    #tutorial-panel:has(#tutorial-image[hidden]) { grid-template-columns: 1fr; }
+    #tutorial-panel:has(#tutorial-image[hidden]) > :not(#tutorial-close) { grid-column: 1; }
     #puzzle-panel > .mobile-game-aside, #paint-panel > div > .mobile-game-aside,
     #runner-panel > .mobile-game-aside, #difference-panel > .mobile-game-aside,
     #steak-panel > .mobile-game-aside, #ladder-panel > .mobile-game-aside,
