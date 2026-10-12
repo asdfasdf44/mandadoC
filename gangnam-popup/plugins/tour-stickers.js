@@ -288,7 +288,7 @@
             cancel();
             return;
         }
-        var blocked = hit && hit.closest('#sticker-palette, #sticker-palette-1, #sticker-palette-3, #sticker-palette-4, #sticker-palette-5, #sticker-palette-6, #sticker-palette-7, #sticker-palette-10, #sticker-trash, #tour-reset, #mobile-fullscreen-button, #screenshot-button, #puzzle-popup, #welcome-popup, #paint-popup, #runner-popup, #difference-popup, #steak-popup, #ladder-popup, #dodge-popup, #color-popup, #tutorial-popup');
+        var blocked = hit && hit.closest('#sticker-palette, #sticker-palette-1, #sticker-palette-3, #sticker-palette-4, #sticker-palette-5, #sticker-palette-6, #sticker-palette-7, #sticker-palette-10, #sticker-trash, #tour-reset, #mobile-fullscreen-button, #mexpo-back, #screenshot-button, #puzzle-popup, #welcome-popup, #paint-popup, #runner-popup, #difference-popup, #steak-popup, #ladder-popup, #dodge-popup, #color-popup, #tutorial-popup');
         if (!blocked && drag.scene === viewer.get('xml.scene') && event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom) {
             var point = viewer.actions.screentosphere((event.clientX - rect.left) * viewer.get('stagewidth') / rect.width, (event.clientY - rect.top) * viewer.get('stageheight') / rect.height);
             if (point && Number.isFinite(point.x) && Number.isFinite(point.y)) {

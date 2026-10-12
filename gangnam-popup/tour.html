@@ -318,10 +318,16 @@
 		#tutorial-navigation button { padding:12px 24px; border:0; border-radius:10px; background:#684489; color:white; font-size:17px; font-weight:bold; }
 		#tutorial-navigation button:disabled { opacity:.35; }
 		#tutorial-close { position:absolute; right:12px; top:10px; border:0; background:transparent; color:#684489; font-size:30px; }
+		#mexpo-back { position:fixed; top:max(16px, env(safe-area-inset-top)); left:max(16px, env(safe-area-inset-left)); z-index:30000; box-sizing:border-box; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; width:96px; min-height:68px; padding:10px 12px; border:1px solid #ead9ff; border-radius:12px; background:#261838e6; color:#fff; text-decoration:none; font-size:14px; line-height:1.3; box-shadow:0 3px 12px #0004; }
+		#mexpo-back strong { font-size:18px; letter-spacing:1px; }
+		#mexpo-back:hover { background:#684489; }
+		#mexpo-back:focus-visible { outline:3px solid #ffe278; outline-offset:3px; }
+		@media (pointer:coarse) and (max-width:1366px) { #mexpo-back { top:max(8px, env(safe-area-inset-top)); left:max(8px, env(safe-area-inset-left)); width:76px; min-height:54px; padding:7px; font-size:12px; border-radius:9px; } #mexpo-back strong { font-size:15px; } }
 	</style>
 	<link rel="stylesheet" href="skin/mobile.css?v=20261012-ladder-fix" />
 </head>
 <body>
+<a id="mexpo-back" href="https://mandadoc.com/" target="_top" aria-label="MEXPO 메인페이지로 돌아가기"><strong>MEXPO</strong><span>돌아가기</span></a>
 <svg width="0" height="0" aria-hidden="true" style="position:absolute;pointer-events:none"><defs><filter id="locked-sticker-outline" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB"><feMorphology in="SourceAlpha" operator="dilate" radius="2" result="expanded"/><feComposite in="expanded" in2="SourceAlpha" operator="out" result="edge"/><feFlood flood-color="#000" result="black"/><feComposite in="black" in2="edge" operator="in" result="outline"/><feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 .3 0" result="faded"/><feMerge><feMergeNode in="outline"/><feMergeNode in="faded"/></feMerge></filter></defs></svg>
 
 <script src="tour.js"></script>
@@ -545,6 +551,7 @@
 		});
 		document.addEventListener('fullscreenchange', function () {
 			var root = document.fullscreenElement || document.body;
+			root.appendChild(document.getElementById('mexpo-back'));
 			root.appendChild(cursor);
 			root.appendChild(document.getElementById('screenshot-button'));
 			root.appendChild(document.getElementById('screenshot-status'));
