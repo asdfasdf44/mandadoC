@@ -221,7 +221,8 @@
     #ladder-panel { width: min(100%, 700px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(180px, 240px); gap: 6px 16px; padding: 10px; align-items: center; }
     #ladder-choices { grid-column: 1; grid-row: 1; padding: 0; gap: 6px; }
     #ladder-canvas { grid-column: 1; grid-row: 2 / span 5; width: min(100%, calc((var(--game-height) - 76px) * 1.071)); height: auto; max-height: none; margin: auto; }
-    #ladder-panel > :not(#ladder-choices):not(#ladder-canvas):not(#ladder-close) { grid-column: 2; margin: 0; }
+    #ladder-panel > h2, #ladder-panel > p,
+    #ladder-panel > button:not(#ladder-close), #ladder-panel > .mobile-game-aside { grid-column: 2; margin: 0; }
     #ladder-panel h2 { font-size: 18px; padding-right: 12px; }
     #ladder-panel p { font-size: 13px; line-height: 1.4; }
 
