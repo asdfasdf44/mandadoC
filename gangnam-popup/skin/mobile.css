@@ -47,6 +47,22 @@
   #puzzle-panel, #paint-panel, #runner-panel, #difference-panel,
   #steak-panel, #ladder-panel, #dodge-panel, #color-panel {
     box-sizing: border-box; max-width: 100%; max-height: var(--game-height);
+    color: #fff;
+    -webkit-text-fill-color: currentColor;
+  }
+  /* Fullscreen can reparent these panels beneath the viewer's black text color. */
+  #puzzle-message, #paint-status, #runner-status, #difference-help,
+  #difference-status, #steak-status, #ladder-status, #dodge-status, #color-status,
+  #steak-panel h2, #ladder-panel h2, #ladder-panel > p,
+  #dodge-panel h2, #color-panel h2, #color-panel > p {
+    color: #fff;
+  }
+  #color-heading, #steak-timer, #difference-images figcaption { color: #ead9ff; }
+  #puzzle-panel button:disabled, #paint-panel button:disabled,
+  #runner-controls button:disabled, #difference-controls button:disabled,
+  #steak-panel button:disabled, #ladder-panel button:disabled,
+  #dodge-controls button:disabled, #color-start:disabled, #color-reward:disabled {
+    opacity: .7;
   }
   .puzzle-drag-preview { z-index: 40002; }
   #puzzle-close, #paint-close, #runner-close, #difference-close,
