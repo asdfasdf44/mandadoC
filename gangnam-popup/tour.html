@@ -325,7 +325,7 @@
 		@media (pointer:coarse) and (max-width:1366px) { #mexpo-back { top:max(8px, env(safe-area-inset-top)); left:max(8px, env(safe-area-inset-left)); width:76px; min-height:54px; padding:7px; font-size:12px; border-radius:9px; } #mexpo-back strong { font-size:15px; } }
 	</style>
 	<link rel="stylesheet" href="skin/mobile.css?v=20261012-ladder-fix" />
-</head>
+<style>#info-hint{position:fixed;z-index:30001;padding:10px 14px;border:1px solid #ead9ff;border-radius:14px;background:linear-gradient(120deg,#fff,#eee0ff);color:#40235c;font-size:15px;font-weight:bold;box-shadow:0 4px 16px #0004;pointer-events:none;opacity:1;transition:opacity 1.2s ease}#info-hint[hidden]{display:none}#info-hint::after{content:"";position:absolute;bottom:-7px;left:calc(50% - 6px);width:12px;height:12px;background:#eee0ff;transform:rotate(45deg)}#info-hint.fading{opacity:0}</style><link rel="preload" as="image" href="skin/tuto1.png"><link rel="preload" as="image" href="skin/tuto2.png"><link rel="preload" as="image" href="skin/tuto3.png"></head>
 <body>
 <a id="mexpo-back" href="https://mandadoc.com/" target="_top" aria-label="MEXPO 메인페이지로 돌아가기"><strong>MEXPO</strong><span>돌아가기</span></a>
 <svg width="0" height="0" aria-hidden="true" style="position:absolute;pointer-events:none"><defs><filter id="locked-sticker-outline" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB"><feMorphology in="SourceAlpha" operator="dilate" radius="2" result="expanded"/><feComposite in="expanded" in2="SourceAlpha" operator="out" result="edge"/><feFlood flood-color="#000" result="black"/><feComposite in="black" in2="edge" operator="in" result="outline"/><feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 .3 0" result="faded"/><feMerge><feMergeNode in="outline"/><feMergeNode in="faded"/></feMerge></filter></defs></svg>
@@ -412,7 +412,7 @@
 <div id="tutorial-popup" role="dialog" aria-modal="true" aria-labelledby="tutorial-title" hidden>
 	<div id="tutorial-panel"><span id="tutorial-page">1 / 4</span><h2 id="tutorial-title" aria-live="polite"></h2><img id="tutorial-image" alt="" hidden /><p id="tutorial-description"></p><div id="tutorial-navigation"><button id="tutorial-previous" type="button">이전</button><button id="tutorial-next" type="button">다음</button></div><button id="tutorial-close" type="button" aria-label="튜토리얼 닫기">×</button></div>
 </div>
-<script src="plugins/tour-tutorial.js"></script>
+<script src="plugins/tour-tutorial.js?v=20261012-preload"></script>
 <div id="welcome-popup" role="dialog" aria-modal="true" aria-labelledby="welcome-message" hidden>
 	<div id="welcome-panel">
 		<p id="welcome-message">POP UP STORE 2026에 오신걸 환영합니다!<br>안에서 미니게임을 클리어하고<br>이모티콘을 획득하세요!!</p>
@@ -584,6 +584,7 @@
 
 <script src="plugins/tour-landscape.js"></script>
 <script src="plugins/tour-mobile-tools.js"></script>
-<script src="plugins/tour-mobile-layout.js"></script>
+<script src="plugins/tour-mobile-layout.js?v=20261012-info"></script>
+<script src="plugins/tour-info-hint.js"></script>
 </body>
 </html>

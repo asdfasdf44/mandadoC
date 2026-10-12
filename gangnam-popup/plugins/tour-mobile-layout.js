@@ -8,11 +8,12 @@
     for (var i = 0; i < count; i++) {
       var key = 'hotspot[' + i + ']';
       var url = String(viewer.get(key + '.url') || '');
-      if (!/(?:^|\/)icon\.png(?:\?|$)/.test(url) || viewer.get(key + '.mobile_scaled')) continue;
+      var info = /(?:^|\/)info(?:-cutout)?\.png(?:\?|$)/.test(url);
+      if ((!info && !/(?:^|\/)icon\.png(?:\?|$)/.test(url)) || viewer.get(key + '.mobile_scaled')) continue;
       var width = Number(viewer.get(key + '.width'));
       var height = Number(viewer.get(key + '.height'));
-      if (width > 0) viewer.set(key + '.width', width * .9);
-      if (height > 0) viewer.set(key + '.height', height * .9);
+      if (width > 0) viewer.set(key + '.width', width * (info ? .8 : .9));
+      if (height > 0) viewer.set(key + '.height', height * (info ? .8 : .9));
       viewer.set(key + '.mobile_scaled', true);
     }
   };

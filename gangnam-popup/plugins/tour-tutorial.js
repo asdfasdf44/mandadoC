@@ -9,7 +9,8 @@
         {title:'이모티콘을 배치하고\n사진을 찍어요!',image:'skin/tuto3.png',text:'획득한 이모티콘을 원하는 곳으로\n드래그해 꾸며보세요.\n카메라 버튼을 누르면\n사진을 다운로드할 수 있어요.'}
     ];
     var index=0,returnFocus;
-    function render(){var page=pages[index];title.textContent=page.title;description.textContent=page.text;counter.textContent=(index+1)+' / 4';image.hidden=!page.image;if(page.image){image.src=page.image;image.alt=page.title;}previous.disabled=index===0;next.textContent=index===3?'시작하기':'다음';}
+    pages.forEach(function(page){if(!page.image)return;page.preloaded=new Image();page.preloaded.id='tutorial-image';page.preloaded.alt=page.title;page.preloaded.decoding='sync';page.preloaded.src=page.image;if(page.preloaded.decode)page.preloaded.decode().catch(function(){});});
+    function render(){var page=pages[index];if(page.preloaded&&image!==page.preloaded){image.replaceWith(page.preloaded);image=page.preloaded;}title.textContent=page.title;description.textContent=page.text;counter.textContent=(index+1)+' / 4';image.hidden=!page.image;previous.disabled=index===0;next.textContent=index===3?'시작하기':'다음';}
     function dismiss(){popup.hidden=true;if(returnFocus&&returnFocus.focus)returnFocus.focus();}
     previous.addEventListener('click',function(){if(index>0){index--;render();}});
     next.addEventListener('click',function(){if(index===3){dismiss();return;}index++;render();});
