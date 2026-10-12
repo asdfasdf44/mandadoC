@@ -2,6 +2,24 @@
 #mobile-fullscreen-button { display: none; }
 @media (pointer: coarse) and (max-width: 1366px) {
   body { -webkit-text-size-adjust: 100%; }
+  #puzzle-panel, #paint-panel, #runner-panel, #difference-panel,
+  #steak-panel, #ladder-panel, #dodge-panel, #color-panel,
+  #welcome-panel, #tutorial-panel, #landscape-gate {
+    word-break: keep-all; overflow-wrap: anywhere; line-height: 1.45;
+  }
+  #puzzle-panel p, #paint-panel p, #difference-panel p,
+  #steak-panel h2, #ladder-panel h2, #ladder-panel p,
+  #dodge-panel h2, #dodge-panel p, #color-panel h2, #color-panel p,
+  #welcome-message, #tutorial-title, #tutorial-description {
+    text-wrap: pretty;
+  }
+  #puzzle-panel button, #paint-panel button, #runner-panel button,
+  #difference-panel button, #steak-panel button, #ladder-panel button,
+  #dodge-panel button, #color-panel button,
+  #puzzle-buy, #paint-more, #runner-gift, #difference-buy, #steak-more, #dodge-watch, #color-more {
+    white-space: normal; word-break: keep-all; overflow-wrap: anywhere;
+    text-wrap: balance; line-height: 1.35;
+  }
   button, a { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
   :root {
     --mobile-top: max(8px, env(safe-area-inset-top));
@@ -92,7 +110,28 @@
   }
   #puzzle-buy, #paint-more, #runner-gift, #difference-buy, #steak-more, #dodge-watch, #color-more {
     box-sizing: border-box; min-height: 44px; padding: 10px 12px; margin-top: 0;
-    font-size: 13px; line-height: 1.5; animation: none;
+    font-size: 13px; line-height: 1.45; font-weight: 700;
+    background: #ffe278; color: #382047; border: 1px solid #fff0ae;
+    box-shadow: 0 2px 8px #ffd35c40;
+    animation: mobile-link-nudge 3.8s ease-in-out infinite;
+    transform-origin: center;
+  }
+  #paint-more, #steak-more { animation-delay: .5s; }
+  #runner-gift, #dodge-watch { animation-delay: 1s; }
+  #difference-buy, #color-more { animation-delay: 1.5s; }
+  #puzzle-buy:hover, #paint-more:hover, #runner-gift:hover, #difference-buy:hover,
+  #steak-more:hover, #dodge-watch:hover, #color-more:hover {
+    background: #ffec9c; animation-play-state: paused;
+  }
+  @keyframes mobile-link-nudge {
+    0%, 76%, 100% { transform: translateX(0) rotate(0); }
+    80% { transform: translateX(-2px) rotate(-1deg); }
+    84% { transform: translateX(2px) rotate(1deg); }
+    88% { transform: translateX(-1px) rotate(-.5deg); }
+    92% { transform: translateX(1px) rotate(.5deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #puzzle-buy, #paint-more, #runner-gift, #difference-buy, #steak-more, #dodge-watch, #color-more { animation: none; }
   }
   #welcome-panel { max-height: var(--game-height); overflow: auto; padding: 18px; width: min(520px, 100%); }
   #welcome-panel p { font-size: 16px; line-height: 1.5; margin-bottom: 14px; }
@@ -140,7 +179,7 @@
     #difference-footer { grid-column: 2; margin: 0; }
     #difference-buy { width: 100%; text-align: center; }
 
-    #steak-panel { width: min(100%, 780px); display: grid; grid-template-columns: minmax(0, 1fr) 240px; gap: 6px 16px; padding: 10px 16px; align-items: center; }
+    #steak-panel { width: min(100%, 680px); display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 6px 12px; padding: 10px 12px; align-items: center; }
     #steak-image { grid-column: 1; grid-row: 1 / span 6; width: 100%; height: calc(var(--game-height) - 24px); max-height: none; }
     #steak-panel > :not(#steak-image):not(#steak-close) { grid-column: 2; margin: 0; }
     #steak-panel h2 { font-size: 16px; padding-right: 12px; }
@@ -162,13 +201,15 @@
     #dodge-status { font-size: 13px; line-height: 1.4; }
     #dodge-controls button { width: 100%; }
 
-    #color-panel { width: min(100%, 740px); display: grid; grid-template-columns: auto minmax(190px, 240px); gap: 6px 16px; padding: 10px; align-items: center; }
+    #color-panel { width: max-content; display: grid; grid-template-columns: auto minmax(190px, 220px); gap: 6px 12px; padding: 10px; align-items: center; }
     #color-grid { grid-column: 1; grid-row: 1 / span 7; width: min(43vw, calc(var(--game-height) - 24px)); gap: 5px; }
     #color-panel > :not(#color-grid):not(#color-close) { grid-column: 2; margin: 0; }
     #color-panel h2 { font-size: 18px; padding-right: 12px; }
     #color-panel p { font-size: 13px; line-height: 1.4; }
     #color-grid .color-example { font-size: 12px; padding: 4px; }
     #color-start, #color-reward { width: 100%; }
+    #steak-panel h2, #ladder-panel h2, #dodge-panel h2, #color-panel h2 { padding-right: 0; }
+    #difference-controls { padding-right: 0; }
     @media (max-height: 360px) {
       #color-panel { row-gap: 3px; }
       #color-panel h2 { font-size: 16px; }
