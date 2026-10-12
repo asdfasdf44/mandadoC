@@ -56,6 +56,10 @@
         if (progress >= .98) {
             cleared = true; canvas.classList.add('cleared');
             window.tourStickers.playEffect('clear');
+            if (window.matchMedia('(pointer: coarse)').matches) {
+                var bounds = canvas.getBoundingClientRect();
+                window.tourStickers.celebrateAt(bounds.left + bounds.width / 2, bounds.top + bounds.height / 2);
+            }
             reward.hidden = false; reward.disabled = window.tourStickers.isPaintUnlocked();
             reward.textContent = reward.disabled ? '이모티콘 획득 완료!' : '이모티콘 획득';
             status.textContent = '클리어! 그림을 모두 색칠했어요.';

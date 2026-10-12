@@ -48,6 +48,10 @@
     }
     function celebrate() {
         clearCelebration();
+        if (window.matchMedia('(pointer: coarse)').matches) {
+            var bounds = board.getBoundingClientRect();
+            window.tourStickers.celebrateAt(bounds.left + bounds.width / 2, bounds.top + bounds.height / 2);
+        }
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         sparkles = document.createElement('div');
         sparkles.className = 'puzzle-sparkles';

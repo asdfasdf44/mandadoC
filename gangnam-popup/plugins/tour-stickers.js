@@ -145,7 +145,10 @@
             for (var i = 0; i < 32; i++) {
                 var dot = document.createElement('span'); dot.className = 'sticker-burst-dot';
                 var angle = i * Math.PI * 2 / 32 + wave * .1;
-                var distance = Math.min(window.innerWidth * .35, 230) * (.65 + Math.random() * .35);
+                var radius = window.matchMedia('(pointer: coarse)').matches
+                    ? Math.min(window.innerWidth * .25, window.innerHeight * .36, 160)
+                    : Math.min(window.innerWidth * .35, 230);
+                var distance = radius * (.65 + Math.random() * .35);
                 dot.style.setProperty('--x', (Math.cos(angle) * distance) + 'px');
                 dot.style.setProperty('--y', (Math.sin(angle) * distance + 40) + 'px');
                 dot.style.setProperty('--spin', (Math.random() * 540) + 'deg');

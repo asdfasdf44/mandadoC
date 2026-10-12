@@ -91,6 +91,7 @@
     opacity: .7;
   }
   .puzzle-drag-preview { z-index: 40002; }
+  .sticker-burst { z-index: 40004; }
   #ladder-panel.ladder-miss { animation: none; }
   #puzzle-popup, #paint-popup, #runner-popup, #difference-popup,
   #steak-popup, #ladder-popup, #dodge-popup, #color-popup {

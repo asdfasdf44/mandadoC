@@ -15,6 +15,7 @@
         if(!running)return;var milliseconds=performance.now()-startedAt;cancel();
         var won=milliseconds>=9700&&milliseconds<=10300;
         window.tourStickers.playEffect(won?'clear':'lose');
+        if(won && window.matchMedia('(pointer: coarse)').matches){var bounds=image.getBoundingClientRect();window.tourStickers.celebrateAt(bounds.left+bounds.width/2,bounds.top+bounds.height/2);}
         cleared=won;reward.hidden=!won;reward.disabled=window.tourStickers.isSteakUnlocked();reward.textContent=reward.disabled?'이모티콘 획득 완료!':'이모티콘 획득';
         timer.textContent=(milliseconds/1000).toFixed(2)+'초';image.src=won?'skin/pop1_2.jpg':'skin/pop1_3.jpg';
         status.textContent=won?'클리어! 스테이크를 완벽하게 구웠어요!':milliseconds<9700?'조금 빨랐어요! 9.7~10.3초 사이에 멈추면 성공!':'조금 늦었어요! 9.7~10.3초 사이에 멈추면 성공!';
