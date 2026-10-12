@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>krpano - Day_3</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="mobile-web-app-capable" content="yes" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<style>
+		html { height:100%; }
+		body { height:100%; overflow:hidden; margin:0; padding:0; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#FFFFFF; background-color:#000000; }
+		@media (any-hover: hover) and (any-pointer: fine) {
+			html, body, body * { cursor:none !important; }
+		}
+		#tour-cursor { position:fixed; left:0; top:0; width:40px; height:40px; object-fit:contain; pointer-events:none; z-index:2147483647; display:none; transform:translate(-50%, -50%); }
+		#screenshot-button { position:absolute; top:max(20px, env(safe-area-inset-top)); right:max(20px, env(safe-area-inset-right)); z-index:10000; width:128px; height:128px; padding:4px; border:0; background:transparent; transition:transform .18s, filter .18s; }
+		#screenshot-button img { width:100%; height:100%; object-fit:contain; pointer-events:none; }
+		#screenshot-button:hover { transform:scale(1.08); filter:drop-shadow(0 0 8px #b58aff); }
+		#screenshot-button:active { transform:scale(.95); }
+		#screenshot-button:focus-visible { outline:3px solid #ead9ff; outline-offset:4px; }
+		#screenshot-button:disabled { opacity:.5; transform:none; }
+		#screenshot-status { position:absolute; top:calc(max(20px, env(safe-area-inset-top)) + 140px); right:20px; z-index:10000; max-width:280px; padding:10px 14px; border-radius:10px; background:#181020e6; font-size:14px; pointer-events:none; }
+		#puzzle-popup { position:absolute; inset:0; z-index:20000; display:flex; align-items:center; justify-content:center; padding:24px; box-sizing:border-box; background:rgba(12,8,20,.38); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px); }
+		#puzzle-popup[hidden] { display:none; }
+		#puzzle-panel { position:relative; max-width:100%; }
+		#puzzle-board { display:grid; grid-template-columns:repeat(2,1fr); grid-template-rows:repeat(2,1fr); width:min(520px, calc(100vw - 64px), 49vh); aspect-ratio:404 / 571; box-shadow:0 8px 24px #0005; }
+		.puzzle-piece { border:1px solid #ffffff70; padding:0; background-image:url('skin/pop2.png'); background-size:200% 200%; background-repeat:no-repeat; touch-action:none; user-select:none; }
+		.puzzle-piece:hover, .puzzle-piece:focus-visible { outline:3px solid #d8bdff; outline-offset:-3px; }
+		.puzzle-piece.selected { outline:4px solid #b58aff; outline-offset:-4px; }
+		.puzzle-piece.dragging { opacity:.3; }
+		.puzzle-piece.drop-target { outline:5px solid #ead9ff; outline-offset:-5px; }
+		.puzzle-drag-preview { position:fixed; z-index:20002; pointer-events:none; opacity:.9; box-shadow:0 8px 20px #0008; }
+		#puzzle-board.solved .puzzle-piece { border-color:transparent; }
+		#puzzle-board.solved { animation:puzzle-glow 1.8s ease-in-out 2; box-shadow:0 0 12px #ead9ff99, 0 0 28px #b58aff77, 0 8px 24px #0005; }
+		.puzzle-sparkles { position:absolute; inset:0; pointer-events:none; z-index:2; }
+		.puzzle-spark { position:absolute; color:#fff2bf; font-size:18px; opacity:0; text-shadow:0 0 8px #ead9ff; animation:puzzle-spark 1.3s ease-out forwards; }
+		.puzzle-firework { position:absolute; left:50%; top:50%; width:6px; height:6px; border-radius:50%; background:var(--burst-color); box-shadow:0 0 8px var(--burst-color); opacity:0; animation:puzzle-firework 1.15s cubic-bezier(.12,.65,.3,1) forwards; }
+		.puzzle-burst-ring { position:absolute; left:50%; top:50%; width:24px; height:24px; margin:-12px; border:2px solid #fff2bf; border-radius:50%; box-shadow:0 0 12px #b58aff; pointer-events:none; animation:puzzle-burst-ring .65s ease-out forwards; }
+		@keyframes puzzle-firework { 0% { opacity:0; transform:translate(-50%,-50%) scale(.3); } 12% { opacity:1; } 65% { opacity:1; } 100% { opacity:0; transform:translate(calc(-50% + var(--burst-x)),calc(-50% + var(--burst-y))) scale(.25); } }
+		@keyframes puzzle-burst-ring { 0% { opacity:1; transform:scale(.2); } 100% { opacity:0; transform:scale(7); } }
+		@keyframes puzzle-glow { 0%,100% { filter:brightness(1); } 50% { filter:brightness(1.12); box-shadow:0 0 20px #ead9ffcc, 0 0 44px #b58affaa, 0 8px 24px #0005; } }
+		@keyframes puzzle-spark { 0% { opacity:0; transform:translate(0,0) scale(.3); } 20% { opacity:1; } 100% { opacity:0; transform:translate(var(--spark-x),var(--spark-y)) rotate(90deg) scale(1.1); } }
+		@media (prefers-reduced-motion:reduce) { #puzzle-board.solved { animation:none; } .puzzle-spark, .puzzle-firework, .puzzle-burst-ring { animation:none; } }
+		#puzzle-controls { display:flex; align-items:center; justify-content:space-between; gap:12px; max-width:520px; margin-top:12px; padding:10px; border-radius:10px; background:#20152be6; }
+		#puzzle-message { margin:0; font-size:14px; }
+		#puzzle-shuffle { flex-shrink:0; border:1px solid #ead9ff; border-radius:8px; background:#684489; color:white; padding:10px 12px; }
+		#puzzle-shuffle:hover { background:#865bb1; }
+		#puzzle-navigation { display:flex; justify-content:space-between; gap:12px; margin-top:12px; }
+		#puzzle-navigation button { border:1px solid #ead9ff; border-radius:10px; padding:12px 18px; background:#684489; color:white; font-size:16px; font-weight:bold; }
+		#puzzle-navigation button:hover { background:#865bb1; }
+		#puzzle-navigation button[hidden] { display:none; }
+		#puzzle-next { margin-left:auto; white-space:nowrap; }
+		#puzzle-next:hover { background:#865bb1; }
+		#puzzle-next:active { transform:scale(.96); }
+		#puzzle-next:focus-visible { outline:3px solid #ead9ff; outline-offset:4px; }
+		#puzzle-next[hidden] { display:none; }
+		#puzzle-reward { display:block; width:100%; margin-top:12px; padding:14px; border:2px solid #fff; border-radius:12px; background:#865bb1; color:#fff; font-size:19px; font-weight:bold; box-shadow:0 0 18px #b58aff77; }
+		#puzzle-reward[hidden] { display:none; }
+		#sticker-palette { position:absolute; right:24px; top:164px; z-index:30000; width:120px; border:0; padding:0; background:transparent; touch-action:none; }
+		#sticker-palette img { position:relative; width:100%; display:block; pointer-events:none; }
+		#sticker-palette:disabled img { filter:url('#locked-sticker-outline'); }
+		#sticker-trash { position:absolute; top:calc(max(20px, env(safe-area-inset-top)) + 38px); right:calc(max(20px, env(safe-area-inset-right)) + 118px); z-index:30000; box-sizing:border-box; width:52px; height:52px; padding:12px; display:grid; place-items:center; border:1px solid #e5e5e5; border-radius:7px; background:#fff; color:#007dcc; box-shadow:0 2px 5px #0002; transition:background .15s, transform .15s, box-shadow .15s; }
+		#sticker-trash svg { width:26px; height:26px; pointer-events:none; }
+		#sticker-trash:hover { background:#edf6ff; transform:scale(1.08); }
+		#sticker-trash:active { transform:scale(.95); }
+		#sticker-trash:focus-visible { outline:3px solid #b58aff; outline-offset:4px; }
+		#tour-reset { position:absolute; top:calc(max(20px, env(safe-area-inset-top)) + 38px); right:calc(max(20px, env(safe-area-inset-right)) + 182px); z-index:30000; box-sizing:border-box; width:64px; height:52px; padding:5px; border:1px solid #e5e5e5; border-radius:7px; background:#fff; color:#007dcc; box-shadow:0 2px 5px #0002; font-size:13px; font-weight:bold; transition:background .15s, transform .15s; }
+		#tour-reset:hover { background:#edf6ff; transform:scale(1.08); }
+		#tour-reset:active { transform:scale(.95); }
+		#tour-reset:focus-visible { outline:3px solid #b58aff; outline-offset:4px; }
+		#sticker-delete-dialog { position:absolute; inset:0; z-index:40000; display:grid; place-items:center; padding:24px; background:#100a2080; }
+		#sticker-delete-dialog[hidden] { display:none; }
+		#sticker-delete-dialog > div { padding:28px; border-radius:18px; background:#fff; color:#40235c; text-align:center; box-shadow:0 8px 32px #0005; }
+		#sticker-delete-dialog p { margin:0 0 24px; font-size:20px; font-weight:bold; }
+		#sticker-delete-dialog button { margin:0 6px; padding:12px 28px; border:0; border-radius:10px; background:#684489; color:#fff; font-size:17px; }
+		#sticker-delete-no { background:#eee !important; color:#40235c !important; }
+		#sticker-trash.drop-active { background:#ffe3ed; color:#b52d61; transform:scale(1.12); box-shadow:0 0 18px #ff88b9; }
+		#sticker-palette:not(:disabled):hover { filter:drop-shadow(0 0 10px #b58aff); }
+		#sticker-layer { position:absolute; inset:0; pointer-events:none; z-index:9000; overflow:hidden; }
+		.tour-sticker { position:absolute; width:100px; height:100px; object-fit:contain; transform:translate(-50%,-50%); pointer-events:auto; touch-action:none; user-select:none; }
+		.sticker-burst { position:absolute; width:0; height:0; z-index:30002; pointer-events:none; }
+		.sticker-burst-dot { position:absolute; width:10px; height:10px; border-radius:3px; background:var(--color); box-shadow:0 0 12px var(--color); opacity:0; animation:sticker-burst-dot 1.4s cubic-bezier(.12,.65,.3,1) forwards; }
+		.sticker-burst-ring { position:absolute; width:40px; height:40px; margin:-20px; border:4px solid #fff2bf; border-radius:50%; box-shadow:0 0 22px #b58aff; animation:sticker-burst-ring .85s ease-out forwards; }
+		@keyframes sticker-burst-dot { 0% { opacity:0; transform:translate(-50%,-50%) scale(.2); } 10%,60% { opacity:1; } 100% { opacity:0; transform:translate(var(--x),var(--y)) rotate(var(--spin)) scale(.35); } }
+		@keyframes sticker-burst-ring { 0% { opacity:1; transform:scale(.1); } 100% { opacity:0; transform:scale(8); } }
+		@media (prefers-reduced-motion:reduce) { .sticker-burst { display:none; } }
+		#puzzle-buy { display:block; margin-top:12px; padding:13px 18px; border-radius:10px; background:#ffffff; color:#40235c; text-align:center; text-decoration:none; font-size:17px; font-weight:bold; transition:background .15s, transform .15s; }
+		#puzzle-buy:hover { background:#ead9ff; transform:translateY(-2px); }
+		#puzzle-buy:active { transform:translateY(0); }
+		#puzzle-buy:focus-visible { outline:3px solid #b58aff; outline-offset:3px; }
+		#screenshot-button, #screenshot-status { z-index:30000; }
+		#puzzle-close { position:absolute; top:-16px; right:-16px; z-index:1; width:56px; height:56px; padding:0; display:grid; place-items:center; border:3px solid #ffffff; border-radius:50%; color:#301541; background:#ffffff; box-shadow:0 3px 16px #0008; font-size:40px; font-weight:bold; line-height:1; transition:transform .15s, background .15s; }
+		#puzzle-close:hover { background:#ead9ff; transform:scale(1.1); }
+		#puzzle-close:active { transform:scale(.95); }
+		#puzzle-close:focus-visible { outline:3px solid #ead9ff; outline-offset:3px; }
+		#welcome-popup { position:absolute; inset:0; z-index:22000; display:flex; align-items:center; justify-content:center; padding:24px; background:#100a2066; backdrop-filter:blur(4px); }
+		#welcome-popup[hidden] { display:none; }
+		#welcome-panel { position:relative; width:min(680px, 100%); padding:36px 28px 24px; box-sizing:border-box; border:2px solid #ead9ff; border-radius:22px; background:#fff; color:#40235c; text-align:center; box-shadow:0 0 30px #b58aff77; }
+		#welcome-panel p { margin:0 0 24px; font-size:21px; line-height:1.7; font-weight:bold; word-break:keep-all; }
+		#welcome-confirm { border:0; border-radius:10px; padding:12px 36px; background:#684489; color:white; font-size:17px; }
+		#welcome-confirm:hover { background:#865bb1; }
+		#welcome-confirm:focus-visible { outline:3px solid #b58aff; outline-offset:4px; }
+		#icon-label { position:fixed; z-index:40001; padding:8px 13px; border:1px solid #d8bdff; border-radius:10px; background:#fff; color:#40235c; font-size:15px; font-weight:bold; white-space:nowrap; box-shadow:0 3px 14px #0004; pointer-events:none; }
+		#sticker-palette-3 { position:absolute; right:24px; top:296px; z-index:30000; width:120px; padding:0; border:0; background:transparent; touch-action:none; }
+		#sticker-palette-3 img { display:block; width:100%; pointer-events:none; }
+		#sticker-palette-3:disabled img { filter:url('#locked-sticker-outline'); }
+		#sticker-palette-3:not(:disabled):hover { filter:drop-shadow(0 0 10px #b58aff); }
+		#paint-popup { position:absolute; inset:0; z-index:22000; display:flex; align-items:center; justify-content:center; padding:24px; background:#100a2066; backdrop-filter:blur(4px); }
+		#paint-popup[hidden] { display:none; }
+		#paint-panel { position:relative; display:flex; align-items:center; gap:16px; max-width:100%; }
+		#paint-canvas { display:block; width:min(400px, 55vw, 36vh); height:auto; touch-action:none; border-radius:10px; box-shadow:0 8px 24px #0005; }
+		#paint-canvas.cleared { box-shadow:0 0 24px #ead9ff, 0 0 48px #b58aff; }
+		#paint-brush { width:62px; height:70px; border:2px solid #ead9ff; border-radius:14px; background:#fff; color:#684489; touch-action:none; font-size:14px; font-weight:bold; }
+		#paint-brush svg { width:34px; height:34px; display:block; margin:auto; pointer-events:none; }
+		#paint-brush.active { background:#ead9ff; box-shadow:0 0 16px #b58aff; }
+		#paint-status { margin:10px 0; padding:10px; border-radius:10px; background:#20152be6; font-size:14px; }
+		#paint-reward { width:100%; margin-top:12px; padding:12px; border:1px solid #fff; border-radius:10px; background:#865bb1; color:#fff; font-size:18px; font-weight:bold; }
+		#paint-reward[hidden] { display:none; }
+		#paint-more { display:block; margin-top:12px; padding:12px 14px; border-radius:10px; background:#fff; color:#40235c; text-align:center; text-decoration:none; font-size:16px; font-weight:bold; transition:background .15s, transform .15s; }
+		#paint-more:hover { background:#ead9ff; transform:translateY(-2px); }
+		#paint-more:focus-visible { outline:3px solid #b58aff; outline-offset:4px; }
+		#runner-gift { display:block; margin-top:10px; padding:12px 14px; border-radius:10px; background:#684489; color:#fff; text-align:center; text-decoration:none; font-size:16px; font-weight:bold; transition:background .15s, transform .15s; }
+		#runner-gift:hover { background:#865bb1; transform:translateY(-2px); }
+		#runner-gift:focus-visible { outline:3px solid #b58aff; outline-offset:4px; }
+		#paint-close { position:absolute; right:-16px; top:-16px; width:48px; height:48px; border:0; border-radius:50%; background:#fff; color:#40235c; font-size:34px; }
+		#paint-brush-preview { position:fixed; z-index:40002; width:40px; height:40px; pointer-events:none; color:#ead9ff; filter:drop-shadow(0 2px 3px #000); transform:translate(-20%,-80%); }
+		#runner-popup { position:absolute; inset:0; z-index:22000; display:flex; align-items:center; justify-content:center; padding:24px; background:#100a2066; backdrop-filter:blur(4px); }
+		#runner-popup[hidden] { display:none; }
+		#runner-panel { position:relative; width:min(900px, 90vw); }
+		#runner-canvas { width:100%; max-height:65vh; aspect-ratio:900 / 440; display:block; object-fit:contain; border:2px solid #ead9ff; border-radius:18px; box-sizing:border-box; touch-action:none; }
+		#runner-controls { margin-top:12px; padding:14px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; background:#20152be6; border-radius:12px; }
+		#runner-controls p { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+		#runner-controls button { border:1px solid #ead9ff; border-radius:10px; background:#684489; color:#fff; font-size:17px; font-weight:bold; padding:12px 18px; }
+		#runner-controls button:hover { background:#865bb1; }
+		#runner-controls button:disabled { opacity:.45; }
+		#runner-close { position:absolute; top:-16px; right:-16px; width:48px; height:48px; border:0; border-radius:50%; background:#fff; color:#40235c; font-size:34px; }
+		#sticker-palette-4 { position:absolute; right:24px; top:428px; z-index:30000; width:120px; padding:0; border:0; background:transparent; touch-action:none; }
+		#sticker-palette-4 img { display:block; width:100%; pointer-events:none; }
+		#sticker-palette-4:disabled img { filter:url('#locked-sticker-outline'); }
+		#sticker-palette-4:not(:disabled):hover { filter:drop-shadow(0 0 10px #b58aff); }
+		#runner-screen { position:relative; }
+		#runner-reward { display:block; margin:0; padding:12px 18px; border:2px solid #fff; border-radius:14px; background:#865bb1; color:#fff; white-space:nowrap; font-size:20px; font-weight:bold; box-shadow:0 0 24px #b58aff; }
+		#runner-reward[hidden] { display:none; }
+		#runner-reward:hover { background:#a278c9; }
+		#difference-popup { position:absolute; inset:0; z-index:22000; display:flex; align-items:center; justify-content:center; padding:24px; box-sizing:border-box; background:#100a2066; backdrop-filter:blur(4px); }
+		#difference-popup[hidden] { display:none; }
+		#difference-panel { position:relative; width:min(1050px, 92vw); padding:18px; border-radius:18px; background:#20152bf2; box-sizing:border-box; }
+		#difference-help { margin:0 36px 14px 0; text-align:center; font-size:18px; font-weight:bold; line-height:1.5; }
+		#difference-images { display:flex; justify-content:center; gap:16px; }
+		#difference-images figure { margin:0; width:min(45%, 40vh); min-width:0; }
+		#difference-images figcaption { padding-bottom:8px; text-align:center; font-size:14px; color:#ead9ff; }
+		#difference-original, #difference-canvas { display:block; width:100%; height:auto; border-radius:10px; touch-action:manipulation; }
+		#difference-controls { display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap; margin-top:14px; }
+		#difference-controls p { margin:0; font-size:15px; }
+		#difference-controls button { padding:12px 18px; border:1px solid #ead9ff; border-radius:10px; color:#fff; background:#684489; font-size:16px; font-weight:bold; }
+		#difference-controls button:hover { background:#865bb1; }
+		#difference-controls button:disabled { opacity:.5; }
+		#difference-close { position:absolute; top:-16px; right:-16px; width:48px; height:48px; border:0; border-radius:50%; color:#40235c; background:#fff; font-size:34px; }
+		#difference-panel.cleared { box-shadow:0 0 28px #b58aff; }
+		#sticker-palette-5 { position:absolute; right:24px; top:560px; z-index:30000; width:120px; padding:0; border:0; background:transparent; touch-action:none; }
+		#sticker-palette-5 img { display:block; width:100%; pointer-events:none; }
+		#sticker-palette-5:disabled img { filter:url('#locked-sticker-outline'); }
+		#sticker-palette-5:not(:disabled):hover { filter:drop-shadow(0 0 10px #b58aff); }
+		#difference-reward[hidden] { display:none; }
+		#difference-footer { margin-top:14px; display:flex; justify-content:flex-start; }
+		#difference-buy { padding:12px 18px; border-radius:10px; background:#fff; color:#40235c; font-size:16px; font-weight:bold; text-decoration:none; }
+		#difference-buy:hover { background:#ead9ff; }
+		#difference-buy:focus-visible { outline:3px solid #b58aff; outline-offset:4px; }
+		#sticker-palette-background { position:absolute; top:152px; right:12px; width:144px; height:540px; z-index:29999; pointer-events:none; border:1px solid #ffffff35; border-radius:14px; background:rgba(110,110,110,.42); box-sizing:border-box; }
+		#puzzle-buy, #paint-more, #runner-gift, #difference-buy { animation:shop-button-sway 3.6s ease-in-out infinite; }
+		#paint-more { animation-delay:.4s; }
+		#runner-gift { animation-delay:.8s; }
+		#difference-buy { animation-delay:1.2s; }
+		#puzzle-buy:hover, #paint-more:hover, #runner-gift:hover, #difference-buy:hover { animation-play-state:paused; }
+		@keyframes shop-button-sway { 0%,65%,100% { transform:translateX(0) rotate(0); } 72% { transform:translateX(-2px) rotate(-1deg); } 79% { transform:translateX(2px) rotate(1deg); } 86% { transform:translateX(-1px) rotate(-.5deg); } 93% { transform:translateX(1px) rotate(.5deg); } }
+		#puzzle-buy, #paint-more, #runner-gift, #difference-buy { animation:shop-button-entrance .85s ease-in-out 1, shop-button-sway 3.6s ease-in-out .85s infinite; }
+		@keyframes shop-button-entrance { 0%,100% { transform:translateX(0) rotate(0) scale(1); } 15% { transform:translateX(-10px) rotate(-4deg) scale(1.05); } 30% { transform:translateX(10px) rotate(4deg) scale(1.05); } 45% { transform:translateX(-8px) rotate(-3deg) scale(1.04); } 60% { transform:translateX(8px) rotate(3deg) scale(1.03); } 75% { transform:translateX(-4px) rotate(-1.5deg) scale(1.02); } 90% { transform:translateX(3px) rotate(1deg); } }
+		@media (prefers-reduced-motion:reduce) { #puzzle-buy, #paint-more, #runner-gift, #difference-buy { animation:none; } }
+		#steak-popup { position:absolute; inset:0; z-index:22000; display:flex; align-items:center; justify-content:center; padding:24px; box-sizing:border-box; background:#100a2066; backdrop-filter:blur(4px); }
+		#steak-popup[hidden] { display:none; }
+		#steak-panel { position:relative; width:min(540px, 86vw); padding:16px; border-radius:18px; background:#20152bf2; text-align:center; }
+		#steak-panel h2 { margin:0 20px 10px; font-size:21px; line-height:1.4; }
+		#steak-image { display:block; width:100%; height:auto; max-height:45vh; object-fit:contain; border-radius:12px; }
+		#steak-timer { display:block; margin:8px 0 4px; color:#ead9ff; font-size:32px; font-weight:bold; font-variant-numeric:tabular-nums; }
+		#steak-status { margin:6px 0 10px; font-size:15px; }
+		#steak-panel button { padding:12px 22px; border:1px solid #ead9ff; border-radius:10px; background:#684489; color:white; font-size:17px; font-weight:bold; }
+		#steak-panel button:hover { background:#865bb1; }
+		#steak-panel button[hidden] { display:none; }
+		#steak-panel #steak-close { position:absolute; right:-16px; top:-16px; width:48px; height:48px; padding:0; border:0; border-radius:50%; background:#fff; color:#40235c; font-size:34px; }
+		#steak-more { display:block; margin-top:10px; padding:11px 18px; border-radius:10px; background:#fff; color:#40235c; font-size:17px; font-weight:bold; text-align:center; text-decoration:none; animation:shop-button-entrance .85s ease-in-out 1, steak-button-sway 3s ease-in-out .85s infinite; }
+		#steak-more:hover { background:#ead9ff; animation-play-state:paused; }
+		#steak-more:focus-visible { outline:3px solid #b58aff; outline-offset:4px; }
+		@keyframes steak-button-sway { 0%,50%,100% { transform:translateX(0) rotate(0); } 60% { transform:translateX(-7px) rotate(-3deg); } 70% { transform:translateX(7px) rotate(3deg); } 80% { transform:translateX(-5px) rotate(-2deg); } 90% { transform:translateX(4px) rotate(1.5deg); } }
+		@media (prefers-reduced-motion:reduce) { #steak-more { animation:none; } }
+		#ladder-popup { position:absolute; inset:0; z-index:22000; display:flex; align-items:center; justify-content:center; padding:24px; box-sizing:border-box; background:#100a2066; backdrop-filter:blur(4px); }
+		#ladder-popup[hidden] { display:none; }
+		#ladder-panel { position:relative; width:min(450px,85vw); padding:20px; border-radius:18px; background:#20152bf2; text-align:center; }
+		#ladder-panel h2 { margin:0 0 10px; font-size:23px; }
+		#ladder-choices { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; padding:0 20px; }
+		#ladder-panel button { padding:11px 16px; border:1px solid #ead9ff; border-radius:10px; color:white; background:#684489; font-size:17px; font-weight:bold; }
+		#ladder-panel button:hover { background:#865bb1; }
+		#ladder-panel button:disabled { opacity:.45; }
+		#ladder-canvas { display:block; width:100%; height:auto; max-height:48vh; object-fit:contain; margin:10px 0; }
+		#ladder-status { margin:12px 0; font-size:16px; }
+		#ladder-panel #ladder-close { position:absolute; top:-16px; right:-16px; width:48px; height:48px; padding:0; border:0; border-radius:50%; background:#fff; color:#40235c; font-size:34px; }
+		#ladder-panel.ladder-miss { animation:ladder-miss-shake .7s ease-in-out; }
+		@keyframes ladder-miss-shake { 0%,100% { transform:translateX(0) rotate(0); } 10% { transform:translateX(-22px) rotate(-2deg); } 20% { transform:translateX(22px) rotate(2deg); } 35% { transform:translateX(-18px) rotate(-1.5deg); } 50% { transform:translateX(18px) rotate(1.5deg); } 65% { transform:translateX(-12px) rotate(-1deg); } 80% { transform:translateX(10px) rotate(.5deg); } 90% { transform:translateX(-5px); } }
+		@media (prefers-reduced-motion:reduce) { #ladder-panel.ladder-miss { animation:none; } }
+		#sticker-palette-10 { position:absolute; right:24px; top:692px; z-index:30000; width:120px; padding:0; border:0; background:transparent; touch-action:none; }
+		#sticker-palette-10 img { display:block; width:100%; pointer-events:none; }
+		#sticker-palette-10:disabled img { filter:url('#locked-sticker-outline'); }
+		#sticker-palette-10:not(:disabled):hover { filter:drop-shadow(0 0 10px #b58aff); }
+		#sticker-palette-background { height:672px; }
+		#ladder-reward[hidden] { display:none; }
+		@media (max-height:840px) { #sticker-palette, #sticker-palette-3, #sticker-palette-4, #sticker-palette-5, #sticker-palette-10 { width:88px; } #sticker-palette-3 { top:264px; } #sticker-palette-4 { top:364px; } #sticker-palette-5 { top:464px; } #sticker-palette-10 { top:564px; } #sticker-palette-background { width:112px; height:512px; } }
+		#sticker-palette-1 { position:absolute; right:24px; top:692px; z-index:30000; width:120px; padding:0; border:0; background:transparent; touch-action:none; }
+		#sticker-palette-1 img { display:block; width:100%; pointer-events:none; }
+		#sticker-palette-1:disabled img { filter:url('#locked-sticker-outline'); }
+		#sticker-palette-1:not(:disabled):hover { filter:drop-shadow(0 0 10px #b58aff); }
+		#sticker-palette-10 { top:824px; }
+		#sticker-palette-background { height:804px; }
+		@media (max-height:1000px) { #sticker-palette, #sticker-palette-3, #sticker-palette-4, #sticker-palette-5, #sticker-palette-1, #sticker-palette-10 { width:88px; } #sticker-palette-3 { top:264px; } #sticker-palette-4 { top:364px; } #sticker-palette-5 { top:464px; } #sticker-palette-1 { top:564px; } #sticker-palette-10 { top:664px; } #sticker-palette-background { width:112px; height:612px; } }
+		#dodge-popup { position:absolute; inset:0; z-index:22000; display:flex; align-items:center; justify-content:center; padding:24px; box-sizing:border-box; background:#100a2066; backdrop-filter:blur(4px); }
+		#dodge-popup[hidden] { display:none; }
+		#dodge-panel { position:relative; width:min(700px,88vw); background:#20152bf2; padding:16px; border-radius:18px; }
+		#dodge-panel h2 { text-align:center; margin:0 0 12px; font-size:23px; }
+		#dodge-canvas { display:block; width:100%; height:auto; max-height:60vh; object-fit:contain; border-radius:12px; touch-action:none; }
+		#dodge-controls { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:12px; }
+		#dodge-status { margin:0; font-size:14px; }
+		#dodge-start { padding:12px 20px; border:1px solid #ead9ff; border-radius:10px; color:#fff; background:#684489; font-size:17px; font-weight:bold; white-space:nowrap; }
+		#dodge-start[hidden] { display:none; }
+		#dodge-close { position:absolute; top:-16px; right:-16px; width:48px; height:48px; padding:0; border:0; border-radius:50%; color:#40235c; background:#fff; font-size:34px; }
+		#sticker-palette-6 { position:absolute; right:24px; top:824px; z-index:30000; width:120px; padding:0; border:0; background:transparent; touch-action:none; }
+		#sticker-palette-6 img { display:block; width:100%; pointer-events:none; }
+		#sticker-palette-6:disabled img { filter:url('#locked-sticker-outline'); }
+		#sticker-palette-6:not(:disabled):hover { filter:drop-shadow(0 0 10px #b58aff); }
+		#sticker-palette-10 { top:956px; }
+		#sticker-palette-background { height:936px; }
+		@media (max-height:1150px) { #sticker-palette, #sticker-palette-3, #sticker-palette-4, #sticker-palette-5, #sticker-palette-1, #sticker-palette-6, #sticker-palette-10 { width:72px; } #sticker-palette-3 { top:246px; } #sticker-palette-4 { top:328px; } #sticker-palette-5 { top:410px; } #sticker-palette-1 { top:492px; } #sticker-palette-6 { top:574px; } #sticker-palette-10 { top:656px; } #sticker-palette-background { width:96px; height:592px; } }
+		#dodge-reward { padding:12px 18px; border:1px solid #fff; border-radius:10px; background:#865bb1; color:white; font-size:17px; font-weight:bold; white-space:nowrap; }
+		#dodge-reward[hidden] { display:none; }
+		#dodge-reward:disabled { opacity:.5; }
+		#dodge-watch { display:block; margin-top:12px; padding:13px 18px; border-radius:10px; background:#fff; color:#40235c; text-align:center; text-decoration:none; font-size:17px; font-weight:bold; animation:shop-button-entrance .85s ease-in-out 1, shop-button-sway 3.6s ease-in-out .85s infinite; }
+		#dodge-watch:hover { background:#ead9ff; animation-play-state:paused; }
+		#dodge-watch:focus-visible { outline:3px solid #b58aff; outline-offset:4px; }
+		@media (prefers-reduced-motion:reduce) { #dodge-watch { animation:none; } }
+		#color-popup { position:absolute; inset:0; z-index:22000; display:flex; align-items:center; justify-content:center; padding:24px; box-sizing:border-box; background:#100a2066; backdrop-filter:blur(4px); }
+		#color-popup[hidden] { display:none; }
+		#color-panel { position:relative; width:min(440px,85vw); padding:20px; border-radius:18px; background:#20152bf2; text-align:center; }
+		#color-panel h2 { margin:0 0 10px; font-size:23px; }
+		#color-heading { display:flex; justify-content:space-between; margin:14px 0; font-weight:bold; color:#ead9ff; }
+		#color-grid { display:grid; gap:8px; width:100%; aspect-ratio:1; }
+		#color-grid button { border:0; border-radius:10px; padding:0; min-width:0; min-height:0; }
+		#color-grid button:focus-visible { outline:3px solid #fff; outline-offset:-5px; }
+		#color-grid .color-example { padding:10px; color:#fff; text-shadow:0 1px 4px #000b; font-size:16px; font-weight:bold; line-height:1.5; word-break:keep-all; }
+		#color-start { margin-top:12px; padding:12px 24px; border:1px solid #ead9ff; border-radius:10px; background:#684489; color:#fff; font-size:17px; font-weight:bold; }
+		#color-start[hidden] { display:none; }
+		#color-status { margin:14px 0 0; line-height:1.5; }
+		#color-close { position:absolute; top:-16px; right:-16px; width:48px; height:48px; border:0; border-radius:50%; background:#fff; color:#40235c; font-size:34px; }
+		#sticker-palette-7 { position:absolute; right:24px; top:956px; z-index:30000; width:120px; padding:0; border:0; background:transparent; touch-action:none; }
+		#sticker-palette-7 img { display:block; width:100%; pointer-events:none; }
+		#sticker-palette-7:disabled img { filter:url('#locked-sticker-outline'); }
+		#sticker-palette-7:not(:disabled):hover { filter:drop-shadow(0 0 10px #b58aff); }
+		#sticker-palette-10 { top:1088px; }
+		#sticker-palette-background { height:1068px; }
+		@media (max-height:1250px) { #sticker-palette, #sticker-palette-1, #sticker-palette-3, #sticker-palette-4, #sticker-palette-5, #sticker-palette-6, #sticker-palette-7, #sticker-palette-10 { width:64px; } #sticker-palette-3 { top:238px; } #sticker-palette-4 { top:312px; } #sticker-palette-5 { top:386px; } #sticker-palette-1 { top:460px; } #sticker-palette-6 { top:534px; } #sticker-palette-7 { top:608px; } #sticker-palette-10 { top:682px; } #sticker-palette-background { width:88px; height:606px; } }
+		#color-reward { display:block; margin:12px auto 0; padding:12px 20px; border:1px solid #fff; border-radius:10px; background:#865bb1; color:#fff; font-size:17px; font-weight:bold; }
+		#color-reward[hidden] { display:none; }
+		/* Two right-side columns: tools on the left, reward stickers on the right. */
+		:root { --sticker-slot:clamp(40px, calc((100dvh - 40px) / 8), 96px); --sticker-width:clamp(32px, calc((100dvh - 56px) / 8), 84px); }
+		#sticker-palette-background { top:12px; right:12px; width:calc(var(--sticker-width) + 20px); height:calc(var(--sticker-slot) * 8 + 16px); border-radius:12px; }
+		#sticker-palette, #sticker-palette-3, #sticker-palette-4, #sticker-palette-5, #sticker-palette-1, #sticker-palette-6, #sticker-palette-7, #sticker-palette-10 { right:22px; width:var(--sticker-width); height:var(--sticker-width); }
+		#sticker-palette img, #sticker-palette-3 img, #sticker-palette-4 img, #sticker-palette-5 img, #sticker-palette-1 img, #sticker-palette-6 img, #sticker-palette-7 img, #sticker-palette-10 img { width:100%; height:100%; object-fit:contain; }
+		#sticker-palette { top:20px; }
+		#sticker-palette-3 { top:calc(20px + var(--sticker-slot)); }
+		#sticker-palette-4 { top:calc(20px + var(--sticker-slot) * 2); }
+		#sticker-palette-5 { top:calc(20px + var(--sticker-slot) * 3); }
+		#sticker-palette-1 { top:calc(20px + var(--sticker-slot) * 4); }
+		#sticker-palette-6 { top:calc(20px + var(--sticker-slot) * 5); }
+		#sticker-palette-7 { top:calc(20px + var(--sticker-slot) * 6); }
+		#sticker-palette-10 { top:calc(20px + var(--sticker-slot) * 7); }
+		#screenshot-button { top:0; right:calc(var(--sticker-width) + 36px); width:128px; height:128px; }
+		#sticker-trash, #tour-reset { right:calc(var(--sticker-width) + 74px); width:52px; height:52px; }
+		#sticker-trash { top:108px; }
+		#tour-reset { top:172px; }
+		#screenshot-status { top:238px; right:calc(var(--sticker-width) + 40px); }
+		#color-more { display:block; margin-top:14px; padding:13px 18px; border-radius:10px; background:#fff; color:#40235c; text-align:center; text-decoration:none; font-size:17px; font-weight:bold; animation:shop-button-entrance .85s ease-in-out 1, shop-button-sway 3.6s ease-in-out .85s infinite; }
+		#color-more:hover { background:#ead9ff; animation-play-state:paused; }
+		#color-more:focus-visible { outline:3px solid #b58aff; outline-offset:4px; }
+		@media (prefers-reduced-motion:reduce) { #color-more { animation:none; } }
+		#sticker-layer .tour-sticker { transform-origin:center bottom; animation:placed-sticker-slime 3.2s ease-in-out infinite; animation-delay:var(--float-delay, 0s); }
+		@keyframes placed-sticker-slime { 0%,100% { transform:translate(-50%,-50%) scale(1,1); } 30% { transform:translate(-50%,-50%) scale(.95,1.08); } 65% { transform:translate(-50%,-50%) scale(1.06,.92); } }
+		@media (prefers-reduced-motion:reduce) { #sticker-layer .tour-sticker { animation:none; } }
+		#sticker-layer .tour-sticker[data-sticker-type="p10i"] { animation:none; transform:translate(-50%,-50%); }
+		#screenshot-button, #sticker-trash, #tour-reset { right:calc(var(--sticker-width) + 50px); box-sizing:border-box; width:80px; height:80px; padding:0; border:1px solid #e5e5e5; border-radius:12px; background:#fff; color:#007dcc; box-shadow:0 2px 5px #0002; display:grid; place-items:center; }
+		#screenshot-button { top:20px; overflow:hidden; }
+		#screenshot-button img { position:absolute; left:50%; top:50%; width:188px; height:188px; max-width:none; transform:translate(-50%,-50%); }
+		#sticker-trash { top:112px; }
+		#sticker-trash svg, #tour-reset svg { width:42px; height:42px; pointer-events:none; }
+		#tour-reset { top:204px; }
+		#screenshot-status { top:300px; }
+		#sticker-layer { opacity:0; visibility:hidden; }
+		#icon-label { max-width:min(300px, calc(100vw - 24px)); white-space:normal; line-height:1.5; word-break:keep-all; }
+		#copy-mandado-email { display:inline-grid; place-items:center; width:34px; height:34px; margin-left:8px; padding:5px; vertical-align:middle; border:1px solid #b58aff; border-radius:8px; background:#f5efff; color:#684489; }
+		#copy-mandado-email svg { width:22px; height:22px; pointer-events:none; }
+		#copy-mandado-email:hover { background:#ead9ff; }
+		#copy-email-status { display:block; margin-top:8px; font-size:14px; font-weight:normal; }
+		#tutorial-popup { position:absolute; inset:0; z-index:22000; display:grid; place-items:center; padding:24px; box-sizing:border-box; background:#100a2066; backdrop-filter:blur(4px); }
+		#tutorial-popup[hidden] { display:none; }
+		#tutorial-panel { position:relative; box-sizing:border-box; width:min(640px,90vw); max-height:90dvh; overflow:auto; padding:26px; border:2px solid #ead9ff; border-radius:22px; background:#fff; color:#40235c; text-align:center; box-shadow:0 0 30px #b58aff77; }
+		#tutorial-page { font-size:14px; color:#865bb1; font-weight:bold; }
+		#tutorial-title { margin:14px 0; font-size:clamp(20px,3.5vw,25px); line-height:1.5; word-break:keep-all; white-space:pre-line; text-wrap:balance; }
+		#tutorial-image { display:block; width:100%; height:auto; max-height:43vh; object-fit:contain; margin:16px auto; border-radius:12px; }
+		#tutorial-image[hidden] { display:none; }
+		#tutorial-description { margin:12px auto 24px; max-width:460px; font-size:clamp(14px,2.5vw,17px); line-height:1.7; word-break:keep-all; white-space:pre-line; text-wrap:balance; }
+		#tutorial-navigation { display:flex; justify-content:space-between; gap:14px; }
+		#tutorial-navigation button { padding:12px 24px; border:0; border-radius:10px; background:#684489; color:white; font-size:17px; font-weight:bold; }
+		#tutorial-navigation button:disabled { opacity:.35; }
+		#tutorial-close { position:absolute; right:12px; top:10px; border:0; background:transparent; color:#684489; font-size:30px; }
+	</style>
+</head>
+<body>
+<svg width="0" height="0" aria-hidden="true" style="position:absolute;pointer-events:none"><defs><filter id="locked-sticker-outline" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB"><feMorphology in="SourceAlpha" operator="dilate" radius="2" result="expanded"/><feComposite in="expanded" in2="SourceAlpha" operator="out" result="edge"/><feFlood flood-color="#000" result="black"/><feComposite in="black" in2="edge" operator="in" result="outline"/><feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 .3 0" result="faded"/><feMerge><feMergeNode in="outline"/><feMergeNode in="faded"/></feMerge></filter></defs></svg>
+
+<script src="tour.js"></script>
+<script src="plugins/tour-audio.js"></script>
+<script src="plugins/tour-sfx.js"></script>
+
+<div style="width:100%;height:100%;">
+	<noscript><table style="width:100%;height:100%;"><tr style="vertical-align:middle;text-align:center;"><td>ERROR:<br><br>Javascript not activated<br><br></td></tr></table></noscript>
+	<script>
+		embedpano({xml:"tour.xml", passQueryParameters:"startscene,startlookat", onready:function (krpano) { window.tourViewer = krpano; }});
+	</script>
+</div>
+
+<img id="tour-cursor" src="skin/curser-white.png" alt="" aria-hidden="true" />
+<div id="icon-label" role="tooltip" hidden></div>
+<script>
+	(function () {
+		var label = document.getElementById('icon-label');
+		var x = 0, y = 0;
+		function position() {
+			label.style.left = Math.max(8, Math.min(x + 20, window.innerWidth - label.offsetWidth - 8)) + 'px';
+			label.style.top = Math.max(8, Math.min(y + 24, window.innerHeight - label.offsetHeight - 8)) + 'px';
+		}
+		window.showTourIconLabel = function (text) { label.textContent = text; label.hidden = false; position(); };
+		window.hideTourIconLabel = function () { label.hidden = true; };
+		document.addEventListener('pointermove', function (event) { x = event.clientX; y = event.clientY; if (!label.hidden) position(); }, true);
+		document.addEventListener('pointerdown', window.hideTourIconLabel, true);
+		document.documentElement.addEventListener('pointerleave', window.hideTourIconLabel);
+		window.addEventListener('blur', window.hideTourIconLabel);
+	})();
+</script>
+<button id="screenshot-button" type="button" title="현재 화면 PNG 다운로드" aria-label="현재 화면 스크린샷 다운로드"><img src="skin/screenshot.png" alt="" /></button>
+<div id="screenshot-status" role="status" aria-live="polite" hidden></div>
+<button id="sticker-palette" type="button" disabled title="퍼즐 3단계를 클리어하면 사용할 수 있어요" aria-label="잠긴 이모티콘"><img src="skin/p2i.png" alt="이모티콘" draggable="false" /></button>
+<div id="sticker-palette-background" aria-hidden="true"></div>
+<button id="sticker-palette-3" type="button" disabled title="색칠 게임을 클리어하면 사용할 수 있어요" aria-label="잠긴 색칠 보상 이모티콘"><img src="skin/p3i.png" alt="색칠 보상 이모티콘" draggable="false" /></button>
+<button id="sticker-palette-4" type="button" disabled title="점프 게임을 클리어하면 사용할 수 있어요" aria-label="잠긴 점프 보상 이모티콘"><img src="skin/p4i.png" alt="점프 보상 이모티콘" draggable="false" /></button>
+<button id="sticker-palette-5" type="button" disabled title="틀린그림찾기를 클리어하면 사용할 수 있어요" aria-label="잠긴 틀린그림찾기 보상 이모티콘"><img src="skin/p5i.png" alt="틀린그림찾기 보상 이모티콘" draggable="false" /></button>
+<button id="sticker-palette-10" type="button" disabled title="사다리 게임에서 성공하면 사용할 수 있어요" aria-label="잠긴 사다리 보상 이모티콘"><img src="skin/p10i.png" alt="사다리 보상 이모티콘" draggable="false" /></button>
+<button id="sticker-palette-1" type="button" disabled title="파인 다이닝 게임을 클리어하면 사용할 수 있어요" aria-label="잠긴 파인 다이닝 보상 이모티콘"><img src="skin/p1i.png" alt="파인 다이닝 보상 이모티콘" draggable="false" /></button>
+<button id="sticker-palette-6" type="button" disabled title="럭키참스 게임을 클리어하면 사용할 수 있어요" aria-label="잠긴 럭키참스 보상 이모티콘"><img src="skin/p6i.png" alt="럭키참스 보상 이모티콘" draggable="false" /></button>
+<button id="sticker-palette-7" type="button" disabled title="색감 테스트를 클리어하면 사용할 수 있어요" aria-label="잠긴 색감 테스트 보상 이모티콘"><img src="skin/p7i.png" alt="색감 테스트 보상 이모티콘" draggable="false" /></button>
+<div id="paint-popup" role="dialog" aria-modal="true" aria-label="콘알트 색칠 게임" hidden>
+	<div id="paint-panel">
+		<button id="paint-brush" type="button" title="붓을 그림으로 드래그하세요"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 14L20 3l1 1-9 13M9 14c-4-2-6 2-5 4 0 2-2 3-2 3s8 1 10-4"/></svg>붓</button>
+		<div><canvas id="paint-canvas" aria-label="붓으로 드래그해 색칠하는 그림"></canvas><p id="paint-status" role="status" aria-live="polite">붓을 그림으로 드래그해 색칠하세요.</p><a id="paint-more" href="https://www.instagram.com/conarlt/" target="_blank" rel="noopener noreferrer">아트핏 자세히 알아보기</a><button id="paint-reward" type="button" hidden>이모티콘 획득</button></div>
+		<button id="paint-close" type="button" aria-label="색칠 게임 닫기">×</button>
+	</div>
+</div>
+<script src="plugins/tour-paint.js"></script>
+<div id="runner-popup" role="dialog" aria-modal="true" aria-label="아트핏 장애물 점프 게임" hidden>
+	<div id="runner-panel"><div id="runner-screen"><canvas id="runner-canvas" width="900" height="440" aria-label="스페이스바로 점프해 15초 동안 장애물을 피하세요"></canvas></div><div id="runner-controls"><p id="runner-status" role="status" aria-live="polite">스페이스바로 점프! 15초 동안 버티세요.</p><button id="runner-start" type="button">게임시작</button><button id="runner-reward" type="button" hidden>이모티콘 획득</button><button id="runner-jump" type="button" disabled>점프 · Space</button></div><a id="runner-gift" href="https://www.fitandfond.com/product/detail.html?product_no=62&amp;cate_no=1&amp;display_group=13" target="_blank" rel="noopener noreferrer">새해복 선물하기</a><button id="runner-close" type="button" aria-label="점프 게임 닫기">×</button></div>
+</div>
+<script src="plugins/tour-runner.js"></script>
+<div id="difference-popup" role="dialog" aria-modal="true" aria-label="유어 네스트 틀린그림찾기" hidden>
+	<div id="difference-panel"><p id="difference-help">왼쪽 사진을 보고 오른쪽 사진에서 다른 부분을 3개 찾아 클릭하세요.</p><div id="difference-images"><figure><figcaption>원본</figcaption><img id="difference-original" src="skin/pop5.jpg" alt="틀린그림찾기 원본" /></figure><figure><figcaption>다른 부분 3개 찾기</figcaption><canvas id="difference-canvas" aria-label="다른 부분 세 곳을 클릭하세요"></canvas></figure></div><div id="difference-controls"><p id="difference-status" role="status" aria-live="polite">선택 0 / 3</p><button id="difference-grade" type="button" disabled>채점하기</button><button id="difference-reset" type="button">다시 선택</button><button id="difference-reward" type="button" hidden>이모티콘 획득</button></div><div id="difference-footer"><a id="difference-buy" href="https://smartstore.naver.com/mmsn/products/13749790687" target="_blank" rel="noopener noreferrer">거울 구매하기</a></div><button id="difference-close" type="button" aria-label="틀린그림찾기 닫기">×</button></div>
+</div>
+<script src="plugins/tour-difference.js"></script>
+<div id="steak-popup" role="dialog" aria-modal="true" aria-label="파인 다이닝 스테이크 타이밍 게임" hidden>
+	<div id="steak-panel"><h2>스테이크를 10초에 맞춰 완벽하게 구워보세요!</h2><img id="steak-image" src="skin/pop1_1.jpg" alt="스테이크 굽기 게임" /><a id="steak-more" href="https://www.instagram.com/finediningtheater/" target="_blank" rel="noopener noreferrer">파인 다이닝 알아보기</a><output id="steak-timer">0.00초</output><p id="steak-status" role="status" aria-live="polite">9.7~10.3초 사이에 멈추면 성공!</p><button id="steak-start" type="button">타이머 시작</button><button id="steak-stop" type="button" hidden>스탑!</button><button id="steak-reward" type="button" hidden>이모티콘 획득</button><button id="steak-close" type="button" aria-label="타이밍 게임 닫기">×</button></div>
+</div>
+<script src="plugins/tour-steak.js"></script>
+<div id="ladder-popup" role="dialog" aria-modal="true" aria-label="내일은 뽑기왕 사다리 게임" hidden>
+	<div id="ladder-panel"><h2>내일은 뽑기왕!!</h2><p>세 개 중 하나를 골라보세요. 성공은 딱 하나!</p><div id="ladder-choices"><button type="button" data-choice="0">1번</button><button type="button" data-choice="1">2번</button><button type="button" data-choice="2">3번</button></div><canvas id="ladder-canvas" width="450" height="420" aria-label="세 갈래 사다리와 선택한 이동 경로"></canvas><p id="ladder-status" role="status" aria-live="polite">출발점을 선택하세요.</p><button id="ladder-reward" type="button" hidden>이모티콘 획득</button><button id="ladder-retry" type="button">다시 뽑기</button><button id="ladder-close" type="button" aria-label="사다리 게임 닫기">×</button></div>
+</div>
+<script src="plugins/tour-ladder.js"></script>
+<div id="dodge-popup" role="dialog" aria-modal="true" aria-label="럭키참스 떨어지는 장애물 피하기" hidden>
+	<div id="dodge-panel"><h2>럭키참스 · 20초 동안 피하세요!</h2><canvas id="dodge-canvas" width="700" height="500" tabindex="0" aria-label="방향키 또는 캐릭터의 왼쪽 오른쪽을 눌러 이동"></canvas><div id="dodge-controls"><p id="dodge-status" role="status" aria-live="polite">← → 또는 캐릭터 왼쪽·오른쪽을 눌러 이동하세요.</p><button id="dodge-reward" type="button" hidden>이모티콘 획득</button><button id="dodge-start" type="button" disabled>게임 시작</button></div><a id="dodge-watch" href="https://www.youtube.com/watch?v=P0Litrf1LWo" target="_blank" rel="noopener noreferrer">럭키참스 뮤지컬 관람하기</a><button id="dodge-close" type="button" aria-label="피하기 게임 닫기">×</button></div>
+</div>
+<script src="plugins/tour-dodge.js"></script>
+<div id="color-popup" role="dialog" aria-modal="true" aria-label="수이과슈 절대색감 테스트" hidden>
+	<div id="color-panel"><h2>절대색감 테스트</h2><p>다른 색 타일 하나를 찾아 클릭하세요.<br>20초 안에 7단계 모두 정답이면 클리어!</p><div id="color-heading"><span id="color-stage">1 / 7 단계</span><span id="color-timer">20.0초</span></div><div id="color-grid" role="group" aria-label="다른 색 타일 찾기"></div><p id="color-status" role="status" aria-live="polite">한 번이라도 틀리면 패배합니다.</p><button id="color-reward" type="button" hidden>이모티콘 획득</button><button id="color-start" type="button">게임 시작</button><a id="color-more" href="https://www.suigouache.com/product/professional-sui-gouache-5-color-set-%C2%B7-15ml/184/?cate_no=57&amp;display_group=1" target="_blank" rel="noopener noreferrer">수과이슈 자세히 보기</a><button id="color-close" type="button" aria-label="색감 게임 닫기">×</button></div>
+</div>
+<script src="plugins/tour-color.js"></script>
+<div id="sticker-layer"></div>
+<button id="sticker-trash" type="button" aria-label="모든 이모티콘 제거" title="클릭하면 모두 삭제 · 드래그하면 하나 삭제">
+	<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7M14 10v7" /></svg>
+</button>
+<button id="tour-reset" type="button" title="퍼즐과 이모티콘을 처음부터 다시 시작" aria-label="처음부터 다시 시작"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10a9 9 0 1 1 2 8M3 4v6h6" /></svg></button>
+<script src="plugins/tour-stickers.js"></script>
+<script src="plugins/tour-screenshot.js"></script>
+<div id="tutorial-popup" role="dialog" aria-modal="true" aria-labelledby="tutorial-title" hidden>
+	<div id="tutorial-panel"><span id="tutorial-page">1 / 4</span><h2 id="tutorial-title" aria-live="polite"></h2><img id="tutorial-image" alt="" hidden /><p id="tutorial-description"></p><div id="tutorial-navigation"><button id="tutorial-previous" type="button">이전</button><button id="tutorial-next" type="button">다음</button></div><button id="tutorial-close" type="button" aria-label="튜토리얼 닫기">×</button></div>
+</div>
+<script src="plugins/tour-tutorial.js"></script>
+<div id="welcome-popup" role="dialog" aria-modal="true" aria-labelledby="welcome-message" hidden>
+	<div id="welcome-panel">
+		<p id="welcome-message">POP UP STORE 2026에 오신걸 환영합니다!<br>안에서 미니게임을 클리어하고<br>이모티콘을 획득하세요!!</p>
+		<button id="welcome-confirm" type="button">확인</button>
+	</div>
+</div>
+<script>
+	(function () {
+		var popup = document.getElementById('welcome-popup');
+		var confirm = document.getElementById('welcome-confirm');
+		var previousFocus;
+		window.openTourWelcome = function () {
+			window.tourTutorial.open();
+		};
+		window.openTourUnavailable = function () {
+			document.getElementById('welcome-message').textContent = '아직 준비되지 않은 부스입니다.';
+			previousFocus = document.activeElement;
+			popup.hidden = false;
+			confirm.focus();
+		};
+		window.openTourMandado = function () {
+			document.getElementById('welcome-message').innerHTML = '지금 보고 있는 걸 만든 곳입니다<br>문의 help@mandado.info<button id="copy-mandado-email" type="button" title="이메일 복사" aria-label="이메일 주소 복사"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg></button><span id="copy-email-status" role="status" aria-live="polite"></span>';
+			previousFocus = document.activeElement;
+			popup.hidden = false;
+			confirm.focus();
+		};
+		popup.addEventListener('click', async function (event) {
+			if (!event.target.closest('#copy-mandado-email')) return;
+			var copied = false;
+			try {
+				if (navigator.clipboard && navigator.clipboard.writeText) {
+					await navigator.clipboard.writeText('help@mandado.info'); copied = true;
+				}
+			} catch (_) {}
+			if (!copied) {
+				var field = document.createElement('textarea'); field.value = 'help@mandado.info';
+				field.style.cssText = 'position:fixed;opacity:0;pointer-events:none;';
+				popup.appendChild(field); field.select();
+				try { copied = document.execCommand('copy'); } catch (_) {}
+				field.remove(); document.getElementById('copy-mandado-email').focus();
+			}
+			var message = document.getElementById('copy-email-status');
+			if (message) message.textContent = copied ? '이메일을 복사했습니다!' : '복사하지 못했습니다. 이메일 주소를 직접 선택해주세요.';
+		});
+		function dismiss() { popup.hidden = true; if (previousFocus && previousFocus.focus) previousFocus.focus(); }
+		confirm.addEventListener('click', dismiss);
+		popup.addEventListener('click', function (event) { if (event.target === popup) dismiss(); });
+		document.addEventListener('keydown', function (event) {
+			if (popup.hidden) return;
+			if (event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); dismiss(); }
+			if (event.key === 'Tab') {
+				var buttons = Array.from(popup.querySelectorAll('button'));
+				var index = buttons.indexOf(document.activeElement) + (event.shiftKey ? -1 : 1);
+				if (index < 0 || index >= buttons.length) { event.preventDefault(); buttons[event.shiftKey ? buttons.length - 1 : 0].focus(); }
+			}
+		}, true);
+	})();
+</script>
+<div id="puzzle-popup" role="dialog" aria-modal="true" aria-label="퍼즐 이미지" hidden>
+	<div id="puzzle-panel">
+	<div id="puzzle-board" role="group" aria-label="네 조각 이미지 퍼즐"></div>
+	<div id="puzzle-controls"><p id="puzzle-message" role="status" aria-live="polite">조각을 드래그해 맞춰주세요.</p><button id="puzzle-shuffle" type="button">다시 섞기</button></div>
+	<div id="puzzle-navigation"><button id="puzzle-previous" type="button" hidden>← 이전 단계</button><button id="puzzle-next" type="button" hidden>다음 단계 →</button></div>
+	<a id="puzzle-buy" href="https://smartstore.naver.com/mmsn/products/12728096451?nl-query=mmsn+%ED%8C%A8%ED%94%84&amp;nl-ts-pid=jpGoHdqpvCz7GJE6h08-122280#ZOOM" target="_blank" rel="noopener noreferrer">구매하기</a>
+	<button id="puzzle-reward" type="button" hidden>이모티콘 획득</button>
+	<button id="puzzle-close" type="button" aria-label="팝업 닫기" title="닫기">×</button>
+	</div>
+</div>
+<script src="plugins/tour-puzzle.js"></script>
+<script>
+	(function () {
+		var popup = document.getElementById('puzzle-popup');
+		var close = document.getElementById('puzzle-close');
+		var previousFocus;
+		var previousView;
+		window.rememberTourPuzzleView = function () {
+			var viewer = window.tourViewer;
+			if (!viewer) return;
+			previousView = {
+				h: Number(viewer.get('view.hlookat')),
+				v: Number(viewer.get('view.vlookat')),
+				fov: Number(viewer.get('view.fov')),
+				scene: viewer.get('xml.scene')
+			};
+		};
+		window.openTourPuzzle = function () {
+			previousFocus = document.activeElement;
+			popup.hidden = false;
+			window.tourPuzzle.open();
+			close.focus();
+		};
+		function dismiss() {
+			if (popup.hidden) return;
+			window.tourPuzzle.cancelDrag();
+			popup.hidden = true;
+			var viewer = window.tourViewer;
+			if (previousView && viewer && viewer.get('xml.scene') === previousView.scene) {
+				viewer.call('stoplookto(); stopmovements(); lookto(' + previousView.h + ',' + previousView.v + ',' + previousView.fov + ',tween(easeInOutSine,0.8),true,true);');
+			}
+			previousView = null;
+			if (previousFocus && previousFocus.focus) previousFocus.focus();
+		}
+		close.addEventListener('click', dismiss);
+		
+		document.addEventListener('keydown', function (event) {
+			if (popup.hidden) return;
+			if (event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); }
+			if (event.key === 'Tab') {
+				var buttons = Array.from(popup.querySelectorAll('button, a[href]')).filter(function (button) { return !button.hidden; });
+				buttons.push(document.getElementById('screenshot-button'));
+				var index = buttons.indexOf(document.activeElement);
+				var next = event.shiftKey ? index - 1 : index + 1;
+				if (next < 0 || next >= buttons.length) { event.preventDefault(); buttons[event.shiftKey ? buttons.length - 1 : 0].focus(); }
+			}
+		}, true);
+	})();
+</script>
+<script>
+	(function () {
+		var cursor = document.getElementById('tour-cursor');
+		var mouseAvailable = window.matchMedia('(any-hover: hover) and (any-pointer: fine)');
+		document.addEventListener('pointermove', function (event) {
+			if (!mouseAvailable.matches || event.pointerType === 'touch') {
+				cursor.style.display = 'none';
+				return;
+			}
+			cursor.style.left = event.clientX + 'px';
+			cursor.style.top = event.clientY + 'px';
+			cursor.style.display = 'block';
+		}, true);
+		document.documentElement.addEventListener('pointerleave', function () {
+			cursor.style.display = 'none';
+		});
+		window.addEventListener('blur', function () {
+			cursor.style.display = 'none';
+		});
+		document.addEventListener('fullscreenchange', function () {
+			var root = document.fullscreenElement || document.body;
+			root.appendChild(cursor);
+			root.appendChild(document.getElementById('screenshot-button'));
+			root.appendChild(document.getElementById('screenshot-status'));
+			root.appendChild(document.getElementById('puzzle-popup'));
+			root.appendChild(document.getElementById('welcome-popup'));
+			root.appendChild(document.getElementById('tutorial-popup'));
+			root.appendChild(document.getElementById('sticker-palette'));
+			root.appendChild(document.getElementById('sticker-palette-background'));
+			root.appendChild(document.getElementById('sticker-palette-3'));
+			root.appendChild(document.getElementById('sticker-palette-4'));
+			root.appendChild(document.getElementById('sticker-palette-5'));
+			root.appendChild(document.getElementById('sticker-palette-10'));
+			root.appendChild(document.getElementById('sticker-palette-1'));
+			root.appendChild(document.getElementById('sticker-palette-6'));
+			root.appendChild(document.getElementById('sticker-palette-7'));
+			root.appendChild(document.getElementById('paint-popup'));
+			root.appendChild(document.getElementById('runner-popup'));
+			root.appendChild(document.getElementById('difference-popup'));
+			root.appendChild(document.getElementById('steak-popup'));
+			root.appendChild(document.getElementById('ladder-popup'));
+			root.appendChild(document.getElementById('dodge-popup'));
+			root.appendChild(document.getElementById('color-popup'));
+			root.appendChild(document.getElementById('sticker-layer'));
+			root.appendChild(document.getElementById('sticker-trash'));
+			root.appendChild(document.getElementById('tour-reset'));
+			root.appendChild(document.getElementById('icon-label'));
+		});
+	})();
+</script>
+
+</body>
+</html>

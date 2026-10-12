@@ -1,0 +1,185 @@
+<krpano version="1.24" title="Virtual Tour">
+
+	<include url="skin/vtourskin.xml" />
+	<events name="tour_music_scene_volume" keep="true" onnewscene="js:if(window.syncTourMusic) window.syncTourMusic();" />
+	<events name="tour_room_wind_sound" keep="true" onremovescene="js:if(window.tourSfx) window.tourSfx.play('room-wind');" />
+	<events name="placed_sticker_transition" keep="true"
+	        onremovepano="js:if(window.tourStickers) window.tourStickers.hideForTransition();"
+	        onnewscene="js:if(window.tourStickers) window.tourStickers.hideForTransition();"
+	        onblendstart="js:if(window.tourStickers) window.tourStickers.hideForTransition();"
+	        onblendcomplete="js:if(window.tourStickers) window.tourStickers.showAfterTransition();" />
+
+	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
+	<skin_settings maps="true"
+	               maps_type="openstreetmaps"
+	               maps_bing_api_key=""
+	               maps_google_api_key=""
+	               maps_zoombuttons="false"
+	               maps_loadonfirstuse="true"
+	               gyro="true"
+	               gyro_keeplookingdirection="false"
+	               webvr="true"
+	               webvr_keeplookingdirection="true"
+	               webvr_prev_next_hotspots="true"
+	               autotour="false"
+	               littleplanetintro="false"
+	               followmousecontrol="false"
+	               title="true"
+	               thumbs="true"
+	               thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160"
+	               thumbs_opened="false"
+	               thumbs_text="false"
+	               thumbs_dragging="true"
+	               thumbs_onhoverscrolling="false"
+	               thumbs_scrollbuttons="false"
+	               thumbs_scrollindicator="false"
+	               thumbs_loop="false"
+	               tooltips_buttons="false"
+	               tooltips_thumbs="false"
+	               tooltips_hotspots="false"
+	               tooltips_mapspots="false"
+	               deeplinking="false"
+	               loadscene_flags="MERGE"
+	               loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
+	               loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
+	               loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)"
+	               loadingtext=""
+	               layout_width="100%"
+	               layout_maxwidth="814"
+	               controlbar_width="-24"
+	               controlbar_height="40"
+	               controlbar_offset="20"
+	               controlbar_offset_closed="-40"
+	               controlbar_overlap.no-fractionalscaling="10"
+	               controlbar_overlap.fractionalscaling="0"
+	               design_skin_images="vtourskin.png"
+	               design_bgcolor="0x2D3E50"
+	               design_bgalpha="0.8"
+	               design_bgborder="0"
+	               design_bgroundedge="1"
+	               design_bgshadow="0 4 10 0x000000 0.3"
+	               design_thumbborder_bgborder="3 0xFFFFFF 1.0"
+	               design_thumbborder_padding="2"
+	               design_thumbborder_bgroundedge="0"
+	               design_text_css="color:#FFFFFF; font-family:Arial;"
+	               design_text_shadow="1"
+	               />
+
+	<!--
+	    For an alternative skin design either change the <skin_settings> values 
+	    from above or optionally include one of the predefined designs from below.
+	-->
+	<!-- <include url="skin/vtourskin_design_flat_light.xml"  /> -->
+	<!-- <include url="skin/vtourskin_design_glass.xml"       /> -->
+	<!-- <include url="skin/vtourskin_design_ultra_light.xml" /> -->
+	<!-- <include url="skin/vtourskin_design_117.xml"         /> -->
+	<!-- <include url="skin/vtourskin_design_117round.xml"    /> -->
+	<!-- <include url="skin/vtourskin_design_black.xml"       /> -->
+	
+
+	
+		<!-- Display icons: strong pulsing purple outline, stronger on hover. -->
+	<style name="day2_display_icon" url="skin/icon.png" renderer="css3d"
+	       distorted="false" edge="center" width="80" height="80" scale="1"
+	       icon_glow="true" icon_hover="false" handcursor="false"
+	       dropshadow="0 0 4 0xEAD9FF 1, 0 0 16 0xB58AFF 0.9, 0 0 32 0x955CFF 0.75"
+	       onover="set(icon_hover,true); tween(scale,1.18,0.25,easeOutQuad); if(brand_label, js(window.showTourIconLabel(get(brand_label))));"
+	       onout="set(icon_hover,false); tween(scale,1.0,0.3,easeOutQuad); js(window.hideTourIconLabel());"
+	       onclick="js(window.tourSfx.play('wind')); stoplookto(); stopmovements(); lookto(get(ath), get(atv), calc(max(view.fovmin, view.fov * 0.85)), tween(easeInOutSine, 0.8), true, true);" />
+<scene name="scene_day_1" title="Day_1" onstart="" thumburl="panos/Day_1.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+
+		<!-- Elliptical feather: clear center, smoothly increasing blur toward edges. -->
+		<plugin name="day1_edge_blur" url="plugins/pp_edge_blur.js?v=3" range="20.0" />
+		
+		<control bouncinglimits="false" />
+
+		<view hlookat="-89.9003883314422" vlookat="6.171406425056073" fovtype="MFOV" fov="128.40974574337503" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="lookat" hlookatmin="-94.9003883314422" hlookatmax="-84.9003883314422" vlookatmin="1.171406425056073" vlookatmax="11.171406425056073" />
+
+		<preview url="panos/Day_1.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/Day_1.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280,2560" />
+		</image>
+
+		<hotspot name="spot2139167182" style="skin_hotspotstyle" renderer="css3d" purple_motion="true" dropshadow="0 0 5 0xB58AFF 0.65, 0 0 14 0x955CFF 0.4" ath="-93.319" atv="15.307" depth="1000.0" linkedscene="scene_day_2" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-169.50773179662556,17.210158749063027,128.40974574337503" />
+		<hotspot name="day1_info" url="skin/info-cutout.png" renderer="css3d" distorted="false" width="80" height="80" edge="center" ath="-71.376" atv="3.754" handcursor="false" onover="tween(scale,1.12,0.2);" onout="tween(scale,1,0.2);" onclick="js(window.openTourWelcome());" />
+
+	</scene>
+
+	<scene name="scene_day_2" title="Day_2" onstart="" thumburl="panos/Day_2.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/Day_2.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/Day_2.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280,2560" />
+		</image>
+
+		<hotspot name="spot2139167254" style="skin_hotspotstyle" renderer="css3d" purple_motion="true" dropshadow="0 0 5 0xB58AFF 0.65, 0 0 14 0x955CFF 0.4" ath="-1.018" atv="22.676" depth="1000.0" linkedscene="scene_day_1" linkedscene_hoffset="0.0" use3dtransition="false" linkedscene_lookat="-88.7995074602868,11.171406425056073,128.40974574337503" onclick="set(enabled,false); skin_hidetooltips(); stoplookto(); stopmovements(); loadscene(scene_day_1, 'view.hlookat=-88.7995074602868&amp;view.vlookat=11.171406425056073&amp;view.fov=128.40974574337503', MERGE, BLEND(0.8, easeInOutSine));" />
+		<hotspot name="spot2139167310" style="skin_hotspotstyle" renderer="css3d" purple_motion="true" dropshadow="0 0 5 0xB58AFF 0.65, 0 0 14 0x955CFF 0.4" ath="-168.792" atv="23.7" depth="1000.0" linkedscene="scene_day_3" linkedscene_hoffset="0.0" use3dtransition="true" />
+		<hotspot name="day2_icon_1" style="day2_display_icon" brand_label="아트핏" ath="-127.630" atv="16.479" onclick="js(window.tourSfx.play('wind')); js(window.rememberTourRunnerView()); stoplookto(); stopmovements(); lookto(get(ath), get(atv), calc(max(view.fovmin, view.fov * 0.85)), tween(easeInOutSine, 0.8), true, true, js(window.openTourRunner()));" />
+		<hotspot name="day2_icon_2" style="day2_display_icon" brand_label="콘알트" ath="-103.254" atv="23.757" onclick="js(window.tourSfx.play('wind')); js(window.rememberTourPaintView()); stoplookto(); stopmovements(); lookto(get(ath), get(atv), calc(max(view.fovmin, view.fov * 0.85)), tween(easeInOutSine, 0.8), true, true, js(window.openTourPaint()));" />
+		<hotspot name="day2_icon_3" style="day2_display_icon" brand_label="유연랩" ath="-63.827" atv="23.020" onclick="js(window.tourSfx.play('wind')); js(window.rememberTourPuzzleView()); stoplookto(); stopmovements(); lookto(get(ath), get(atv), calc(max(view.fovmin, view.fov * 0.85)), tween(easeInOutSine, 0.8), true, true, js(window.openTourPuzzle()));" />
+		<hotspot name="day2_icon_4" style="day2_display_icon" brand_label="파인 다이닝" ath="-33.496" atv="20.040" onclick="js(window.tourSfx.play('wind')); js(window.rememberTourSteakView()); stoplookto(); stopmovements(); lookto(get(ath), get(atv), calc(max(view.fovmin, view.fov * 0.85)), tween(easeInOutSine, 0.8), true, true, js(window.openTourSteak()));" />
+		<hotspot name="day2_icon_5" style="day2_display_icon" brand_label="유어 네스트" ath="156.707" atv="-6.204" onclick="js(window.tourSfx.play('wind')); js(window.rememberTourDifferenceView()); stoplookto(); stopmovements(); lookto(get(ath), get(atv), calc(max(view.fovmin, view.fov * 0.85)), tween(easeInOutSine, 0.8), true, true, js(window.openTourDifference()));" />
+
+	</scene>
+
+	<scene name="scene_day_3" title="Day_3" onstart="" thumburl="panos/Day_3.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/Day_3.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/Day_3.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280,2560" />
+		</image>
+
+		<hotspot name="spot2139167388" style="skin_hotspotstyle" renderer="css3d" purple_motion="true" dropshadow="0 0 5 0xB58AFF 0.65, 0 0 14 0x955CFF 0.4" ath="3.339" atv="26.613" depth="1000.0" linkedscene="scene_day_2" linkedscene_hoffset="0.0" use3dtransition="true" />
+		<hotspot name="day3_icon_1" style="day2_display_icon" brand_label="내일은 뽑기왕!!" ath="-134.685" atv="23.578" onclick="js(window.tourSfx.play('wind')); js(window.rememberTourLadderView()); stoplookto(); stopmovements(); lookto(get(ath), get(atv), calc(max(view.fovmin, view.fov * 0.85)), tween(easeInOutSine, 0.8), true, true, js(window.openTourLadder()));" />
+		<hotspot name="day3_icon_2" style="day2_display_icon" brand_label="럭키참스" ath="-96.743" atv="33.566" onclick="js(window.tourSfx.play('wind')); js(window.rememberTourDodgeView()); stoplookto(); stopmovements(); lookto(get(ath), get(atv), calc(max(view.fovmin, view.fov * 0.85)), tween(easeInOutSine, 0.8), true, true, js(window.openTourDodge()));" />
+		<!-- <hotspot name="day3_icon_3" style="day2_display_icon" brand_label="식스도파민" ath="-53.850" atv="29.400" onclick="js(window.openTourUnavailable());" /> -->
+		<hotspot name="day3_icon_4" style="day2_display_icon" brand_label="수이과슈" ath="49.451" atv="31.584" onclick="js(window.tourSfx.play('wind')); js(window.rememberTourColorView()); stoplookto(); stopmovements(); lookto(get(ath), get(atv), calc(max(view.fovmin, view.fov * 0.85)), tween(easeInOutSine, 0.8), true, true, js(window.openTourColor()));" />
+		<hotspot name="day3_icon_5" style="day2_display_icon" brand_label="맨다도 컴퍼니" ath="108.310" atv="39.232" onclick="js(window.openTourMandado());" />
+		<!-- <hotspot name="day3_icon_6" style="day2_display_icon" brand_label="컴퍼니 우연" ath="151.450" atv="6.227" /> -->
+
+	</scene>
+
+
+
+	<!-- Shared motion and soft purple outline for navigation arrows in every scene. -->
+	<action name="purple_hotspot_motion" type="Javascript" autorun="onstart"><![CDATA[
+        if (!krpano._purpleHotspotLoop) {
+            krpano._purpleHotspotLoop = true;
+            var start = Date.now();
+            krpano.actions.renderloop(function () {
+                var wave = Math.sin((Date.now() - start) * Math.PI * 2 / 3200);
+                for (var i = 0; i < krpano.hotspot.count; i++) {
+                    var hs = krpano.hotspot.getItem(i);
+                    if (!hs || !hs.enabled) continue;
+                    if (hs.icon_glow) {
+                        var iconWave = (wave + 1) / 2;
+                        var boost = hs.icon_hover === true || hs.icon_hover === 'true';
+                        var near = boost ? 1 : 0.75 + iconWave * 0.25;
+                        var outer = boost ? 1 : 0.55 + iconWave * 0.40;
+                        var nearRadius = boost ? 22 : 12 + iconWave * 8;
+                        var outerRadius = boost ? 44 : 24 + iconWave * 16;
+                        hs.dropshadow = '0 0 4 0xEAD9FF 1, 0 0 ' + nearRadius.toFixed(2) + ' 0xB58AFF ' + near.toFixed(3) + ', 0 0 ' + outerRadius.toFixed(2) + ' 0x955CFF ' + outer.toFixed(3);
+                        continue;
+                    }
+                    if (!hs.purple_motion) continue;
+                    if (hs._purpleBaseOy === undefined) hs._purpleBaseOy = Number(hs.oy) || 0;
+                    hs.oy = hs._purpleBaseOy + wave * 5;
+                    var opacity = (0.38 + (wave + 1) * 0.10).toFixed(3);
+                    hs.dropshadow = '0 0 5 0xB58AFF 0.65, 0 0 14 0x955CFF ' + opacity;
+                }
+                return true;
+            });
+        }
+    ]]></action>
+</krpano>
