@@ -93,7 +93,7 @@
             source.buffer=putBuffer;gain.gain.value=.8;source.connect(gain);gain.connect(engine.destination);
             source.start(0,putOffset);source.onended=function(){source.disconnect();gain.disconnect();};return true;
         },
-        startCooking:function () { var engine=ready(); if (!engine || loops.cooking) return; loops.cooking=noise(engine,.8,.028,2500,true); },
+        startCooking:function () { var engine=ready(); if (!engine || loops.cooking) return; var volume=window.matchMedia('(pointer: coarse)').matches ? .0224 : .028; loops.cooking=noise(engine,.8,volume,2500,true); },
         stopCooking:function () { stopLoop('cooking'); }
     };
     var press;
