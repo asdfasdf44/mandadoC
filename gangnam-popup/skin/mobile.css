@@ -1,4 +1,5 @@
 /* All overrides are touch-only. Desktop layout and game coordinates stay intact. */
+#mobile-fullscreen-button { display: none; }
 @media (pointer: coarse) and (max-width: 1366px) {
   body { -webkit-text-size-adjust: 100%; }
   button, a { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
@@ -25,7 +26,7 @@
   #sticker-palette-4, #sticker-palette-5 { top: calc(var(--mobile-top) + 6px + var(--reward-size)); }
   #sticker-palette-1, #sticker-palette-6 { top: calc(var(--mobile-top) + 6px + var(--reward-size) * 2); }
   #sticker-palette-7, #sticker-palette-10 { top: calc(var(--mobile-top) + 6px + var(--reward-size) * 3); }
-  #screenshot-button, #sticker-trash, #tour-reset {
+  #screenshot-button, #sticker-trash, #tour-reset, #mobile-fullscreen-button {
     right: calc(var(--mobile-right) + var(--reward-size) * 2 + 20px);
     width: 44px; height: 44px; border-radius: 9px;
   }
@@ -33,8 +34,15 @@
   #screenshot-button img { width: 104px; height: 104px; }
   #sticker-trash { top: calc(var(--mobile-top) + 52px); }
   #tour-reset { top: calc(var(--mobile-top) + 104px); }
+  #mobile-fullscreen-button {
+    position: absolute; top: calc(var(--mobile-top) + 156px); z-index: 30000;
+    display: grid; place-items: center; padding: 0; border: 1px solid #e5e5e5;
+    background: #fff; color: #007dcc; box-shadow: 0 2px 5px #0002;
+  }
+  #mobile-fullscreen-button svg { width: 26px; height: 26px; pointer-events: none; }
+  #mobile-fullscreen-button:focus-visible { outline: 3px solid #b58aff; outline-offset: 3px; }
   #sticker-trash svg, #tour-reset svg { width: 26px; height: 26px; }
-  #screenshot-status { top: calc(var(--mobile-top) + 156px); right: calc(var(--mobile-right) + var(--reward-size) * 2 + 20px); max-width: 200px; font-size: 12px; }
+  #screenshot-status { top: calc(var(--mobile-top) + 208px); right: calc(var(--mobile-right) + var(--reward-size) * 2 + 20px); max-width: 200px; font-size: 12px; }
   #icon-label { font-size: 12px; padding: 6px 9px; }
 
   #puzzle-popup, #paint-popup, #runner-popup, #difference-popup,
