@@ -52,6 +52,25 @@
     }
     document.addEventListener('pointerdown', syncMusic, true);
     document.addEventListener('keydown', syncMusic, true);
+    // Unlock every mobile track during the first gesture, then sync after button handlers.
+    var mobileTracksUnlocked = false;
+    document.addEventListener('pointerdown', function () {
+        if (!window.matchMedia('(pointer: coarse)').matches || mobileTracksUnlocked) return;
+        mobileTracksUnlocked = true;
+        Object.keys(tracks).forEach(function (name) {
+            var music = tracks[name];
+            if (name === active) return;
+            music.muted = true;
+            var attempt = music.play();
+            Promise.resolve(attempt).then(function () {
+                if (name !== active) music.pause();
+                music.muted = false;
+            }, function () { music.muted = false; mobileTracksUnlocked = false; });
+        });
+    }, true);
+    document.addEventListener('click', function () {
+        if (window.matchMedia('(pointer: coarse)').matches) syncMusic();
+    });
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', watchGames);
     else watchGames();
     window.tourBackgroundMusic = tracks.tour;

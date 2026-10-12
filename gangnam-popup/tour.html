@@ -319,19 +319,19 @@
 		#tutorial-navigation button:disabled { opacity:.35; }
 		#tutorial-close { position:absolute; right:12px; top:10px; border:0; background:transparent; color:#684489; font-size:30px; }
 	</style>
-	<link rel="stylesheet" href="skin/mobile.css?v=20261012-fireworks" />
+	<link rel="stylesheet" href="skin/mobile.css?v=20261012-mobile-polish" />
 </head>
 <body>
 <svg width="0" height="0" aria-hidden="true" style="position:absolute;pointer-events:none"><defs><filter id="locked-sticker-outline" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB"><feMorphology in="SourceAlpha" operator="dilate" radius="2" result="expanded"/><feComposite in="expanded" in2="SourceAlpha" operator="out" result="edge"/><feFlood flood-color="#000" result="black"/><feComposite in="black" in2="edge" operator="in" result="outline"/><feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 .3 0" result="faded"/><feMerge><feMergeNode in="outline"/><feMergeNode in="faded"/></feMerge></filter></defs></svg>
 
 <script src="tour.js"></script>
-<script src="plugins/tour-audio.js"></script>
+<script src="plugins/tour-audio.js?v=20261012-mobile-polish"></script>
 <script src="plugins/tour-sfx.js"></script>
 
 <div style="width:100%;height:100%;">
 	<noscript><table style="width:100%;height:100%;"><tr style="vertical-align:middle;text-align:center;"><td>ERROR:<br><br>Javascript not activated<br><br></td></tr></table></noscript>
 	<script>
-		embedpano({xml:"tour.xml", passQueryParameters:"startscene,startlookat", onready:function (krpano) { window.tourViewer = krpano; }});
+		embedpano({xml:"tour.xml", passQueryParameters:"startscene,startlookat", onready:function (krpano) { window.tourViewer = krpano; if (window.setupTourMobileIcons) window.setupTourMobileIcons(); }});
 	</script>
 </div>
 
@@ -401,7 +401,7 @@
 	<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7M14 10v7" /></svg>
 </button>
 <button id="tour-reset" type="button" title="퍼즐과 이모티콘을 처음부터 다시 시작" aria-label="처음부터 다시 시작"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10a9 9 0 1 1 2 8M3 4v6h6" /></svg></button>
-<script src="plugins/tour-stickers.js"></script>
+<script src="plugins/tour-stickers.js?v=20261012-mobile-polish"></script>
 <script src="plugins/tour-screenshot.js"></script>
 <div id="tutorial-popup" role="dialog" aria-modal="true" aria-labelledby="tutorial-title" hidden>
 	<div id="tutorial-panel"><span id="tutorial-page">1 / 4</span><h2 id="tutorial-title" aria-live="polite"></h2><img id="tutorial-image" alt="" hidden /><p id="tutorial-description"></p><div id="tutorial-navigation"><button id="tutorial-previous" type="button">이전</button><button id="tutorial-next" type="button">다음</button></div><button id="tutorial-close" type="button" aria-label="튜토리얼 닫기">×</button></div>
@@ -577,5 +577,6 @@
 
 <script src="plugins/tour-landscape.js"></script>
 <script src="plugins/tour-mobile-tools.js"></script>
+<script src="plugins/tour-mobile-layout.js"></script>
 </body>
 </html>

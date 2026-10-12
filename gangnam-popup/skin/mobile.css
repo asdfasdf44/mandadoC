@@ -1,7 +1,10 @@
 /* All overrides are touch-only. Desktop layout and game coordinates stay intact. */
 #mobile-fullscreen-button { display: none; }
+.mobile-game-aside, .mobile-game-board { display: contents; }
 @media (pointer: coarse) and (max-width: 1366px) {
   body { -webkit-text-size-adjust: 100%; }
+  #steak-panel h2, #dodge-panel h2, #ladder-panel .mobile-game-aside > p,
+  #puzzle-message, #paint-status { white-space: pre-line; text-align: center; }
   #puzzle-panel, #paint-panel, #runner-panel, #difference-panel,
   #steak-panel, #ladder-panel, #dodge-panel, #color-panel,
   #welcome-panel, #tutorial-panel, #landscape-gate {
@@ -44,6 +47,10 @@
   #sticker-palette-4, #sticker-palette-5 { top: calc(var(--mobile-top) + 6px + var(--reward-size)); }
   #sticker-palette-1, #sticker-palette-6 { top: calc(var(--mobile-top) + 6px + var(--reward-size) * 2); }
   #sticker-palette-7, #sticker-palette-10 { top: calc(var(--mobile-top) + 6px + var(--reward-size) * 3); }
+  #sticker-palette img, #sticker-palette-1 img, #sticker-palette-3 img,
+  #sticker-palette-4 img, #sticker-palette-5 img, #sticker-palette-6 img,
+  #sticker-palette-7 img, #sticker-palette-10 img { transform: scale(.9); }
+  .tour-sticker { width: 90px; height: 90px; }
   #screenshot-button, #sticker-trash, #tour-reset, #mobile-fullscreen-button {
     right: calc(var(--mobile-right) + var(--reward-size) * 2 + 20px);
     width: 44px; height: 44px; border-radius: 9px;
@@ -131,8 +138,21 @@
     88% { transform: translateX(-1px) rotate(-.5deg); }
     92% { transform: translateX(1px) rotate(.5deg); }
   }
+  #puzzle-buy.mobile-link-enter, #paint-more.mobile-link-enter, #runner-gift.mobile-link-enter,
+  #difference-buy.mobile-link-enter, #steak-more.mobile-link-enter, #dodge-watch.mobile-link-enter, #color-more.mobile-link-enter {
+    animation: mobile-link-arrival .8s ease-in-out both, mobile-link-nudge 3.8s ease-in-out .9s infinite;
+  }
+  @keyframes mobile-link-arrival {
+    0%, 100% { transform: translateX(0) rotate(0) scale(1); }
+    15% { transform: translateX(-5px) rotate(-3deg) scale(1.04); }
+    30% { transform: translateX(5px) rotate(3deg) scale(1.04); }
+    45% { transform: translateX(-4px) rotate(-2deg); }
+    60% { transform: translateX(4px) rotate(2deg); }
+    75% { transform: translateX(-2px) rotate(-1deg); }
+  }
   @media (prefers-reduced-motion: reduce) {
     #puzzle-buy, #paint-more, #runner-gift, #difference-buy, #steak-more, #dodge-watch, #color-more { animation: none; }
+    .mobile-link-enter { animation: none !important; }
   }
   #welcome-panel { max-height: var(--game-height); overflow: auto; padding: 18px; width: min(520px, 100%); }
   #welcome-panel p { font-size: 16px; line-height: 1.5; margin-bottom: 14px; }
@@ -147,6 +167,17 @@
   #sticker-delete-dialog p { font-size: 16px; margin-bottom: 12px; }
 
   @media (orientation: landscape) {
+    #puzzle-panel > .mobile-game-aside, #paint-panel > div > .mobile-game-aside,
+    #runner-panel > .mobile-game-aside, #difference-panel > .mobile-game-aside,
+    #steak-panel > .mobile-game-aside, #ladder-panel > .mobile-game-aside,
+    #dodge-panel > .mobile-game-aside, #color-panel > .mobile-game-aside {
+      display: flex; flex-direction: column; justify-content: center; gap: 8px;
+      grid-column: 2; grid-row: 1; min-width: 0;
+    }
+    #puzzle-board, #paint-canvas, #runner-screen, #difference-images, #steak-image,
+    #dodge-canvas, #color-grid { grid-row: 1 !important; }
+    #ladder-panel > .mobile-game-board { display: flex; flex-direction: column; gap: 8px; grid-column: 1; grid-row: 1; }
+    #runner-controls, #difference-controls { width: 100%; }
     #puzzle-panel { display: grid; grid-template-columns: auto minmax(180px, 240px); gap: 8px 16px; align-items: center; }
     #puzzle-board { grid-column: 1; grid-row: 1 / span 5; width: calc(var(--game-height) * .7075); }
     #puzzle-controls, #puzzle-navigation, #puzzle-buy, #puzzle-reward { grid-column: 2; margin: 0; }
@@ -216,6 +247,18 @@
       #color-panel h2 { font-size: 16px; }
       #color-panel p { font-size: 12px; line-height: 1.3; }
       #color-heading { font-size: 14px; }
+    }
+    #ladder-panel > .mobile-game-board { grid-column: 1; grid-row: 1; }
+    #puzzle-panel .mobile-game-aside > *, #paint-panel .mobile-game-aside > *,
+    #runner-panel .mobile-game-aside > *, #difference-panel .mobile-game-aside > *,
+    #steak-panel .mobile-game-aside > *, #ladder-panel .mobile-game-aside > *,
+    #dodge-panel .mobile-game-aside > *, #color-panel .mobile-game-aside > * { margin: 0; }
+    #puzzle-panel > .mobile-game-aside, #paint-panel > div > .mobile-game-aside,
+    #runner-panel > .mobile-game-aside, #difference-panel > .mobile-game-aside,
+    #steak-panel > .mobile-game-aside, #ladder-panel > .mobile-game-aside,
+    #dodge-panel > .mobile-game-aside, #color-panel > .mobile-game-aside { gap: 6px; }
+    @media (max-height: 360px) {
+      #color-panel > .mobile-game-aside, #steak-panel > .mobile-game-aside { gap: 3px; }
     }
   }
 }

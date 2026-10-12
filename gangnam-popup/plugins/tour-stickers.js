@@ -318,7 +318,7 @@
                     if (!item.baseFov || !item.baseViewport) {
                         item.baseFov = fov; item.baseViewport = Math.min(rect.width,rect.height); migrated = true;
                     }
-                    var size = 100 * Math.tan(item.baseFov * Math.PI / 360) / Math.tan(fov * Math.PI / 360) * Math.min(rect.width,rect.height) / item.baseViewport;
+                    var size = (window.matchMedia('(pointer: coarse) and (max-width: 1366px)').matches ? 90 : 100) * Math.tan(item.baseFov * Math.PI / 360) / Math.tan(fov * Math.PI / 360) * Math.min(rect.width,rect.height) / item.baseViewport;
                     item.image.style.width = size + 'px';
                     item.image.style.height = size + 'px';
                     item.image.style.left = (rect.left-root.left + point.x * rect.width / viewer.get('stagewidth')) + 'px';
