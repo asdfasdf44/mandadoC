@@ -157,22 +157,22 @@
   #welcome-panel { max-height: var(--game-height); overflow: auto; padding: 18px; width: min(520px, 100%); }
   #welcome-panel p { font-size: 16px; line-height: 1.5; margin-bottom: 14px; }
   #welcome-confirm { min-height: 44px; }
-  #tutorial-panel { max-height: var(--game-height); padding: 14px 44px 14px 16px; }
+  #tutorial-panel { max-height: var(--game-height); padding: 12px 24px; text-align: center; }
   #tutorial-title { font-size: 18px; margin: 8px 0; }
   #tutorial-description { font-size: 14px; margin: 8px auto 12px; line-height: 1.5; }
   #tutorial-image { max-height: 32dvh; margin: 8px auto; }
   #tutorial-navigation button { min-height: 44px; padding: 8px 16px; font-size: 14px; }
-  #tutorial-close { width: 44px; height: 44px; top: 0; right: 0; }
+  #tutorial-close { position: fixed; width: 44px; height: 44px; top: var(--mobile-top); right: var(--mobile-right); background: #fff; border-radius: 50%; }
   #sticker-delete-dialog > div { padding: 18px; }
   #sticker-delete-dialog p { font-size: 16px; margin-bottom: 12px; }
 
   @media (orientation: landscape) {
-    #tutorial-panel { display: grid; grid-template-columns: 40% minmax(0, 1fr); gap: 6px 14px; align-items: center; }
-    #tutorial-image { grid-column: 1; grid-row: 1 / span 4; width: 100%; height: calc(var(--game-height) - 32px); max-height: none; margin: 0; }
-    #tutorial-page, #tutorial-title, #tutorial-description, #tutorial-navigation { grid-column: 2; margin: 0; }
-    #tutorial-title { font-size: 16px; line-height: 1.35; }
-    #tutorial-description { font-size: 13px; line-height: 1.4; }
-    #tutorial-navigation { gap: 8px; }
+    #tutorial-panel { display: grid; grid-template-columns: 1fr; gap: 4px; align-items: center; justify-items: center; }
+    #tutorial-image { grid-column: 1; grid-row: auto; width: 100%; height: clamp(72px, 20dvh, 130px); max-height: none; margin: 0; }
+    #tutorial-page, #tutorial-title, #tutorial-description, #tutorial-navigation { grid-column: 1; margin: 0; text-align: center; }
+    #tutorial-title { font-size: 16px; line-height: 1.3; }
+    #tutorial-description { font-size: 13px; line-height: 1.3; }
+    #tutorial-navigation { gap: 12px; justify-content: center; width: 100%; }
     #tutorial-panel:has(#tutorial-image[hidden]) { grid-template-columns: 1fr; }
     #tutorial-panel:has(#tutorial-image[hidden]) > :not(#tutorial-close) { grid-column: 1; }
     #puzzle-panel > .mobile-game-aside, #paint-panel > div > .mobile-game-aside,

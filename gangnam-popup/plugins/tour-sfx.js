@@ -21,7 +21,7 @@
                     putOffset = Math.max(0,(first-64)/buffer.sampleRate);
                 }).catch(function () {});
         }
-        if (context.state === 'suspended') context.resume().catch(function () {});
+        if (context.state === 'suspended' || (window.matchMedia('(pointer: coarse)').matches && context.state === 'interrupted')) context.resume().catch(function () {});
         return context;
     }
     function tone(engine, frequency, endFrequency, duration, volume, delay) {
@@ -47,11 +47,20 @@
     }
     function play(name) {
         var engine = ready(); if (!engine) return;
+        if (window.matchMedia('(pointer: coarse)').matches && engine.state !== 'running') {
+            engine.resume().then(function () { if (engine.state === 'running') play(name); }).catch(function () {});
+            return;
+        }
         if (last[name] && engine.currentTime - last[name] < .08) return;
         last[name] = engine.currentTime;
         if (name === 'click') tone(engine, 850, 500, .045, .0385);
         else if (name === 'button') { tone(engine, 620, 850, .075, .077); tone(engine, 1050, 1050, .05, .0385, .04); }
-        else if (name === 'jump') tone(engine, 270, 1000, .18, .07);
+        else if (name === 'jump') {
+            if (window.matchMedia('(pointer: coarse)').matches) {
+                tone(engine, 400, 1400, .20, .12);
+                tone(engine, 800, 1800, .14, .05, .025);
+            } else tone(engine, 270, 1000, .18, .07);
+        }
         else if (name === 'swap') { tone(engine, 430, 600, .09, .06); tone(engine, 720, 720, .07, .04, .055); }
         else if (name === 'correct') { tone(engine, 660, 660, .10, .055); tone(engine, 880, 880, .13, .055, .075); }
         else if (name === 'brush') noise(engine, .14, .045, 1900, false);
