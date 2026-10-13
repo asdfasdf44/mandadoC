@@ -1,0 +1,12 @@
+.hero h1 {
+  background: linear-gradient(110deg, #fff 15%, #d9ff70 49%, #8ee4cb 78%, #fff 105%);
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: title-shimmer 7s linear infinite;
+}
+
+@keyframes title-shimmer {
+  to { background-position: 220% center; }
+}

@@ -1,0 +1,56 @@
+/* Small-screen layout safeguards */
+html, body { overflow-x: hidden; }
+
+@media (max-width: 900px) {
+  .header { padding-inline: 5vw; }
+  .hero, .tour-section, .shop-section, .manifesto { padding-inline: 5vw; }
+  .shop-section { gap: 5vw; }
+  .product-preview { min-height: clamp(390px, 58vw, 530px); }
+}
+
+@media (max-width: 700px) {
+  .header { height: 62px; padding-inline: 5vw; }
+  .brand { font-size: 23px; }
+  .nav { display: flex; gap: 13px; align-items: center; }
+  .nav a { font-size: 9px; letter-spacing: -.025em; white-space: nowrap; }
+  .hero { min-height: 100svh; height: 100svh; padding: 90px 5vw 34px; }
+  .hero-copy { margin-top: 38px; position: relative; z-index: 2; }
+  .hero h1 { font-size: clamp(46px, 13.3vw, 64px); line-height: .98; }
+  .hero-image { top: 32%; right: -30%; width: 136vw; height: 62%; }
+  .scroll-cue { left: 5vw; bottom: 24px; }
+  .tour-section { min-height: auto; padding: 72px 5vw 46px; }
+  .section-top { gap: 12px; }
+  .section-top .eyebrow, .counter { font-size: 10px; }
+  .tour-section h2 { margin: 26px 0 28px; font-size: clamp(36px, 10.8vw, 52px); line-height: 1.04; }
+  .tour-heading-accent { display: block; margin-top: 8px; font-size: .48em; }
+  .tour-grid { grid-template-columns: 1fr; gap: 14px; }
+  .tour-card { min-height: 265px; padding: 14px; }
+  .tour-card .card-bottom { bottom: 11px; }
+  .tour-all-button { width: min(100%, 360px); min-width: 0; margin-top: 26px; }
+  .shop-section { display: block; min-height: auto; padding: 72px 5vw 46px; }
+  .shop-section h2 { margin-top: 26px; font-size: clamp(44px, 12.8vw, 62px); line-height: .98; }
+  .product-preview { width: 100%; min-height: 500px; margin-top: 34px; overflow: hidden; }
+  .product-preview .product-image { top: 5%; right: 5%; bottom: auto; width: 90%; height: 64%; border-radius: 34px; clip-path: inset(0 round 34px); }
+  .product-price { bottom: 20px; left: 14px; min-width: 0; width: calc(100% - 28px); padding: 13px 58px 13px 17px; border-radius: 21px; }
+  .product-name { font-size: 13px; }
+  .price-row strong { font-size: 29px; }
+  .sale-badge { right: -16px; width: 60px; height: 60px; font-size: 12px; }
+  .purchase-button { right: 18px; bottom: 113px; width: 94px; height: 47px; font-size: 17px; }
+  .manifesto { min-height: 56svh; padding: 72px 5vw; }
+  .manifesto-text { width: 100%; margin-top: 52px; font-size: clamp(34px, 9.8vw, 48px); }
+  footer { flex-direction: column; gap: 14px; align-items: flex-start; padding: 30px 5vw; }
+}
+
+@media (max-width: 380px) {
+  .nav { gap: 9px; }
+  .nav a { font-size: 8px; }
+  .brand { font-size: 21px; }
+  .product-preview { min-height: 460px; }
+  .product-name { font-size: 12px; }
+  .price-row strong { font-size: 26px; }
+  .purchase-button { bottom: 106px; right: 14px; width: 82px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; }
+}

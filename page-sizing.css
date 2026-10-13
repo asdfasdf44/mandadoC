@@ -1,0 +1,25 @@
+/* 전시 목록을 한 화면에 모두 보이게 압축합니다. */
+.tour-section {
+  padding-top: 5vh;
+  padding-bottom: 4vh;
+}
+
+.tour-section h2 {
+  margin-top: 2vh;
+  margin-bottom: 3vh;
+}
+
+.tour-card {
+  min-height: clamp(280px, 42vh, 360px);
+}
+
+@media (max-width: 700px) {
+  .tour-section {
+    padding-top: 75px;
+    padding-bottom: 75px;
+  }
+
+  .tour-card {
+    min-height: 310px;
+  }
+}

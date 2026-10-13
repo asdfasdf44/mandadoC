@@ -1,0 +1,78 @@
+.tour-section {
+  position: relative;
+  background: linear-gradient(118deg, #f5f2e9 0%, #eef1df 46%, #f5f2e9 100%);
+  background-size: 160% 160%;
+  animation: tour-background-drift 15s ease-in-out infinite;
+}
+
+.tour-section h2 { max-width: 1100px; font-size: clamp(44px, 5.3vw, 82px); line-height: 1.08; }
+.tour-heading-accent { display: inline-block; font-family: 'DM Mono', monospace; font-size: .57em; font-weight: 500; letter-spacing: -.06em; white-space: nowrap; }
+.tour-heading-accent b { color: #f15a35; font-weight: 700; }
+
+.tour-card .card-bottom { position: absolute; z-index: 3; right: 0; bottom: 2px; left: 0; display: flex; justify-content: center; width: 100%; }
+.tour-card .enter-tour {
+  --arrow-light: #fff1d6; --arrow-mid: #fd6f22; --arrow-dark: #7a2e1b; --arrow-glow: rgba(253, 111, 34, .72);
+  display: grid; width: 54px; height: 54px; place-items: center; border: 1px solid rgba(255, 255, 255, .55);
+  background: radial-gradient(circle at 34% 27%, var(--arrow-light) 0%, var(--arrow-mid) 38%, var(--arrow-dark) 100%);
+  color: #fff; box-shadow: 0 0 10px var(--arrow-glow), 0 0 26px var(--arrow-glow), inset 0 1px 5px rgba(255, 255, 255, .8);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, .55); font-size: 30px; font-weight: 700; line-height: 1;
+  animation: arrow-glow 2.8s ease-in-out infinite; transition: transform 260ms cubic-bezier(.22, 1, .36, 1), filter 260ms ease, box-shadow 260ms ease; transform-origin: center;
+}
+.tour-card:nth-child(2) .enter-tour { --arrow-light: #f8dcff; --arrow-mid: #ad45d7; --arrow-dark: #472052; --arrow-glow: rgba(173, 69, 215, .7); }
+.tour-card:nth-child(3) .enter-tour { --arrow-light: #fff0d4; --arrow-mid: #bd9669; --arrow-dark: #4e3833; --arrow-glow: rgba(189, 150, 105, .68); }
+.tour-card:hover .enter-tour, .tour-card .enter-tour:focus-visible { transform: scale(1.1); filter: brightness(1.22) saturate(1.12); box-shadow: 0 0 16px var(--arrow-glow), 0 0 38px var(--arrow-glow), inset 0 1px 7px rgba(255, 255, 255, .9); outline: 2px solid #17221e; outline-offset: 3px; }
+
+@keyframes arrow-glow { 0%, 100% { box-shadow: 0 0 10px var(--arrow-glow), 0 0 24px var(--arrow-glow), inset 0 1px 5px rgba(255, 255, 255, .75); } 50% { box-shadow: 0 0 14px var(--arrow-glow), 0 0 32px var(--arrow-glow), inset 0 1px 7px rgba(255, 255, 255, .9); } }
+@keyframes tour-background-drift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+@media (prefers-reduced-motion: reduce) { .tour-section { animation: none; } }
+
+
+/* 카드 아래의 전체 전시 목록 버튼 */
+.tour-all-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  width: fit-content;
+  min-width: 300px;
+  margin: 44px auto 0;
+  padding: 14px 25px 15px;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: linear-gradient(#101814, #101814) padding-box, linear-gradient(105deg, #d8ff63 0%, #f15a35 48%, #18dfb2 100%) border-box;
+  background-size: 100% 100%, 180% 100%;
+  color: #f7f8ed;
+  box-shadow: 0 7px 18px rgba(23, 34, 30, .14), inset 0 1px 0 rgba(255, 255, 255, .08);
+  font: 500 14px 'Noto Sans KR', sans-serif;
+  letter-spacing: .055em;
+  text-decoration: none;
+  transition: transform 260ms cubic-bezier(.22, 1, .36, 1), box-shadow 260ms ease, background-position 420ms ease;
+}
+
+.tour-all-button span {
+  font: 24px/1 'DM Mono', monospace;
+  transition: transform 260ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.tour-all-button:hover,
+.tour-all-button:focus-visible {
+  background-position: 0 0, 100% 50%;
+  box-shadow: 0 12px 27px rgba(23, 34, 30, .22), 0 0 17px rgba(24, 223, 178, .18), inset 0 1px 0 rgba(255, 255, 255, .15);
+  outline: 2px solid #17221e;
+  outline-offset: 4px;
+  transform: translateY(-3px);
+}
+
+.tour-all-button:hover span,
+.tour-all-button:focus-visible span {
+  transform: translateX(4px);
+}
+
+@media (max-width: 700px) {
+  .tour-all-button {
+    min-width: 0;
+    margin-top: 30px;
+    padding: 14px 20px 15px;
+    font-size: 13px;
+  }
+}

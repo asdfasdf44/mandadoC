@@ -1,0 +1,18 @@
+.artist-overlay{padding:24px}
+.artist-dialog{position:relative;display:grid;grid-template-columns:300px minmax(0,1fr);gap:40px;align-items:center;width:min(1240px,96vw);max-height:92vh;overflow:auto;box-sizing:border-box;padding:44px;background:radial-gradient(ellipse at top,#fffaf0,#eee3cc);color:#403426;border:8px double #b69a61;outline:2px solid #57432b;box-shadow:0 0 0 5px #e0c48c,inset 0 0 0 2px #fff9df,inset 0 0 35px #b08d4c22,0 24px 80px #0009;animation:puzzle-frame-descend .95s cubic-bezier(.22,.75,.22,1) both}
+.artist-portrait{padding:8px;background:linear-gradient(135deg,#ad8952,#f2dca6,#7e6038);box-shadow:0 10px 25px #49352240}
+.artist-portrait img{display:block;width:100%;height:auto;max-height:65vh;object-fit:contain;background:#151714}
+.artist-letter{text-align:center}
+.artist-caption{font:11px Arial,sans-serif;letter-spacing:3px;color:#9a7d48}
+.artist-letter h2{margin:12px 0;font-size:29px;font-weight:500;font-family:Georgia,'Batang',serif;letter-spacing:2px}
+.artist-divider{color:#b69a61;display:flex;align-items:center;gap:16px;justify-content:center;margin:18px auto 25px;width:180px;font-size:10px}
+.artist-divider::before,.artist-divider::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,#b69a61)}
+.artist-divider::after{transform:rotate(180deg)}
+.artist-text{font-family:Georgia,'Batang','Malgun Gothic',serif;font-size:16px;line-height:1.95;word-break:keep-all;overflow-wrap:anywhere}
+.artist-text p{margin:0 0 22px;white-space:pre-line}
+.artist-text p:last-child{margin-bottom:0}
+.artist-close{position:absolute;right:14px;top:10px;width:36px;height:36px;border:1px solid #b69a61;border-radius:50%;background:#fff7e6;color:#705333;font-size:26px;cursor:pointer}
+.artist-close:hover{background:#ead6b0}
+.artist-overlay.leaving .artist-dialog{animation:puzzle-frame-ascend .45s ease-in both}
+@media(max-width:900px){.artist-dialog{grid-template-columns:1fr;gap:24px;padding:44px 22px 26px}.artist-portrait{width:min(220px,65%);margin:auto}.artist-portrait img{max-height:34vh}.artist-text{font-size:15px}.artist-text p{white-space:normal}.artist-overlay{padding:14px}}
+@media(prefers-reduced-motion:reduce){.artist-dialog,.artist-overlay.leaving .artist-dialog{animation:none}}

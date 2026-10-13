@@ -1,0 +1,91 @@
+/* Two-product gallery in the online mall section. */
+.shop-section h2 span { color: #f15a35; }
+.shop-subtitle {
+  margin: 22px 0 0;
+  color: rgba(23, 34, 30, .72);
+  font: 700 clamp(13px, 1.15vw, 17px)/1.45 'Noto Sans KR', sans-serif;
+  letter-spacing: -.04em;
+}
+
+.product-stage {
+  position: absolute;
+  top: 10%;
+  right: 18%;
+  width: 62%;
+  height: 76%;
+}
+
+.product-gallery-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 42px;
+  object-fit: cover;
+  object-position: center;
+  clip-path: inset(0 round 42px);
+  filter: drop-shadow(14px 18px 20px rgba(23, 34, 30, .18));
+  opacity: 0;
+  transform: scale(.97);
+  transition: opacity 420ms ease, transform 560ms cubic-bezier(.22, 1, .36, 1), filter 500ms ease;
+}
+
+.product-gallery-image.is-active { opacity: 1; transform: scale(1); }
+.product-preview:hover .product-gallery-image.is-active { filter: drop-shadow(18px 24px 25px rgba(23, 34, 30, .25)); transform: scale(1.025); }
+
+.product-preview .product-price {
+  top: 28px;
+  bottom: auto;
+  left: 28px;
+}
+
+.product-preview .product-price {
+  transition: opacity 280ms ease, transform 280ms cubic-bezier(.22, 1, .36, 1), box-shadow 320ms ease, border-color 320ms ease;
+}
+
+.product-price.is-changing,
+.product-preview:hover .product-price.is-changing { opacity: 0; transform: translateY(-10px) scale(.975); }
+
+.product-toggle {
+  position: absolute;
+  z-index: 3;
+  bottom: 34px;
+  left: 50%;
+  display: flex;
+  gap: 5px;
+  padding: 5px;
+  border: 1px solid rgba(255, 255, 255, .7);
+  border-radius: 999px;
+  background: rgba(20, 29, 25, .75);
+  box-shadow: 0 8px 20px rgba(23, 34, 30, .2);
+  backdrop-filter: blur(9px);
+  transform: translateX(-50%);
+}
+
+.product-toggle-button {
+  width: 36px;
+  height: 30px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, .72);
+  cursor: pointer;
+  font: 700 11px/1 'DM Mono', monospace;
+  transition: background 240ms ease, color 240ms ease, transform 240ms ease;
+}
+
+.product-toggle-button:hover,
+.product-toggle-button:focus-visible { color: #fff; outline: none; transform: scale(1.08); }
+.product-toggle-button.is-active { background: #fff; color: #17221e; }
+
+@media (max-width: 700px) {
+  .shop-subtitle { margin-top: 17px; font-size: 13px; }
+  .product-stage { top: 11%; right: 5%; width: 90%; height: 62%; }
+  .product-gallery-image { border-radius: 34px; clip-path: inset(0 round 34px); }
+  .product-preview .product-price { top: 18px; bottom: auto; left: 14px; }
+  .product-toggle { bottom: 27%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-gallery-image, .product-price, .product-toggle-button { transition: none; }
+}

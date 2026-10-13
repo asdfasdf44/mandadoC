@@ -1,0 +1,57 @@
+/* Main call-to-action: a restrained glow against the black hero. */
+.hero-cta {
+  position: absolute;
+  z-index: 3;
+  bottom: 16%;
+  left: 8vw;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  min-width: 276px;
+  min-height: 58px;
+  padding: 0 27px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: linear-gradient(#0c1110, #0c1110) padding-box, linear-gradient(105deg, #b8f45e, #38e0c0 52%, #ff7652) border-box;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .35), 0 0 18px rgba(98, 231, 171, .1);
+  color: #f7fbf7;
+  font: 700 16px/1 'Noto Sans KR', sans-serif;
+  letter-spacing: .075em;
+  text-decoration: none;
+  transition: transform 300ms cubic-bezier(.22, 1, .36, 1), box-shadow 300ms ease, background 300ms ease;
+}
+
+.hero-cta span {
+  font: 400 26px/.8 'DM Mono', monospace;
+  transition: transform 300ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.hero-cta:hover,
+.hero-cta:focus-visible {
+  background: linear-gradient(112deg, #17231c, #0c1110 48%, #17241f) padding-box, linear-gradient(105deg, #c9ff66, #42efd1 50%, #ff8a66) border-box;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, .42), 0 0 26px rgba(72, 230, 183, .27);
+  outline: none;
+  transform: translateY(-4px) scale(1.025);
+}
+
+.hero-cta:hover span,
+.hero-cta:focus-visible span { transform: translateX(5px); }
+
+@media (max-width: 700px) {
+  .hero-cta {
+    bottom: 12%;
+    left: 5vw;
+    min-width: 0;
+    min-height: 50px;
+    padding: 0 21px;
+    gap: 18px;
+    font-size: 13px;
+  }
+  .hero-cta span { font-size: 21px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-cta, .hero-cta span { transition: none; }
+  .hero-cta:hover, .hero-cta:focus-visible { transform: none; }
+}

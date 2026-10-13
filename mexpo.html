@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MEXPO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Noto+Sans+KR:wght@400;700;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet"><link rel="stylesheet" href="style-clean.css"><link rel="stylesheet" href="scroll-tuning.css"><link rel="stylesheet" href="hero-image.css"><link rel="stylesheet" href="page-sizing.css"><link rel="stylesheet" href="tour-poster.css"><link rel="stylesheet" href="hero-motion.css"><link rel="stylesheet" href="tour-actions.css"><link rel="stylesheet" href="shop-image.css"><link rel="stylesheet" href="responsive.css"><link rel="stylesheet" href="shop-toggle.css"><link rel="stylesheet" href="hero-cta.css"><link rel="stylesheet" href="shop-media.css"></head>
+<body><header class="header"><a class="brand" href="#home">MEXPO<span>®</span></a><nav class="nav"><a href="#tours">MEXPO TOUR</a><a href="#shop">ONLINE MALL</a><a href="#about">ABOUT</a></nav></header>
+<main id="home"><section class="hero"><p class="eyebrow">DIGITAL EXHIBITION PLATFORM / 2026</p><div class="hero-copy"><h1>문화가 당신에게<br><em>가까워지는 곳</em></h1></div><a class="hero-cta" href="#tours">MEXPO 둘러보기 <span aria-hidden="true">→</span></a><img class="hero-image" src="mainImage.png" alt="MEXPO 디지털 전시 투어"><div class="grid-lines"></div><a class="scroll-cue" href="#tours">SCROLL TO EXPLORE ↓</a></section>
+<section class="tour-section" id="tours"><div class="section-top"><p class="eyebrow">CURATED DIGITAL TOURS</p><p class="counter">NOW SHOWING 03 / 03</p></div><h2>새로운 전시&공연 <span class="tour-heading-accent">with <b>MEXPO</b></span></h2><div class="tour-grid" id="tourGrid"></div><a class="tour-all-button" href="exhibitions.html" target="_top">모든 전시&amp;공연 둘러보기 <span aria-hidden="true">→</span></a></section>
+<section class="shop-section" id="shop"><div><p class="eyebrow">MEXPO SHOP</p><h2>즐거운 경험을<br><span>MEXPO에서</span></h2><p class="shop-subtitle">악어와 생일케이크 온라인 팝업 오픈!! <a class="popup-trial-link" href="https://asdfasdf44.github.io/mandadoC/popup-tour/" target="_top">무료 체험하기</a></p><div class="shop-media-grid"><figure class="shop-video"><video class="lazy-shop-video" data-src="cartoon1.web.mp4" muted loop playsinline preload="none" aria-label="악어와 생일케이크 팝업 영상 1"></video></figure><figure class="shop-video"><video class="lazy-shop-video" data-src="cartoon2.web.mp4" muted loop playsinline preload="none" aria-label="악어와 생일케이크 팝업 영상 2"></video></figure></div></div><div class="product-preview"><div class="product-stage"><img class="product-gallery-image is-active" src="image_bag.png" alt="악어와 생일케이크 파티 에코백"><img class="product-gallery-image" src="image_keyc.png" alt="악어와 생일케이크 키링"></div><div class="product-price" aria-live="polite" aria-label="악어와 생일케이크 파티 에코백 할인 가격: 7,500원에서 5,500원"><span class="product-name">악어와 생일케이크 파티 에코백</span><div class="price-row"><span class="original-price">7,500원</span><span class="price-arrow" aria-hidden="true">↘</span><strong>5,500원</strong></div><span class="sale-badge" aria-hidden="true">ON<br>SALE</span></div><div class="product-toggle" role="tablist" aria-label="상품 이미지 선택"><button class="product-toggle-button is-active" type="button" role="tab" aria-selected="true" data-product="0">01</button><button class="product-toggle-button" type="button" role="tab" aria-selected="false" data-product="1">02</button></div><a class="purchase-button" href="#purchase-link" aria-label="악어와 생일케이크 파티 에코백 구매하기">BUY</a></div></section>
+<section class="manifesto" id="about"><p class="eyebrow">WHY MEXPO</p><p class="manifesto-text">MEXPO는 단순히 전시를<br>보는 곳이 아닙니다. <em>예술과<br>만나는 새로운 방식</em>입니다.</p></section></main>
+<footer><a class="brand" href="#home">MEXPO®</a><p>© 2026 MEXPO. ALL RIGHTS RESERVED.</p></footer><script src="app.js"></script><script src="fullpage-scroll.js"></script><script src="tour-poster.js"></script><script src="shop-toggle.js"></script><script src="video-lazy.js"></script>
+<style>
+#entry-popup{padding:0;border:0;border-radius:18px;width:min(340px,calc(100vw - 32px));max-height:calc(100dvh - 32px);margin:auto;background:#fff;box-shadow:0 24px 90px #0005;color:#182a22;overflow:auto;font-family:'Noto Sans KR',sans-serif;overscroll-behavior:contain}
+#entry-popup::backdrop{background:rgba(12,24,20,.62)}
+#entry-popup .entry-art{display:flex;justify-content:center;background:#b7e9fc}
+#entry-popup .entry-art img{display:block;max-width:100%;width:auto;height:auto;max-height:calc(100dvh - 170px);object-fit:contain}
+#entry-popup .entry-visit{display:block;margin:12px 16px 0;padding:11px;text-align:center;border-radius:9px;background:#214d39;color:#fff;font-size:16px;font-weight:700;text-decoration:none}
+#entry-popup .entry-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 16px;font-size:14px}
+#entry-popup label{display:flex;align-items:center;gap:8px;cursor:pointer;line-height:1.5}
+#entry-popup input{width:18px;height:18px;accent-color:#214d39;margin:0;flex-shrink:0}
+#entry-popup button{font:inherit;white-space:nowrap;border:0;background:none;color:#33483c;cursor:pointer;padding:8px}
+#entry-popup :focus-visible{outline:3px solid #ef8b35;outline-offset:3px}
+#entry-popup .entry-storage-note{font-size:12px;margin:0 16px 12px;color:#75512b}
+</style>
+<dialog id="entry-popup" aria-label="악어와 생일케이크 온라인몰 오픈 안내">
+ <a class="entry-art" href="https://asdfasdf44.github.io/mandadoC/popup-tour/" target="_top" aria-label="악어와 생일케이크 VR 팝업 무료 체험하기"><img src="pop_1.png" alt="악어와 생일케이크 VR 온라인몰 오픈. 귀욤 폭발 굿즈가 한가득, Croc &amp; Cake."></a>
+ <a class="entry-visit" href="https://asdfasdf44.github.io/mandadoC/popup-tour/" target="_top">무료 체험하기</a>
+ <div class="entry-footer"><label><input type="checkbox" id="entry-hide-today">오늘 하루 보지 않기</label><button type="button" id="entry-close" autofocus>닫기 ×</button></div>
+ <p class="entry-storage-note" role="status" hidden>이 브라우저에서는 오늘 하루 숨김 설정을 저장할 수 없습니다.</p>
+</dialog>
+<script>
+(()=>{
+ const popup=document.getElementById('entry-popup'),toggle=document.getElementById('entry-hide-today');
+ const key='mexpo.entryPopup.hideDate.v1';
+ const localDay=()=>{const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')};
+ let suppressed=false;
+ try{suppressed=localStorage.getItem(key)===localDay()}catch{}
+ if(suppressed)return;
+ const originalOverflow=document.documentElement.style.overflow;
+ popup.showModal();document.documentElement.style.overflow='hidden';
+ toggle.addEventListener('change',()=>{
+  try{if(toggle.checked)localStorage.setItem(key,localDay());else localStorage.removeItem(key);popup.querySelector('.entry-storage-note').hidden=true}
+  catch{popup.querySelector('.entry-storage-note').hidden=false}
+ });
+ document.getElementById('entry-close').addEventListener('click',()=>popup.close());
+ popup.addEventListener('click',e=>{if(e.target!==popup)return;const r=popup.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)popup.close()});
+ popup.addEventListener('close',()=>{document.documentElement.style.overflow=originalOverflow;document.querySelector('.hero-cta')?.focus({preventScroll:true})});
+ // Keep the existing full-page wheel/touch navigation inactive behind the dialog.
+ for(const type of ['wheel','touchstart','touchend'])window.addEventListener(type,e=>{if(popup.open)e.stopImmediatePropagation()},{capture:true,passive:true});
+})();
+</script>
+</body></html>

@@ -1,0 +1,35 @@
+.hero {
+  background: #000;
+}
+
+.hero-image {
+  position: absolute;
+  z-index: 1;
+  top: 5%;
+  right: calc(2% - 24px);
+  width: min(70vw, 850px);
+  height: 90%;
+  object-fit: contain;
+  object-position: center;
+  pointer-events: none;
+  animation: hero-image-breathe 6s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes hero-image-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.025); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-image { animation: none; }
+}
+
+@media (max-width: 700px) {
+  .hero-image {
+    top: 26%;
+    right: -12%;
+    width: min(135vw, 650px);
+    height: 68%;
+  }
+}

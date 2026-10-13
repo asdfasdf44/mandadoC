@@ -1,0 +1,12 @@
+.room2-floor-marker{position:fixed;z-index:900;pointer-events:none;width:58px;height:58px;margin:-29px 0 0 -29px;border:3px solid #fff5d6;border-radius:50%;background:#fff4ca22;box-shadow:0 0 0 6px #ffffff18,0 0 18px #ffdc8b88;transform:perspective(160px) rotateX(52deg);display:flex;align-items:center;justify-content:center;color:white}
+.room2-floor-marker span{font:bold 46px Arial;line-height:1;transform:translateY(7px);text-shadow:0 2px 5px #0008}
+.room2-floor-marker[hidden]{display:none}
+.room2-floor-marker.on-wall{transform:none;width:46px;height:46px;margin:-23px 0 0 -23px;background:#fff4ca12}
+.room2-floor-marker.on-wall span{font-size:0;transform:none;width:8px;height:8px;background:#fff5d6;border-radius:50%;box-shadow:0 0 10px #ffdc8b}
+.room2-wall-hover #krpanoSWFObject,.room2-wall-hover #krpanoSWFObject *{cursor:none!important}
+.room2-floor-marker.moving{border-color:#ffe7a4;box-shadow:0 0 0 6px #ffffff18,0 0 24px #ffdc8baa}
+.tour-custom-cursor,.tour-custom-cursor *{cursor:none!important}
+.tour-custom-cursor .room2-floor-marker:not(.tour-cursor){display:none!important}
+.tour-cursor{z-index:30000;transition:box-shadow .15s,scale .15s;border-width:2px!important}
+.tour-cursor.interactive{scale:1.15;border-color:#ffe198;box-shadow:0 0 0 5px #ffe6ac22,0 0 22px #ffdb86aa}
+.tour-cursor.pressed{scale:.85}

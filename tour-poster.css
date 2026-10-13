@@ -1,0 +1,78 @@
+.tour-card:nth-child(2) .visual {
+  background: #351044;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.tour-card:nth-child(2) .visual::before {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  background: url("poster_2.png") center / cover no-repeat;
+  filter: blur(8px);
+  opacity: 0.28;
+  transform: scale(1.08);
+}
+
+.tour-card:nth-child(1) .visual {
+  background: #fd6f22;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.tour-card:nth-child(1) .visual::before {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  background: url("poster_1.png") center / cover no-repeat;
+  filter: blur(8px);
+  opacity: 0.28;
+  transform: scale(1.08);
+}
+
+.tour-poster {
+  width: 88%;
+  height: 78%;
+  object-fit: contain;
+  display: block;
+  position: relative;
+  z-index: 1;
+  transition: transform 420ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.tour-card:hover .tour-poster {
+  transform: scale(1.055);
+}
+
+.tour-card:nth-child(3) .visual {
+  background: #40264f;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.tour-card:nth-child(3) .visual::before {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  background: url("poster_3.svg") center / cover no-repeat;
+  filter: blur(8px);
+  opacity: 0.28;
+  transform: scale(1.08);
+}
+
+.tour-poster-link {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.tour-poster-link:focus-visible {
+  outline: 3px solid #ead9ff;
+  outline-offset: -5px;
+}

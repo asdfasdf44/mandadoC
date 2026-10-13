@@ -1,0 +1,13 @@
+/* JavaScript controls the duration; native snapping would override that animation. */
+html {
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+}
+
+.hero,
+.tour-section,
+.manifesto,
+.shop-section,
+footer {
+  scroll-snap-stop: normal;
+}

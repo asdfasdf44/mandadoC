@@ -1,0 +1,93 @@
+.puzzle-overlay{position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.8);display:flex;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;color:#eee;font-family:Arial,'Malgun Gothic',sans-serif}.puzzle-dialog{position:relative;width:min(100%,980px);max-height:95vh;overflow:auto;background:#19232d;border:1px solid #526474;border-radius:18px;padding:30px;box-sizing:border-box;box-shadow:0 20px 80px #000}.puzzle-layout{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:30px;align-items:center}.puzzle-board{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;width:100%;max-height:70vh;margin:auto}.puzzle-tile{border:0;padding:0;background-repeat:no-repeat;background-size:300% 300%;cursor:pointer;min-width:0;min-height:0;border-radius:2px}.puzzle-tile:focus-visible{outline:3px solid #ffda72;outline-offset:-4px}.puzzle-tile.selected{outline:4px solid #ffda72;outline-offset:-4px;filter:brightness(1.15)}.puzzle-info h2{font-size:25px;line-height:1.4;margin:8px 0 18px}.puzzle-quote{font-size:19px;color:#ffda72;line-height:1.6}.puzzle-help{color:#bdcbd6;line-height:1.7;font-size:14px}.puzzle-close,.puzzle-shuffle{cursor:pointer;border:1px solid #647889;border-radius:8px;background:#2c4051;color:white;padding:10px 16px;font-size:15px}.puzzle-close{position:absolute;right:12px;top:10px;font-size:20px;padding:4px 10px}.puzzle-status{min-height:48px;line-height:1.6;color:#a9e6bd}.puzzle-preview{width:100%;max-height:220px;object-fit:contain;margin-top:12px}.puzzle-info summary{cursor:pointer;margin-top:20px}.puzzle-loading{padding:40px;text-align:center}@media(max-width:700px){.puzzle-overlay{padding:10px}.puzzle-dialog{padding:44px 18px 20px}.puzzle-layout{grid-template-columns:1fr;gap:18px}.puzzle-board{max-height:50vh;max-width:100%}.puzzle-info h2{font-size:21px;margin:0 0 8px}.puzzle-quote{margin:8px 0}.puzzle-help{margin:8px 0}}
+/* Enlarged puzzle layout and pointer dragging. */
+.puzzle-overlay{padding:18px}
+.puzzle-dialog{width:min(97vw,1440px);padding:48px 36px 32px;max-height:96vh}
+.puzzle-layout{grid-template-columns:minmax(0,1fr) 380px;gap:32px}
+.puzzle-board{--board-height:80vh;max-height:none;width:min(100%,calc(var(--board-height) * var(--art-ratio)));grid-template-rows:repeat(3,1fr);gap:5px;touch-action:none}
+.puzzle-tile{cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
+.puzzle-tile.dragging{opacity:.28;cursor:grabbing}
+.puzzle-tile.drop-target{outline:4px solid #ffda72;outline-offset:-4px;filter:brightness(1.2)}
+.puzzle-drag-ghost{position:fixed;z-index:10002;pointer-events:none;background-repeat:no-repeat;background-size:300% 300%;border-radius:4px;box-shadow:0 12px 35px #0009;outline:3px solid #ffda72;opacity:.95;transform:scale(1.04)}
+.puzzle-info h2{font-size:32px}
+.puzzle-quote{font-size:24px}
+.puzzle-help{font-size:16px}
+.puzzle-status{font-size:18px}
+.puzzle-shuffle{padding:14px 24px;font-size:18px}
+.puzzle-close{font-size:28px;right:16px;top:10px}
+.puzzle-preview{max-height:300px}
+@media(max-width:900px){.puzzle-layout{grid-template-columns:1fr;gap:24px}.puzzle-dialog{padding:48px 20px 24px}.puzzle-board{--board-height:62vh}.puzzle-info h2{font-size:25px}.puzzle-quote{font-size:20px}.puzzle-overlay{padding:8px}}
+
+/* Warm wooden frame with grain, bevels and a linen interior. */
+.puzzle-dialog{
+  border:22px solid #89552f;
+  border-image:repeating-linear-gradient(94deg,#573019 0px,#86502c 3px,#ad7543 7px,#956039 11px,#754323 14px,#b17b49 19px,#88522e 25px) 22;
+  border-radius:0;
+  background:repeating-linear-gradient(0deg,#ffffff08 0px,#ffffff08 1px,transparent 1px,transparent 4px),repeating-linear-gradient(90deg,#9f784708 0px,#9f784708 1px,transparent 1px,transparent 4px),#f3ead9;
+  color:#392b20;
+  box-shadow:0 24px 80px #000b,0 0 0 2px #422512,0 0 0 5px #b78854,inset 0 0 0 2px #cba570,inset 0 0 0 5px #684326,inset 0 0 22px #50321d55;
+}
+.puzzle-board{--board-height:74vh;outline:7px solid #805335;box-shadow:0 0 0 10px #d0a576,0 0 0 12px #5b3823,0 12px 28px #3a201d40;background:#65432b}
+.puzzle-info{padding:22px 18px;border-left:1px solid #b9986c;background:#fffaf04d;text-align:center;min-width:0;box-sizing:border-box;word-break:keep-all;overflow-wrap:break-word}
+.puzzle-info h2{color:#432e1d}
+.puzzle-quote{color:#8e4f24}
+.puzzle-help{color:#6e5b48;text-align:left;text-wrap:pretty}
+.puzzle-status{color:#42603b;text-align:left;font-size:16px;white-space:nowrap}
+.puzzle-close,.puzzle-shuffle{border:1px solid #65412a;background:linear-gradient(110deg,#6b4328,#9b693e 48%,#774b2d);color:#fff4df;box-shadow:inset 0 1px 0 #d3ae79,0 3px 6px #38200f33}
+.puzzle-close:hover,.puzzle-shuffle:hover{background:linear-gradient(110deg,#805431,#b17c4a 48%,#8c5d37)}
+.puzzle-info summary{color:#6e4325}
+.puzzle-preview{background:#e9dcc6;border:3px solid #97673e;box-sizing:border-box}
+.puzzle-fireworks{position:fixed;inset:0;width:100%;height:100%;z-index:10003;pointer-events:none}
+.puzzle-sound{display:block;margin:16px auto 0;border:1px solid #a3825c;border-radius:6px;padding:8px 14px;background:#fff5e3;color:#65412a;cursor:pointer;font:inherit;font-size:14px}
+.room2-bgm-button{position:fixed;right:18px;top:18px;z-index:10001;padding:10px 16px;border:1px solid #ba9768;border-radius:8px;background:#3f2a1ee6;color:#fff4df;font:14px Arial,'Malgun Gothic',sans-serif;cursor:pointer;box-shadow:0 3px 12px #0005}
+.room2-bgm-button[hidden]{display:none}
+.puzzle-board.completed{gap:0;background-size:100% 100%;background-repeat:no-repeat}
+.puzzle-board.completed .puzzle-tile{visibility:hidden}
+.puzzle-overlay{background:rgba(0,0,0,.48);animation:puzzle-room-dim .8s ease both}
+.puzzle-dialog{animation:puzzle-frame-descend .95s cubic-bezier(.22,.75,.22,1) both}
+.puzzle-tile{animation:puzzle-piece-descend .65s cubic-bezier(.2,.75,.25,1) var(--piece-delay,320ms) both}
+.puzzle-info{animation:puzzle-info-reveal .6s ease .55s both}
+.puzzle-overlay.leaving{animation:puzzle-room-clear .45s ease both;pointer-events:none}
+.puzzle-overlay.leaving .puzzle-dialog{animation:puzzle-frame-ascend .45s ease-in both}
+@keyframes puzzle-room-dim{from{background:transparent}to{background:rgba(0,0,0,.48)}}
+@keyframes puzzle-frame-descend{from{transform:translateY(-110vh);opacity:.2}70%{opacity:1}to{transform:translateY(0);opacity:1}}
+@keyframes puzzle-piece-descend{from{transform:translateY(-100px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes puzzle-info-reveal{from{transform:translateY(18px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes puzzle-room-clear{from{background:rgba(0,0,0,.48)}to{background:transparent}}
+@keyframes puzzle-frame-ascend{from{transform:translateY(0);opacity:1}to{transform:translateY(-100vh);opacity:0}}
+@media(prefers-reduced-motion:reduce){.puzzle-overlay,.puzzle-dialog,.puzzle-tile,.puzzle-info,.puzzle-overlay.leaving,.puzzle-overlay.leaving .puzzle-dialog{animation:none}}
+@media(max-width:900px){.puzzle-dialog{border-width:14px}.puzzle-board{--board-height:58vh}.puzzle-info{border-left:0;border-top:1px solid #b9986c;padding:18px 4px}.puzzle-close{right:10px}}
+@media(max-width:420px){.puzzle-status{font-size:14px}}
+@media(max-width:340px){.puzzle-status{font-size:12px}}
+.room2-icon-label{position:fixed;z-index:950;transform:translate(-50%,-100%);max-width:calc(100vw - 24px);box-sizing:border-box;padding:10px 18px;border:1px solid #d6ba7d;border-radius:8px;background:linear-gradient(135deg,#fff9e9,#efe0bf);color:#543923;font:16px 'Malgun Gothic',Arial,sans-serif;white-space:nowrap;pointer-events:none;box-shadow:0 5px 18px #0005,inset 0 0 0 2px #fff7e0}
+.room2-icon-label[hidden]{display:none}
+.room2-icon-label{border-radius:16px;padding:12px 20px}
+.room2-icon-label::before,.room2-icon-label::after{content:'';position:absolute;left:var(--bubble-tail-x,50%);top:100%;transform:translateX(-50%);width:0;height:0;border-style:solid;pointer-events:none}
+.room2-icon-label::before{border-width:15px 11px 0;border-color:#d6ba7d transparent transparent}
+.room2-icon-label::after{border-width:13px 9px 0;border-color:#efe0bf transparent transparent}
+.room0-navigation-icon{animation:room0-navigation-glow 2.8s ease-in-out infinite;overflow:visible!important}
+.room0-navigation-icon::after{content:'';position:absolute;inset:0;border-radius:50%;pointer-events:none;background:conic-gradient(from 0deg,transparent 0deg,#85ffff 55deg,transparent 110deg,transparent 180deg,#ff9cfb 235deg,transparent 290deg);mask-image:radial-gradient(circle,transparent 48%,#000 49%,#000 53%,transparent 54%);-webkit-mask-image:radial-gradient(circle,transparent 48%,#000 49%,#000 53%,transparent 54%);animation:room0-navigation-ring 5s linear infinite}
+@keyframes room0-navigation-glow{0%,100%{filter:drop-shadow(0 0 30px #75ffffaa) drop-shadow(0 0 70px #dd76ff88)}50%{filter:drop-shadow(0 0 55px #b9ffff) drop-shadow(0 0 115px #ff94fabb)}}
+@keyframes room0-navigation-ring{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.room0-navigation-icon,.room0-navigation-icon::after{animation:none}.room0-navigation-icon{filter:drop-shadow(0 0 40px #75ffffaa)}}
+.room-menu{position:relative;width:min(520px,94vw);padding:44px 34px 34px;box-sizing:border-box;text-align:center;background:#fff5df;color:#503821;border:6px double #b9925f;box-shadow:0 18px 70px #0008;animation:puzzle-info-reveal .35s ease both}
+.room-menu p{font-size:11px;letter-spacing:3px;color:#987544}
+.room-menu h2{font-size:28px;margin:16px 0 28px}
+.room-menu-buttons{display:grid;gap:14px}
+.room-menu-buttons button{padding:18px 20px;border:1px solid #997046;border-radius:8px;background:linear-gradient(120deg,#765033,#aa7a4d);color:#fff7e7;font:18px 'Malgun Gothic',Arial,sans-serif;box-shadow:0 4px 10px #57392122}
+.room-menu-buttons button:hover{background:linear-gradient(120deg,#926341,#bd8b57)}
+.room-menu-close{position:absolute;right:12px;top:10px;border:0;background:transparent;color:#715234;font-size:28px}
+.room-radial-menu{position:fixed;z-index:10010;width:0;height:0;overflow:visible}
+.room-radial-button{--accent:#83f6ff;position:absolute;left:var(--x);top:var(--y);width:182px;min-height:58px;display:flex;align-items:center;gap:10px;padding:10px 14px;box-sizing:border-box;border:1px solid var(--accent);border-radius:30px;background:linear-gradient(135deg,#172a3ff2,#302745f2);color:#fff;font:14px 'Malgun Gothic',Arial,sans-serif;white-space:nowrap;box-shadow:0 0 15px color-mix(in srgb,var(--accent) 35%,transparent),inset 0 1px 0 #ffffff33,0 6px 16px #0005;transform:translate(-50%,-50%);animation:room-radial-unfold .48s cubic-bezier(.16,1,.3,1) var(--delay) both}
+.room-radial-button.violet{--accent:#c1a1ff}
+.room-radial-button.pink{--accent:#ff9ce1}
+.room-radial-badge{display:flex;align-items:center;justify-content:center;flex:none;min-width:32px;height:32px;padding:0 3px;box-sizing:border-box;border-radius:50%;background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent);font:bold 10px Arial,sans-serif;letter-spacing:.5px}
+.room-radial-button:hover,.room-radial-button:focus-visible{outline:0;background:linear-gradient(135deg,#30475c,#4b3860);box-shadow:0 0 26px color-mix(in srgb,var(--accent) 60%,transparent),inset 0 0 0 1px var(--accent)}
+.room0-navigation-icon.navigation-open{animation-play-state:paused!important;filter:grayscale(1) drop-shadow(0 0 24px #ffffff88)!important}
+.room0-navigation-icon.navigation-open::after{animation-play-state:paused!important}
+@keyframes room-radial-unfold{from{opacity:0;transform:translate(calc(-50% - var(--x)),calc(-50% - var(--y))) scale(.15) rotate(-20deg)}to{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0deg)}}
+@media(max-width:600px){.room-radial-button{width:154px;font-size:12px;padding:8px 10px;gap:7px;min-height:54px}}
+@media(prefers-reduced-motion:reduce){.room-radial-button{animation:none}}
+.room-radial-menu.closing{pointer-events:none}
+.room-radial-menu.closing .room-radial-button{animation:room-radial-fold .3s cubic-bezier(.55,0,.8,.4) var(--close-delay,0ms) both}
+@keyframes room-radial-fold{from{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0deg)}to{opacity:0;transform:translate(calc(-50% - var(--x)),calc(-50% - var(--y))) scale(.08) rotate(20deg)}}
+@media(prefers-reduced-motion:reduce){.room-radial-menu.closing .room-radial-button{animation:none}}
