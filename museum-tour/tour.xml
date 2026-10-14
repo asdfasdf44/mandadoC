@@ -1,17 +1,20 @@
 <krpano version="1.24" title="Virtual Tour">
 
-	<include url="skin/vtourskin.xml" />
+	<include url="skin/vtourskin.xml?v=20261014-final" />
 	<action name="room0_open_navigation" type="Javascript"><![CDATA[
 		if (window.openRoomNavigation) window.openRoomNavigation(krpano, caller);
 	]]></action>
+    <action name="room_travel_linked" type="Javascript"><![CDATA[
+        if (window.travelRoomNavigation) window.travelRoomNavigation(krpano, caller);
+    ]]></action>
 	<action name="room0_arrow_effect" type="Javascript"><![CDATA[
 		if (caller.sprite) {
 			caller.sprite.classList.add('room0-navigation-icon');
-			caller.sprite.setAttribute('aria-label', '다음 방으로 이동');
+			caller.sprite.setAttribute('aria-label', caller.navigationlabel || '전시관 선택');
 		}
 	]]></action>
 	<action name="room0_arrow_pulse">
-		if((xml.scene == scene_room0 OR xml.scene == scene_room2 OR xml.scene == scene_room3) AND navigationopen != true,
+		if((xml.scene == scene_room0 OR xml.scene == scene_room1_1 OR xml.scene == scene_room1_2 OR xml.scene == scene_room2 OR xml.scene == scene_room3) AND navigationopen != true,
 			tween(scale,1.12,1.4,easeInOutSine,
 				tween(scale,1.0,1.4,easeInOutSine,room0_arrow_pulse());
 			);
@@ -19,6 +22,8 @@
 	</action>
 	<events name="room0_locked_view" keep="true" onnewscene="room0_set_view_lock();" onviewchange="room0_enforce_view_lock();" />
 	<action name="room0_set_view_lock" type="Javascript"><![CDATA[
+        krpano.set('navigationtravel', false);
+        if (window.LobbyEdgeBlur) window.LobbyEdgeBlur.scene(krpano.get('xml.scene'));
 		if (krpano.get('xml.scene') === 'scene_room0') {
 			krpano.call('stopmovements();');
 			krpano.set('control.usercontrol', 'all');
@@ -29,6 +34,7 @@
 		}
 	]]></action>
 	<action name="room0_enforce_view_lock" type="Javascript"><![CDATA[
+		if (krpano.get('navigationtravel')) return;
 		if (krpano.get('xml.scene') === 'scene_room0') {
 			krpano.set('plugin[skin_gyro].enabled', false);
 			var h = Number(krpano.get('view.hlookat'));
@@ -159,7 +165,7 @@
 		<view hlookat="182.48786990221765" vlookat="11.652109596863058" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="120" fovmax="120" limitview="off" />
 
 		<preview url="panos/Room0.tiles/preview.jpg" />
-		<hotspot name="room0_arrow" ox="5" oy="-5" url="paints/Room0/arrow.png" ath="142.461" atv="9.678" rx="0" ry="0" rz="00" distorted="true" renderer="css3d" width="60" height="prop" enabled="true" handcursor="true" onloaded="room0_arrow_effect(); room0_arrow_pulse();" onclick="room0_open_navigation();" />
+		<hotspot name="room0_arrow" ox="5" oy="-5" url="paints/Room0/arrow.png" ath="142.461" atv="9.678" rx="0" ry="0" rz="00" distorted="true" renderer="css3d" width="60" height="prop" enabled="true" handcursor="true" onloaded="room0_arrow_effect(); room0_arrow_pulse();" navigationlabel="메인전시관으로 이동" onclick="room0_open_navigation();" />
 		<hotspot name="room0_poster" url="paints/Room0/poster.png" rx="0" ry="32" rz="5" ath="-168.210" atv="4.087" distorted="true" width="1000" height="180" scale="0.5" enabled="false" />
 
 		<image>
@@ -168,18 +174,39 @@
 
 	</scene>
 
-	<scene name="scene_room1_2" title="Room1_2" onstart="" thumburl="panos/Room1_2.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+	<scene name="scene_room1_1" title="메인전시관" onstart="" thumburl="panos/Room1_1/thumb.jpg">
+        <view hlookat="80.72689317658224" vlookat="6.784637737632371" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+        <preview url="panos/Room1_1/preview.jpg" />
+        <image type="SPHERE" multires="true" tilesize="512">
+            <level tiledimagewidth="7776" tiledimageheight="3888">
+                <sphere url="panos/Room1_1/tiles/l3/%v_%h.jpg" />
+            </level>
+            <level tiledimagewidth="3888" tiledimageheight="1944">
+                <sphere url="panos/Room1_1/tiles/l2/%v_%h.jpg" />
+            </level>
+            <level tiledimagewidth="1944" tiledimageheight="972">
+                <sphere url="panos/Room1_1/tiles/l1/%v_%h.jpg" />
+            </level>
+        </image>
+        <hotspot name="room1_1_lobby_arrow" url="paints/Room0/arrow.png" ath="95.534" atv="4.173" distorted="true" renderer="css3d" width="48" height="prop" handcursor="true" navigationlabel="로비로 이동" onloaded="room0_arrow_effect(); room0_arrow_pulse();" onclick="room0_open_navigation();" />
+        <hotspot name="room1_1_exhibitions_arrow" url="paints/Room0/arrow.png" ath="40.139" atv="4.696" distorted="true" renderer="css3d" width="48" height="prop" handcursor="true" navigationlabel="1·2전시관 선택" onloaded="room0_arrow_effect(); room0_arrow_pulse();" onclick="room0_open_navigation();" />
+        <hotspot name="room1_1_to_room1_2" style="skin_hotspotstyle" ath="-107.360" atv="24.024" linkedscene="scene_room1_2" onclick="room_travel_linked();" />
+    </scene>
+
+	<scene name="scene_room1_2" title="메인전시관_2" onstart="" thumburl="panos/Room1_2.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
-		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<view hlookat="266.1190177448037" vlookat="7.226050860764349" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 
 		<preview url="panos/Room1_2.tiles/preview.jpg" />
+        <hotspot name="room1_2_arrow" url="paints/Room0/arrow.png" ath="0" atv="12" distorted="true" renderer="css3d" width="48" height="prop" handcursor="true" onloaded="room0_arrow_effect(); room0_arrow_pulse();" onclick="room0_open_navigation();" />
 
 		<image>
 			<cube url="panos/Room1_2.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280,2560" />
 		</image>
 
+	    <hotspot name="room1_2_to_room1_1" style="skin_hotspotstyle" ath="90.529" atv="19.411" linkedscene="scene_room1_1" onclick="room_travel_linked();" />
 	</scene>
 
 	<scene name="scene_room2" title="Room2" onstart="" thumburl="panos/Room2.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">

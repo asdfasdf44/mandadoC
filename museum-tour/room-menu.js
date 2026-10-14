@@ -1,12 +1,36 @@
 (function () {
   'use strict';
   const destinations = [
-    ['메인 전시관 이동', 'scene_room1_2', 'MAIN', 'cyan'],
+    ['로비', 'scene_room0', 'LOBBY', 'cyan'],
+    ['메인전시관', 'scene_room1_1', 'MAIN', 'cyan'],
     ['1 전시관 이동', 'scene_room2', '01', 'violet'],
     ['2 전시관 이동', 'scene_room3', '02', 'pink']
   ];
   let closeCurrent;
+  function travel(krpano, hotspot, scene, sourceScene, turnToHotspot = true) {
+    if (krpano.get('navigationtravel') || krpano.get('xml.scene') !== sourceScene) return;
+    if (window.PuzzleEffects) window.PuzzleEffects.play('menuFold');
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      krpano.call('skin_loadscene(' + scene + ',BLEND(0.2));');
+      return;
+    }
+    const h = Number(hotspot.ath), v = Number(hotspot.atv);
+    if (!Number.isFinite(h) || !Number.isFinite(v)) return;
+    krpano.set('navigationtravel', true);
+    krpano.set('view.limitview', 'off');
+    krpano.set('view.fovmin', 25);
+    krpano.set('plugin[skin_gyro].enabled', false);
+    const fov = Number(krpano.get('view.fov'));
+    const turn = turnToHotspot ? 'lookto(' + h + ',' + v + ',' + fov + ',tween(easeOutSine,0.18),true,false);' : '';
+    krpano.call('stopmovements();' + turn + 'skin_loadscene(' + scene + ',ZOOMBLEND(1.1,1.6,linear));');
+  }
+  window.travelRoomNavigation = function (krpano, hotspot) {
+    if (hotspot && hotspot.linkedscene) {
+      travel(krpano, hotspot, hotspot.linkedscene, krpano.get('xml.scene'), false);
+    }
+  };
   window.openRoomNavigation = function (krpano, hotspot) {
+    if (krpano.get('navigationtravel')) return;
     if (closeCurrent) {
       if (window.PuzzleEffects) window.PuzzleEffects.play('click');
       closeCurrent(); return;
@@ -15,15 +39,14 @@
     const sprite = hotspot && hotspot.sprite;
     if (!sprite) return;
     const sourceScene = krpano.get('xml.scene');
-    const choices = sourceScene === 'scene_room2' ? [
-      ['로비', 'scene_room0', 'LOBBY', 'cyan'],
-      ['메인전시관', 'scene_room1_2', 'MAIN', 'violet'],
-      ['2전시관', 'scene_room3', '02', 'pink']
-    ] : sourceScene === 'scene_room3' ? [
-      ['로비', 'scene_room0', 'LOBBY', 'cyan'],
-      ['메인전시관', 'scene_room1_2', 'MAIN', 'violet'],
-      ['1 전시관', 'scene_room2', '01', 'pink']
-    ] : destinations;
+    const isMain = sourceScene === 'scene_room1_1' || sourceScene === 'scene_room1_2';
+    const choices = sourceScene === 'scene_room0'
+      ? destinations.filter((destination) => destination[1] === 'scene_room1_1')
+      : hotspot.name === 'room1_1_lobby_arrow'
+      ? destinations.filter((destination) => destination[1] === 'scene_room0')
+      : destinations.filter((destination) => isMain
+      ? destination[1] === 'scene_room2' || destination[1] === 'scene_room3'
+      : destination[1] !== sourceScene && destination[1] !== 'scene_room0');
     if (window.PuzzleEffects) window.PuzzleEffects.play('open');
     const previous = document.activeElement;
     const menu = document.createElement('div');
@@ -54,7 +77,7 @@
       document.removeEventListener('pointercancel', cancel, true);
       if (immediate === true || window.matchMedia('(prefers-reduced-motion: reduce)').matches) finish(callback);
       else {
-        if (window.PuzzleEffects) window.PuzzleEffects.play('menuFold');
+        if (window.PuzzleEffects) window.PuzzleEffects.play('open');
         menu.classList.add('closing');
         window.setTimeout(() => finish(callback), 420);
       }
@@ -63,14 +86,14 @@
       const button = document.createElement('button');
       button.className = 'room-radial-button ' + color;
       button.style.setProperty('--delay', index * 60 + 'ms');
-      button.style.setProperty('--close-delay', (2 - index) * 45 + 'ms');
+      button.style.setProperty('--close-delay', (choices.length - 1 - index) * 45 + 'ms');
       const badge = document.createElement('span'); badge.className = 'room-radial-badge'; badge.textContent = number;
       const label = document.createElement('span'); label.textContent = title;
       button.appendChild(badge); button.appendChild(label);
       button.onclick = () => {
         if (closing) return;
         if (window.PuzzleEffects) window.PuzzleEffects.play('click');
-        close(false, () => krpano.call('skin_loadscene(' + scene + ',BLEND(0.8));'));
+        close(true, () => travel(krpano, hotspot, scene, sourceScene));
       };
       menu.appendChild(button); buttons.push(button);
     });
@@ -78,7 +101,7 @@
       if (closed) return;
       if (!sprite.isConnected || krpano.get('xml.scene') !== sourceScene) { close(true); return; }
       const rect = sprite.getBoundingClientRect(), x = rect.left + rect.width / 2, y = rect.top + rect.height / 2;
-      if (sourceScene === 'scene_room2' || sourceScene === 'scene_room3') {
+      if (sourceScene !== 'scene_room0') {
         const style = window.getComputedStyle(sprite);
         const outOfView = rect.width < 1 || rect.height < 1 || rect.right <= 0 || rect.left >= window.innerWidth || rect.bottom <= 0 || rect.top >= window.innerHeight || style.visibility === 'hidden' || style.display === 'none';
         if (outOfView && !closing) { close(); return; }
@@ -94,7 +117,7 @@
       const blend = 1 - Math.exp(-elapsed / 130);
       buttons.forEach((button, index) => {
         const dx = direction * (index === 1 ? (compact ? 132 : 190) : (compact ? 118 : 158));
-        const dy = (index - 1) * (compact ? 74 : 92), halfWidth = compact ? 77 : 91;
+        const dy = (index - (buttons.length - 1) / 2) * (compact ? 74 : 92), halfWidth = compact ? 77 : 91;
         const px = Math.max(halfWidth + 12, Math.min(window.innerWidth - halfWidth - 12, x + dx));
         const py = Math.max(42, Math.min(window.innerHeight - 82, y + dy));
         const targetX = px - x, targetY = py - y;

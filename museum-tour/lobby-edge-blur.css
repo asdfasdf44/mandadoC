@@ -1,0 +1,14 @@
+.lobby-edge-blur {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  pointer-events: none;
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+  mask-image: radial-gradient(ellipse farthest-corner at center, transparent 76%, rgba(0,0,0,.15) 84%, rgba(0,0,0,.65) 94%, #000 100%);
+  -webkit-mask-image: radial-gradient(ellipse farthest-corner at center, transparent 76%, rgba(0,0,0,.15) 84%, rgba(0,0,0,.65) 94%, #000 100%);
+}
+.lobby-edge-blur[hidden] { display: none; }
+@media (max-width: 600px) {
+  .lobby-edge-blur { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+}

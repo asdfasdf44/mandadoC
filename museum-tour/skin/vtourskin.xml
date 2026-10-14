@@ -522,7 +522,7 @@
 		skin_onresize();
 		skin_updatethumbsview(false);
 
-		set(layer[skin_layer].visible, true);
+		set(layer[skin_layer].visible, false);
 	</action>
 	
 
