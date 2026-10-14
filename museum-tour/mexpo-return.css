@@ -1,0 +1,24 @@
+.mexpo-return {
+  position: fixed;
+  top: max(18px, env(safe-area-inset-top));
+  left: max(18px, env(safe-area-inset-left));
+  z-index: 10001;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 16px;
+  box-sizing: border-box;
+  border: 1px solid #ba9768;
+  border-radius: 8px;
+  background: #3f2a1ee6;
+  color: #fff4df;
+  font: 14px Arial, 'Malgun Gothic', sans-serif;
+  text-decoration: none;
+  box-shadow: 0 3px 12px #0005;
+}
+.mexpo-return:hover { background: #63442cf2; }
+.mexpo-return:focus-visible { outline: 2px solid #ffe198; outline-offset: 3px; }
+@media (max-width: 600px) {
+  .mexpo-return { left: max(10px, env(safe-area-inset-left)); padding: 0 12px; font-size: 13px; }
+}
