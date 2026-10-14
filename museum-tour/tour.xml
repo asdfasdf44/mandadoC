@@ -200,7 +200,6 @@
 		<view hlookat="266.1190177448037" vlookat="7.226050860764349" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 
 		<preview url="panos/Room1_2.tiles/preview.jpg" />
-        <hotspot name="room1_2_arrow" url="paints/Room0/arrow.png" ath="0" atv="12" distorted="true" renderer="css3d" width="48" height="prop" handcursor="true" onloaded="room0_arrow_effect(); room0_arrow_pulse();" onclick="room0_open_navigation();" />
 
 		<image>
 			<cube url="panos/Room1_2.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280,2560" />
