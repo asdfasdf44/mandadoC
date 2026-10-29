@@ -197,7 +197,7 @@
 
 				<hotspot name="room1_view_2" artcenterh="-173.676" artcenterv="3.615" style="room2_puzzle_icon" ath="-167.481" atv="-4.130" onclick="room_open_artwork_view(2);" />
 				<hotspot name="room1_view_3" artcenterh="132.081" artcenterv="4.059" style="room2_puzzle_icon" ath="139.387" atv="-6.419" onclick="room_open_artwork_view(3);" />
-				<hotspot name="room1_view_3" artcenterh="153.445" artcenterv="4.296" style="room2_puzzle_icon" ath="160.068" atv="-4.470" onclick="room_open_artwork_view(4);" />
+				<hotspot name="room1_view_4" artcenterh="153.445" artcenterv="4.296" style="room2_puzzle_icon" ath="160.068" atv="-4.470" onclick="room_open_artwork_view(4);" />
 				<hotspot name="room1_view_7" artcenterh="-5.029" artcenterv="6.741" style="room2_puzzle_icon" ath="3.417" atv="1.944" onclick="room_open_artwork_view(7);" />
     </scene>
 
