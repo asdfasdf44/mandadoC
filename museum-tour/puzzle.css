@@ -19,12 +19,9 @@
 
 /* Warm wooden frame with grain, bevels and a linen interior. */
 .puzzle-dialog{
-  border:22px solid #89552f;
-  border-image:repeating-linear-gradient(94deg,#573019 0px,#86502c 3px,#ad7543 7px,#956039 11px,#754323 14px,#b17b49 19px,#88522e 25px) 22;
-  border-radius:0;
   background:repeating-linear-gradient(0deg,#ffffff08 0px,#ffffff08 1px,transparent 1px,transparent 4px),repeating-linear-gradient(90deg,#9f784708 0px,#9f784708 1px,transparent 1px,transparent 4px),#f3ead9;
   color:#392b20;
-  box-shadow:0 24px 80px #000b,0 0 0 2px #422512,0 0 0 5px #b78854,inset 0 0 0 2px #cba570,inset 0 0 0 5px #684326,inset 0 0 22px #50321d55;
+  box-shadow:0 24px 80px #000b;
 }
 .puzzle-board{--board-height:74vh;outline:7px solid #805335;box-shadow:0 0 0 10px #d0a576,0 0 0 12px #5b3823,0 12px 28px #3a201d40;background:#65432b}
 .puzzle-info{padding:22px 18px;border-left:1px solid #b9986c;background:#fffaf04d;text-align:center;min-width:0;box-sizing:border-box;word-break:keep-all;overflow-wrap:break-word}
@@ -55,7 +52,7 @@
 @keyframes puzzle-room-clear{from{background:rgba(0,0,0,.48)}to{background:transparent}}
 @keyframes puzzle-frame-ascend{from{transform:translateY(0);opacity:1}to{transform:translateY(-100vh);opacity:0}}
 @media(prefers-reduced-motion:reduce){.puzzle-overlay,.puzzle-dialog,.puzzle-tile,.puzzle-info,.puzzle-overlay.leaving,.puzzle-overlay.leaving .puzzle-dialog{animation:none}}
-@media(max-width:900px){.puzzle-dialog{border-width:14px}.puzzle-board{--board-height:58vh}.puzzle-info{border-left:0;border-top:1px solid #b9986c;padding:18px 4px}.puzzle-close{right:10px}}
+@media(max-width:900px){.puzzle-board{--board-height:58vh}.puzzle-info{border-left:0;border-top:1px solid #b9986c;padding:18px 4px}.puzzle-close{right:10px}}
 @media(max-width:420px){.puzzle-status{font-size:14px}}
 @media(max-width:340px){.puzzle-status{font-size:12px}}
 .room2-icon-label{position:fixed;z-index:950;transform:translate(-50%,-100%);max-width:calc(100vw - 24px);box-sizing:border-box;padding:10px 18px;border:1px solid #d6ba7d;border-radius:8px;background:linear-gradient(135deg,#fff9e9,#efe0bf);color:#543923;font:16px 'Malgun Gothic',Arial,sans-serif;white-space:nowrap;pointer-events:none;box-shadow:0 5px 18px #0005,inset 0 0 0 2px #fff7e0}

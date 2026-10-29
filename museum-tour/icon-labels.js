@@ -2,13 +2,26 @@
   'use strict';
   const titles = ['포식자와 피식자', '복숭아', '공포의 스모어', '산책', '공포의 실타래', '까칠한 연인', '우리의 작은 개, 프랭크', '차별', '도박꾼들'];
   let label;
+  function resolveTitle(name) {
+    const puzzleMatch = /^room([23])_puzzle_(\d+)$/.exec(name);
+    if (puzzleMatch) {
+      const data = window.PuzzleArtworks && window.PuzzleArtworks['Room' + puzzleMatch[1]];
+      const index = Number(puzzleMatch[2]) - 1;
+      return (data ? data[index][1] : titles[index]);
+    }
+    const viewMatch = /^room(\d+)_view_(\d+)$/.exec(name);
+    if (viewMatch) {
+      const data = window.ArtworkViewData && window.ArtworkViewData['Room' + viewMatch[1]];
+      const entry = data && data[Number(viewMatch[2]) - 1];
+      return entry && entry.title;
+    }
+    return '작가의 메시지';
+  }
   window.Room2IconLabels = {
     attach(hotspot) {
       const sprite = hotspot.sprite;
       if (!sprite || sprite.dataset.labelBound) return;
-      const match = /^room([23])_puzzle_(\d+)$/.exec(hotspot.name);
-      const data = match && window.PuzzleArtworks && window.PuzzleArtworks['Room' + match[1]];
-      const title = match ? (data ? data[Number(match[2]) - 1][1] : titles[Number(match[2]) - 1]) : '작가의 메시지';
+      const title = resolveTitle(hotspot.name);
       if (!title) return;
       sprite.dataset.labelBound = 'true';
       sprite.setAttribute('aria-label', title);

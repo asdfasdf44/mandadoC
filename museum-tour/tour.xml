@@ -88,6 +88,9 @@
 	<action name="room2_open_artist" type="Javascript"><![CDATA[
 		if (window.openRoom2Artist) window.openRoom2Artist(krpano);
 	]]></action>
+	<action name="room_open_artwork_view" type="Javascript" args="number"><![CDATA[
+		if (window.startArtworkView) window.startArtworkView(krpano, caller, args[1]);
+	]]></action>
 
 	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
 	<skin_settings maps="true"
@@ -191,6 +194,11 @@
         <hotspot name="room1_1_lobby_arrow" url="paints/Room0/arrow.png" ath="95.534" atv="4.173" distorted="true" renderer="css3d" width="48" height="prop" handcursor="true" navigationlabel="로비로 이동" onloaded="room0_arrow_effect(); room0_arrow_pulse();" onclick="room0_open_navigation();" />
         <hotspot name="room1_1_exhibitions_arrow" url="paints/Room0/arrow.png" ath="40.139" atv="4.696" distorted="true" renderer="css3d" width="48" height="prop" handcursor="true" navigationlabel="1·2전시관 선택" onloaded="room0_arrow_effect(); room0_arrow_pulse();" onclick="room0_open_navigation();" />
         <hotspot name="room1_1_to_room1_2" style="skin_hotspotstyle" ath="-107.360" atv="24.024" linkedscene="scene_room1_2" onclick="room_travel_linked();" />
+
+				<hotspot name="room1_view_2" artcenterh="-173.676" artcenterv="3.615" style="room2_puzzle_icon" ath="-167.481" atv="-4.130" onclick="room_open_artwork_view(2);" />
+				<hotspot name="room1_view_3" artcenterh="132.081" artcenterv="4.059" style="room2_puzzle_icon" ath="139.387" atv="-6.419" onclick="room_open_artwork_view(3);" />
+				<hotspot name="room1_view_3" artcenterh="153.445" artcenterv="4.296" style="room2_puzzle_icon" ath="160.068" atv="-4.470" onclick="room_open_artwork_view(4);" />
+				<hotspot name="room1_view_7" artcenterh="-5.029" artcenterv="6.741" style="room2_puzzle_icon" ath="3.417" atv="1.944" onclick="room_open_artwork_view(7);" />
     </scene>
 
 	<scene name="scene_room1_2" title="메인전시관_2" onstart="" thumburl="panos/Room1_2.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
@@ -206,6 +214,13 @@
 		</image>
 
 	    <hotspot name="room1_2_to_room1_1" style="skin_hotspotstyle" ath="90.529" atv="19.411" linkedscene="scene_room1_1" onclick="room_travel_linked();" />
+			
+			<hotspot name="room1_view_1" artcenterh="-97.732" artcenterv="7.313" style="room2_puzzle_icon" ath="-90.646" atv="1.711" onclick="room_open_artwork_view(1);" />
+			<hotspot name="room1_view_5" artcenterh="7.271" artcenterv="-6.603" style="room2_puzzle_icon" ath="16.243" atv="-11.413" onclick="room_open_artwork_view(5);" />
+			<hotspot name="room1_view_6" artcenterh="-144.203" artcenterv="2.774" style="room2_puzzle_icon" ath="-140.691" atv="-3.880" onclick="room_open_artwork_view(6);" />
+			<hotspot name="room1_view_8" artcenterh="-80.954" artcenterv="7.751" style="room2_puzzle_icon" ath="-73.934" atv="1.610" onclick="room_open_artwork_view(8);" />
+			<hotspot name="room1_view_9" artcenterh="-13.547" artcenterv="7.526" style="room2_puzzle_icon" ath="-5.220" atv="2.109" onclick="room_open_artwork_view(9);" />
+
 	</scene>
 
 	<scene name="scene_room2" title="Room2" onstart="" thumburl="panos/Room2.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
@@ -216,16 +231,8 @@
 
 		<preview url="panos/Room2.tiles/preview.jpg" />
 		<hotspot name="room2_arrow" url="paints/Room0/arrow.png" ath="133.750" atv="6.841" rx="0" ry="0" rz="0" distorted="true" renderer="css3d" width="48" height="prop" enabled="true" handcursor="true" onloaded="room0_arrow_effect(); room0_arrow_pulse();" onclick="room0_open_navigation();" />
-		<hotspot name="room2_artist_message" style="room2_puzzle_icon" ath="76.274" atv="-4.773" onclick="room2_open_artist();" />
 		<hotspot name="room2_puzzle_1" artcenterh="159.053" artcenterv="2.507" style="room2_puzzle_icon" ath="167.752" atv="-4.121" onclick="room2_open_puzzle(1);" />
-		<hotspot name="room2_puzzle_2" artcenterh="-149.967" artcenterv="2.324" style="room2_puzzle_icon" ath="-143.641" atv="-3.788" onclick="room2_open_puzzle(2);" />
-		<hotspot name="room2_puzzle_3" artcenterh="-121.520" artcenterv="2.288" style="room2_puzzle_icon" ath="-127.582" atv="-3.684" onclick="room2_open_puzzle(3);" />
-		<hotspot name="room2_puzzle_4" artcenterh="-102.553" artcenterv="2.620" style="room2_puzzle_icon" ath="-92.384" atv="-4.763" onclick="room2_open_puzzle(4);" />
-		<hotspot name="room2_puzzle_5" artcenterh="-71.834" artcenterv="2.550" style="room2_puzzle_icon" ath="-81.813" atv="-5.792" onclick="room2_open_puzzle(5);" />
-		<hotspot name="room2_puzzle_6" artcenterh="-51.177" artcenterv="2.091" style="room2_puzzle_icon" ath="-44.720" atv="-3.840" onclick="room2_open_puzzle(6);" />
-		<hotspot name="room2_puzzle_7" artcenterh="-25.663" artcenterv="-1.009" style="room2_puzzle_icon" ath="-31.401" atv="-5.621" onclick="room2_open_puzzle(7);" />
-		<hotspot name="room2_puzzle_8" artcenterh="2.684" artcenterv="-1.118" style="room2_puzzle_icon" ath="-5.343" atv="-7.159" onclick="room2_open_puzzle(8);" />
-		<hotspot name="room2_puzzle_9" artcenterh="31.030" artcenterv="1.726" style="room2_puzzle_icon" ath="36.800" atv="-3.982" onclick="room2_open_puzzle(9);" />
+		<hotspot name="room2_view_1" artcenterh="-71.197" artcenterv="1.273" style="room2_puzzle_icon" ath="-62.450" atv="-5.245" onclick="room_open_artwork_view(1);" />
 
 		<image>
 			<cube url="panos/Room2.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280,2560" />
@@ -241,14 +248,6 @@
 
 		<preview url="panos/Room3.tiles/preview.jpg" />
 <hotspot name="room3_puzzle_1" style="room2_puzzle_icon" ath="89.175" atv="-2.203" artcenterh="81.995" artcenterv="3.100" onclick="room2_open_puzzle(1);" />
-<hotspot name="room3_puzzle_2" style="room2_puzzle_icon" ath="106.243" atv="-2.545" artcenterh="113.629" artcenterv="2.868" onclick="room2_open_puzzle(2);" />
-<hotspot name="room3_puzzle_3" style="room2_puzzle_icon" ath="143.461" atv="-4.888" artcenterh="146.725" artcenterv="1.497" onclick="room2_open_puzzle(3);" />
-<hotspot name="room3_puzzle_4" style="room2_puzzle_icon" ath="164.002" atv="-6.277" artcenterh="158.663" artcenterv="1.667" onclick="room2_open_puzzle(4);" />
-<hotspot name="room3_puzzle_5" style="room2_puzzle_icon" ath="-174.614" atv="-4.006" artcenterh="-163.877" artcenterv="4.292" onclick="room2_open_puzzle(5);" />
-<hotspot name="room3_puzzle_6" style="room2_puzzle_icon" ath="-136.347" atv="-5.396" artcenterh="-140.106" artcenterv="1.717" onclick="room2_open_puzzle(6);" />
-<hotspot name="room3_puzzle_7" style="room2_puzzle_icon" ath="-106.444" atv="-5.751" artcenterh="-113.253" artcenterv="2.876" onclick="room2_open_puzzle(7);" />
-<hotspot name="room3_puzzle_8" style="room2_puzzle_icon" ath="-91.254" atv="-8.097" artcenterh="-82.435" artcenterv="3.545" onclick="room2_open_puzzle(8);" />
-<hotspot name="room3_puzzle_9" style="room2_puzzle_icon" ath="-59.118" atv="-5.587" artcenterh="-53.130" artcenterv="3.576" onclick="room2_open_puzzle(9);" />
 <hotspot name="room3_arrow" url="paints/Room0/arrow.png" ath="51.208" atv="6.085" rx="0" ry="0" rz="0" distorted="true" renderer="css3d" width="48" height="prop" enabled="true" handcursor="true" onloaded="room0_arrow_effect(); room0_arrow_pulse();" onclick="room0_open_navigation();" />
 
 		<image>
