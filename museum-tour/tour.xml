@@ -37,16 +37,26 @@
 		if (krpano.get('navigationtravel')) return;
 		if (krpano.get('xml.scene') === 'scene_room0') {
 			krpano.set('plugin[skin_gyro].enabled', false);
-			var h = Number(krpano.get('view.hlookat'));
 			var v = Number(krpano.get('view.vlookat'));
-			var dh = ((h - 182.48786990221765 + 180) % 360 + 360) % 360 - 180;
 			var dv = v - 11.652109596863058;
-			var limitedH = Math.max(-5, Math.min(5, dh));
 			var limitedV = Math.max(-5, Math.min(5, dv));
-			if (Math.abs(dh - limitedH) > 0.000001) krpano.set('view.hlookat', h + limitedH - dh);
 			if (Math.abs(dv - limitedV) > 0.000001) krpano.set('view.vlookat', v + limitedV - dv);
 			krpano.set('view.fov', 120);
 			krpano.set('fov_moveforce', 0);
+		}
+	]]></action>
+	<events name="room1_locked_view" keep="true" onviewchange="room1_enforce_view_lock();" />
+	<action name="room1_enforce_view_lock" type="Javascript"><![CDATA[
+		if (krpano.get('navigationtravel')) return;
+		var scene = krpano.get('xml.scene');
+		var centerV = null;
+		if (scene === 'scene_room1_1') centerV = 6.784637737632371;
+		else if (scene === 'scene_room1_2') centerV = 7.226050860764349;
+		if (centerV !== null) {
+			var v = Number(krpano.get('view.vlookat'));
+			var dv = v - centerV;
+			var limitedV = Math.max(-5, Math.min(5, dv));
+			if (Math.abs(dv - limitedV) > 0.000001) krpano.set('view.vlookat', v + limitedV - dv);
 		}
 	]]></action>
 	<!-- Room2 floor navigation experiment; remove this block and room2-floor includes to undo. -->
@@ -169,7 +179,6 @@
 
 		<preview url="panos/Room0.tiles/preview.jpg" />
 		<hotspot name="room0_arrow" ox="5" oy="-5" url="paints/Room0/arrow.png" ath="142.461" atv="9.678" rx="0" ry="0" rz="00" distorted="true" renderer="css3d" width="60" height="prop" enabled="true" handcursor="true" onloaded="room0_arrow_effect(); room0_arrow_pulse();" navigationlabel="메인전시관으로 이동" onclick="room0_open_navigation();" />
-		<hotspot name="room0_poster" url="paints/Room0/poster.png" rx="0" ry="32" rz="5" ath="-168.210" atv="4.087" distorted="true" width="1000" height="180" scale="0.5" enabled="false" />
 
 		<image>
 			<cube url="panos/Room0.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280,2560" />
@@ -178,7 +187,7 @@
 	</scene>
 
 	<scene name="scene_room1_1" title="메인전시관" onstart="" thumburl="panos/Room1_1/thumb.jpg">
-        <view hlookat="80.72689317658224" vlookat="6.784637737632371" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+        <view hlookat="80.72689317658224" vlookat="6.784637737632371" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="off" />
         <preview url="panos/Room1_1/preview.jpg" />
         <image type="SPHERE" multires="true" tilesize="512">
             <level tiledimagewidth="7776" tiledimageheight="3888">
@@ -205,7 +214,7 @@
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
-		<view hlookat="266.1190177448037" vlookat="7.226050860764349" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+		<view hlookat="266.1190177448037" vlookat="7.226050860764349" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="off" />
 
 		<preview url="panos/Room1_2.tiles/preview.jpg" />
 
@@ -231,7 +240,6 @@
 
 		<preview url="panos/Room2.tiles/preview.jpg" />
 		<hotspot name="room2_arrow" url="paints/Room0/arrow.png" ath="133.750" atv="6.841" rx="0" ry="0" rz="0" distorted="true" renderer="css3d" width="48" height="prop" enabled="true" handcursor="true" onloaded="room0_arrow_effect(); room0_arrow_pulse();" onclick="room0_open_navigation();" />
-		<hotspot name="room2_puzzle_1" artcenterh="159.053" artcenterv="2.507" style="room2_puzzle_icon" ath="167.752" atv="-4.121" onclick="room2_open_puzzle(1);" />
 		<hotspot name="room2_view_1" artcenterh="-71.197" artcenterv="1.273" style="room2_puzzle_icon" ath="-62.450" atv="-5.245" onclick="room_open_artwork_view(1);" />
 
 		<image>
@@ -247,7 +255,6 @@
 		<view hlookat="51.208" vlookat="6.085" fovtype="MFOV" fov="90" maxpixelzoom="2.0" fovmin="40" fovmax="100" limitview="range" vlookatmin="-24" vlookatmax="55" />
 
 		<preview url="panos/Room3.tiles/preview.jpg" />
-<hotspot name="room3_puzzle_1" style="room2_puzzle_icon" ath="89.175" atv="-2.203" artcenterh="81.995" artcenterv="3.100" onclick="room2_open_puzzle(1);" />
 <hotspot name="room3_arrow" url="paints/Room0/arrow.png" ath="51.208" atv="6.085" rx="0" ry="0" rz="0" distorted="true" renderer="css3d" width="48" height="prop" enabled="true" handcursor="true" onloaded="room0_arrow_effect(); room0_arrow_pulse();" onclick="room0_open_navigation();" />
 
 		<image>
