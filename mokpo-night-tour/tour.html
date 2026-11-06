@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<title>2026 목포 국가유산 야행 VR 투어</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="mobile-web-app-capable" content="yes" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<style>
+		html { height:100%; }
+		body { height:100%; overflow:hidden; margin:0; padding:0; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#FFFFFF; background-color:#000000; }
+		#tour-poster { border:0; padding:0; background:transparent; overflow:visible; }
+		#tour-poster::backdrop { background:rgba(9, 12, 20, 0.86); }
+		#tour-poster img { display:block; max-width:92vw; max-height:85dvh; width:auto; height:auto; }
+		#tour-poster-close { position:absolute; top:8px; right:8px; width:44px; height:44px; border:1px solid #fff8; border-radius:50%; background:#141b30; color:white; font-size:25px; cursor:pointer; }
+		@media (prefers-reduced-motion: no-preference) {
+			#tour-poster[open] {
+				transform-origin:left center;
+				animation:poster-unfold 440ms cubic-bezier(0.2, 0.72, 0.28, 1) both;
+			}
+			#tour-poster[open]::backdrop { animation:poster-backdrop 300ms ease-out both; }
+		}
+		@keyframes poster-unfold {
+			from { opacity:0; transform:perspective(1100px) rotateY(-24deg) scale(0.88); }
+			to { opacity:1; transform:perspective(1100px) rotateY(0deg) scale(1); }
+		}
+		@keyframes poster-backdrop {
+			from { opacity:0; }
+			to { opacity:1; }
+		}
+	</style>
+</head>
+<body>
+
+<script src="tour.js"></script>
+
+<div style="width:100%;height:100%;">
+	<noscript><table style="width:100%;height:100%;"><tr style="vertical-align:middle;text-align:center;"><td>ERROR:<br><br>Javascript not activated<br><br></td></tr></table></noscript>
+	<script>
+		embedpano({xml:"tour.xml", passQueryParameters:"startscene,startlookat"});
+	</script>
+</div>
+
+<dialog id="tour-poster" aria-label="근대목포실록 공연 포스터">
+	<img src="skin/room4_2_poster.webp" alt="근대목포실록 공연 포스터" loading="lazy" />
+	<form method="dialog">
+		<button id="tour-poster-close" type="submit" aria-label="닫기" autofocus>×</button>
+	</form>
+</dialog>
+<script>
+	const tourPoster = document.getElementById("tour-poster");
+	function tourShowPoster() {
+		if (!tourPoster.open) tourPoster.showModal();
+	}
+	tourPoster.addEventListener("click", (event) => {
+		if (event.target === tourPoster) tourPoster.close();
+	});
+</script>
+
+</body>
+</html>

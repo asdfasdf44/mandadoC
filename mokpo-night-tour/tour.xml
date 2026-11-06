@@ -1,0 +1,248 @@
+﻿<krpano version="1.24" title="Virtual Tour">
+
+	<include url="skin/vtourskin.xml" />
+
+	<style name="skin_hotspotstyle" onclick="tour_approach_hotspot();" />
+	<layer name="skin_tooltip" bgcolor="0x141B30" bgalpha="0.9" bgroundedge="10"
+	       oy="-18" padding="8 12" width="220" />
+
+	<style name="tour_external_hotspot" edge="center" renderer="webgl" distorted="false"
+	       scale="0.5" onover="tween(scale, 0.55, 0.16);" onout="tween(scale, 0.5, 0.16);"
+	       onclick="tour_open_external_link();" />
+
+	<action name="tour_open_external_link" scope="local">
+		spheretoscreen(get(caller.ath), get(caller.atv), label_x, label_y);
+		set(layer[skin_tooltip], html=get(caller.tooltip), x=get(label_x), y=get(label_y),
+		    visible=true, alpha=1);
+		delayedcall(tour_external_label, 1.5, skin_hidetooltips(); );
+		openurl(get(caller.linkurl), _blank);
+	</action>
+
+	<action name="tour_approach_hotspot" scope="local">
+		set(caller.enabled, false);
+		skin_hidetooltips();
+		spheretoscreen(get(caller.ath), get(caller.atv), hotspot_x, hotspot_y);
+		zoom_x = max(0, min(1, (hotspot_x + caller.ox) / stagewidth));
+		zoom_y = max(0, min(1, (hotspot_y + caller.oy) / stageheight));
+		skin_loadscene(get(caller.linkedscene), calc('ZOOMBLEND(0.45, 1.32, ' + zoom_x + ', ' + zoom_y + ', easeInOutSine)'));
+	</action>
+
+	<layer name="tour_back_button" type="text" keep="true" align="top" x="0" y="18"
+	       width="112" height="44" zorder="100" enabled="false" alpha="0.45"
+	       html="&#8592; 돌아가기" vcenter="true"
+	       css="color:#FFFFFF; font-family:system-ui,sans-serif; font-size:15px; font-weight:600; text-align:center;"
+	       bgcolor="0x141B30" bgalpha="0.88" bgroundedge="22" bgborder="1 0x9CEEF2 0.65"
+	       bgshadow="0 3 10 0x000000 0.28"
+	       onover="tween(scale, 1.04, 0.16, easeOutQuad); set(bgcolor, 0x263951);"
+	       onout="tour_reset_back_hover();"
+	       onclick="tour_reset_back_hover(); tour_go_back();" />
+
+	<action name="tour_reset_back_hover" scope="local">
+		tween(layer[tour_back_button].scale, 1.0, 0.16, easeOutQuad);
+		set(layer[tour_back_button].bgcolor, 0x141B30);
+	</action>
+
+	<events name="tour_back_events" keep="true" onnewscene="tour_record_scene();" />
+
+	<action name="tour_record_scene" type="Javascript"><![CDATA[
+		const button = krpano.get("layer[tour_back_button]");
+		const scene = krpano.get("xml.scene");
+		const history = button.sceneHistory ??= [];
+		if (scene === button.backtarget) {
+			history.pop();
+		} else if (scene && scene !== history[history.length - 1]) {
+			history.push(scene);
+		}
+		button.backtarget = null;
+		button.enabled = history.length > 1;
+		button.alpha = button.enabled ? 1 : 0.45;
+	]]></action>
+
+	<action name="tour_go_back" type="Javascript"><![CDATA[
+		const button = krpano.get("layer[tour_back_button]");
+		const history = button.sceneHistory;
+		if (!button.enabled || !history || history.length < 2) return;
+
+		button.backtarget = history[history.length - 2];
+		button.enabled = false;
+		krpano.call("skin_loadscene(get(layer[tour_back_button].backtarget));");
+	]]></action>
+
+	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
+	<skin_settings maps="true"
+	               maps_type="openstreetmaps"
+	               maps_bing_api_key=""
+	               maps_google_api_key=""
+	               maps_zoombuttons="false"
+	               maps_loadonfirstuse="true"
+	               gyro="true"
+	               gyro_keeplookingdirection="false"
+	               webvr="true"
+	               webvr_keeplookingdirection="true"
+	               webvr_prev_next_hotspots="true"
+	               autotour="false"
+	               littleplanetintro="false"
+	               followmousecontrol="false"
+	               title="true"
+	               thumbs="true"
+	               thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160"
+	               thumbs_opened="false"
+	               thumbs_text="false"
+	               thumbs_dragging="true"
+	               thumbs_onhoverscrolling="false"
+	               thumbs_scrollbuttons="false"
+	               thumbs_scrollindicator="false"
+	               thumbs_loop="false"
+	               tooltips_buttons="false"
+	               tooltips_thumbs="false"
+	               tooltips_hotspots="false"
+	               tooltips_mapspots="false"
+	               deeplinking="false"
+	               loadscene_flags="MERGE"
+	               loadscene_blend="BLEND(0.35, linear)"
+	               loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
+	               loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)"
+	               loadingtext=""
+	               layout_width="100%"
+	               layout_maxwidth="814"
+	               controlbar_width="-24"
+	               controlbar_height="40"
+	               controlbar_offset="20"
+	               controlbar_offset_closed="-40"
+	               controlbar_overlap.no-fractionalscaling="10"
+	               controlbar_overlap.fractionalscaling="0"
+	               design_skin_images="vtourskin.png"
+	               design_bgcolor="0x2D3E50"
+	               design_bgalpha="0.8"
+	               design_bgborder="0"
+	               design_bgroundedge="1"
+	               design_bgshadow="0 4 10 0x000000 0.3"
+	               design_thumbborder_bgborder="3 0xFFFFFF 1.0"
+	               design_thumbborder_padding="2"
+	               design_thumbborder_bgroundedge="0"
+	               design_text_css="color:#FFFFFF; font-family:Arial;"
+	               design_text_shadow="1"
+	               />
+
+	<!--
+	    For an alternative skin design either change the <skin_settings> values 
+	    from above or optionally include one of the predefined designs from below.
+	-->
+	<!-- <include url="skin/vtourskin_design_flat_light.xml"  /> -->
+	<!-- <include url="skin/vtourskin_design_glass.xml"       /> -->
+	<!-- <include url="skin/vtourskin_design_ultra_light.xml" /> -->
+	<!-- <include url="skin/vtourskin_design_117.xml"         /> -->
+	<!-- <include url="skin/vtourskin_design_117round.xml"    /> -->
+	<!-- <include url="skin/vtourskin_design_black.xml"       /> -->
+	
+
+	
+	<scene name="scene_room_1" title="Room_1" onstart="" thumburl="panos/Room_1.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+		
+		<control bouncinglimits="false" />
+
+		<view hlookat="-96.86844144346468" vlookat="-2.8011621486907026"
+		      fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+		      limitview="lookat" hlookatmin="-121.86844144346468" hlookatmax="-71.86844144346468"
+		      vlookatmin="-7.8011621486907026" vlookatmax="2.1988378513092974" />
+
+		<preview url="panos/Room_1.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/Room_1.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2560,4864" />
+		</image>
+
+		<hotspot name="spot-2133617240" style="skin_hotspotstyle" ath="-97.031" atv="12.159" depth="1000.0"
+		         linkedscene="scene_room2" tooltip="2026 목포 국가유산 야행" />
+
+	</scene>
+
+	<scene name="scene_room2" title="Room2" onstart="" thumburl="panos/Room2.retouch.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+		
+		<control bouncinglimits="false" />
+
+		<view hlookat="-95.72536647515659" vlookat="-1.1112269579297844"
+		      fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+		      limitview="lookat" hlookatmin="-120.72536647515659" hlookatmax="-70.72536647515659"
+		      vlookatmin="-6.1112269579297844" vlookatmax="3.8887730420702156" />
+
+		<preview url="panos/Room2.retouch.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/Room2.retouch.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2560,4864" />
+		</image>
+
+		<hotspot name="spot-2133617034" style="skin_hotspotstyle" ath="-96.467" atv="9.795" depth="1000.0" linkedscene="scene_room3" />
+
+	</scene>
+
+	<scene name="scene_room3" title="Room3" onstart="" thumburl="panos/Room3.retouch.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+		
+		<control bouncinglimits="false" />
+
+		<view hlookat="-98.17731657921779" vlookat="1.0291286663609482"
+		      fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+		      limitview="lookat" hlookatmin="-123.17731657921779" hlookatmax="-73.17731657921779"
+		      vlookatmin="-3.9708713336390518" vlookatmax="6.0291286663609482" />
+
+		<preview url="panos/Room3.retouch.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/Room3.retouch.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2560,4864" />
+		</image>
+
+		<hotspot name="spot-2133616628" style="skin_hotspotstyle" ath="-110.922" atv="8.851" depth="1000.0"
+		         linkedscene="scene_room4_1" tooltip="삼월황 둘러보기" />
+		<hotspot name="spot-2133616503" style="skin_hotspotstyle" ath="-72.281" atv="5.902" depth="1000.0"
+		         linkedscene="scene_room4_2" tooltip="컴퍼니 우연 둘러보기" />
+
+	</scene>
+
+	<scene name="scene_room4_1" title="Room4_1" onstart="" thumburl="panos/Room4_1.retouch.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+		
+		<control bouncinglimits="false" />
+
+		<view hlookat="-99.94611532620083" vlookat="16.739893586849618"
+		      fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+		      limitview="lookat" hlookatmin="-114.94611532620083" hlookatmax="-84.94611532620083"
+		      vlookatmin="11.739893586849618" vlookatmax="21.739893586849618" />
+
+		<preview url="panos/Room4_1.retouch.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/Room4_1.retouch.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2560,4864" />
+		</image>
+
+		<hotspot name="room4_1_market" style="tour_external_hotspot|skin_tooltips"
+		         url="skin/tour_market_hotspot.png" ath="-109" atv="14"
+		         tooltip="삼월황 스마트스토어&lt;br&gt;구경하기" linkurl="https://smartstore.naver.com/samwolhwang" />
+		<hotspot name="room4_1_social" style="tour_external_hotspot|skin_tooltips"
+		         url="skin/tour_social_hotspot.png" ath="-91" atv="14"
+		         tooltip="삼월황 인스타 구경하기" linkurl="https://www.instagram.com/samwolhwang_noncoffeebar/" />
+
+	</scene>
+
+	<scene name="scene_room4_2" title="Room4_2" onstart="" thumburl="panos/Room4_2.tiles/thumb.jpg" lat="-0.00000000" lng="-0.00000000" alt="0.00" heading="0.0">
+		
+		<control bouncinglimits="false" />
+
+		<view hlookat="-85.26809853544874" vlookat="21.775794109371795"
+		      fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140"
+		      limitview="lookat" hlookatmin="-100.26809853544874" hlookatmax="-70.26809853544874"
+		      vlookatmin="16.775794109371795" vlookatmax="26.775794109371795" />
+
+		<preview url="panos/Room4_2.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/Room4_2.tiles/%s/l%l/%0v/l%l_%s_%0v_%0h.jpg" multires="512,640,1280,2560,4864" />
+		</image>
+
+		<hotspot name="room4_2_poster" style="tour_external_hotspot|skin_tooltips"
+		         url="skin/tour_poster_hotspot.png" ath="-94.370" atv="0.341"
+		         tooltip="근대목포실록 포스터 보기"
+		         onclick="skin_hidetooltips(); js(tourShowPoster());" />
+
+	</scene>
+
+
+</krpano>
