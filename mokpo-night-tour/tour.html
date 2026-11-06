@@ -10,10 +10,14 @@
 	<style>
 		html { height:100%; }
 		body { height:100%; overflow:hidden; margin:0; padding:0; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#FFFFFF; background-color:#000000; }
-		#tour-poster { border:0; padding:0; background:transparent; overflow:visible; }
-		#tour-poster::backdrop { background:rgba(9, 12, 20, 0.86); }
-		#tour-poster img { display:block; max-width:92vw; max-height:85dvh; width:auto; height:auto; }
-		#tour-poster-close { position:absolute; top:8px; right:8px; width:44px; height:44px; border:1px solid #fff8; border-radius:50%; background:#141b30; color:white; font-size:25px; cursor:pointer; }
+		.poster-dialog { border:0; padding:0; background:transparent; overflow:visible; }
+		.poster-dialog::backdrop { background:rgba(9, 12, 20, 0.86); }
+		.poster-dialog img { display:block; max-width:92vw; max-height:85dvh; width:auto; height:auto; }
+		.poster-close { position:absolute; top:8px; right:8px; width:44px; height:44px; border:1px solid #fff8; border-radius:50%; background:#141b30; color:white; font-size:25px; cursor:pointer; }
+		#tour-welcome img { max-height:calc(90dvh - 46px); }
+		.welcome-options { min-height:46px; display:flex; align-items:center; justify-content:center; background:#141b30; color:white; font-size:14px; }
+		.welcome-options label { display:flex; align-items:center; gap:8px; cursor:pointer; }
+		.welcome-options input { width:18px; height:18px; accent-color:#d6ee97; }
 		@media (prefers-reduced-motion: no-preference) {
 			#tour-poster[open] {
 				transform-origin:left center;
@@ -42,10 +46,20 @@
 	</script>
 </div>
 
-<dialog id="tour-poster" aria-label="근대목포실록 공연 포스터">
+<dialog id="tour-welcome" class="poster-dialog" aria-label="2026 목포 국가유산 야행 포스터">
+	<img src="skin/mokpo-welcome-poster.png" alt="2026 목포 국가유산 야행 안내 포스터" loading="lazy" />
+	<form method="dialog">
+		<button class="poster-close" type="submit" aria-label="닫기" autofocus>×</button>
+		<div class="welcome-options">
+			<label><input id="tour-welcome-hide" type="checkbox" /> 하루 동안 보지 않기</label>
+		</div>
+	</form>
+</dialog>
+
+<dialog id="tour-poster" class="poster-dialog" aria-label="근대목포실록 공연 포스터">
 	<img src="skin/room4_2_poster.webp" alt="근대목포실록 공연 포스터" loading="lazy" />
 	<form method="dialog">
-		<button id="tour-poster-close" type="submit" aria-label="닫기" autofocus>×</button>
+		<button class="poster-close" type="submit" aria-label="닫기" autofocus>×</button>
 	</form>
 </dialog>
 <script>
@@ -56,6 +70,26 @@
 	tourPoster.addEventListener("click", (event) => {
 		if (event.target === tourPoster) tourPoster.close();
 	});
+
+	const welcomePoster = document.getElementById("tour-welcome");
+	const hideWelcome = document.getElementById("tour-welcome-hide");
+	const welcomeStorageKey = "mokpo-night-tour-welcome-hidden-until";
+	welcomePoster.addEventListener("close", () => {
+		if (hideWelcome.checked) {
+			try {
+				localStorage.setItem(welcomeStorageKey, String(Date.now() + 24 * 60 * 60 * 1000));
+			} catch {
+				// The dialog can still close when browser storage is unavailable.
+			}
+		}
+	});
+	let welcomeHiddenUntil = 0;
+	try {
+		welcomeHiddenUntil = Number(localStorage.getItem(welcomeStorageKey));
+	} catch {
+		// Show the welcome poster if the browser blocks storage.
+	}
+	if (!(welcomeHiddenUntil > Date.now())) welcomePoster.showModal();
 </script>
 
 </body>
